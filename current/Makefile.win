@@ -1,0 +1,154 @@
+# Project: xslib
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = \
+src/arraylist.o \
+src/avlmap.o \
+src/bufferedstream.o \
+src/bytearraystream.o \
+src/datastream.o \
+src/file.o \
+src/hashmap.o \
+src/inetaddress.o \
+src/linkedlist.o \
+src/logging.o \
+src/memory.o \
+src/messagestream.o \
+src/object.o \
+src/random.o \
+src/serversocket.o \
+src/socket.o \
+src/stream.o \
+src/streamrw.o \
+src/string.o \
+src/system.o \
+src/testing.o \
+src/thread.o \
+src/threadgroup.o \
+src/time.o \
+src/triggerableevent.o \
+src/typewrappers.o \
+src/utilities.o \
+$(RES)
+LINKOBJ  = $(OBJ)
+
+LIBS =  
+INCS =  -I$(WXWIN)/include
+
+ifndef DEBUG
+  DEBUG=0
+endif
+
+ifeq ($(DEBUG), 1)
+	OPTFLAGS = -frtti -fexceptions
+	DEBUGFLAGS = -D__DEBUG__ -D__WXDEBUG__ -g
+	BIN  = lib/libxslibd.a
+	
+	ifeq ($(PROFILE), 1)
+		OPTFLAGS = $(OPTFLAGS) -pg
+	endif
+
+else
+		OPTFLAGS = -frtti -fexceptions -fno-pcc-struct-return  -fstrict-aliasing -O3
+		DEBUGFLAGS = 
+		BIN  = lib/libxslib.a
+endif
+
+CXXFLAGS = $(INCS) -Wall -DWINVER=0x0400  -D__WIN95__  -D__GNUWIN32__  -D__WIN32__  -DHAVE_W32API_H  -D__WXMSW__  -D__WINDOWS__ $(OPTFLAGS) $(DEBUGFLAGS)
+
+.PHONY: all all-before all-after clean
+
+all: all-before $(BIN) all-after
+
+
+clean: 
+	rm -f $(OBJ) $(BIN)
+
+$(BIN): $(LINKOBJ)
+	ar r $(BIN) $(LINKOBJ)
+	ranlib $(BIN)
+
+src/arraylist.o: src/arraylist.cpp
+	$(CPP) -c src/arraylist.cpp -o src/arraylist.o $(CXXFLAGS)
+
+src/avlmap.o: src/avlmap.cpp
+	$(CPP) -c src/avlmap.cpp -o src/avlmap.o $(CXXFLAGS)
+	
+src/bufferedstream.o: src/bufferedstream.cpp
+	$(CPP) -c src/bufferedstream.cpp -o src/bufferedstream.o $(CXXFLAGS)
+	
+src/bytearraystream.o: src/bytearraystream.cpp
+	$(CPP) -c src/bytearraystream.cpp -o src/bytearraystream.o $(CXXFLAGS)
+	
+src/datastream.o: src/datastream.cpp
+	$(CPP) -c src/datastream.cpp -o src/datastream.o $(CXXFLAGS)
+	
+src/file.o: src/file.cpp
+	$(CPP) -c src/file.cpp -o src/file.o $(CXXFLAGS)
+	
+src/hashmap.o: src/hashmap.cpp
+	$(CPP) -c src/hashmap.cpp -o src/hashmap.o $(CXXFLAGS)
+	
+src/inetaddress.o: src/inetaddress.cpp
+	$(CPP) -c src/inetaddress.cpp -o src/inetaddress.o $(CXXFLAGS)
+	
+src/linkedlist.o: src/linkedlist.cpp
+	$(CPP) -c src/linkedlist.cpp -o src/linkedlist.o $(CXXFLAGS)
+	
+src/logging.o: src/logging.cpp
+	$(CPP) -c src/logging.cpp -o src/logging.o $(CXXFLAGS)
+	
+src/memory.o: src/memory.cpp
+	$(CPP) -c src/memory.cpp -o src/memory.o $(CXXFLAGS)
+	
+src/messagestream.o: src/messagestream.cpp
+	$(CPP) -c src/messagestream.cpp -o src/messagestream.o $(CXXFLAGS)
+	
+src/object.o: src/object.cpp
+	$(CPP) -c src/object.cpp -o src/object.o $(CXXFLAGS)
+	
+src/random.o: src/random.cpp
+	$(CPP) -c src/random.cpp -o src/random.o $(CXXFLAGS)
+	
+src/serversocket.o: src/serversocket.cpp
+	$(CPP) -c src/serversocket.cpp -o src/serversocket.o $(CXXFLAGS)
+	
+src/socket.o: src/socket.cpp
+	$(CPP) -c src/socket.cpp -o src/socket.o $(CXXFLAGS)
+
+src/stream.o: src/stream.cpp
+	$(CPP) -c src/stream.cpp -o src/stream.o $(CXXFLAGS)
+	
+src/streamrw.o: src/streamrw.cpp
+	$(CPP) -c src/streamrw.cpp -o src/streamrw.o $(CXXFLAGS)
+	
+src/string.o: src/string.cpp
+	$(CPP) -c src/string.cpp -o src/string.o $(CXXFLAGS)
+
+src/system.o: src/system.cpp
+	$(CPP) -c src/system.cpp -o src/system.o $(CXXFLAGS)
+	
+src/testing.o: src/testing.cpp
+	$(CPP) -c src/testing.cpp -o src/testing.o $(CXXFLAGS)
+	
+src/thread.o: src/thread.cpp
+	$(CPP) -c src/thread.cpp -o src/thread.o $(CXXFLAGS)
+	
+src/threadgroup.o: src/threadgroup.cpp
+	$(CPP) -c src/threadgroup.cpp -o src/threadgroup.o $(CXXFLAGS)
+	
+src/time.o: src/time.cpp
+	$(CPP) -c src/time.cpp -o src/time.o $(CXXFLAGS)
+	
+src/triggerableevent.o: src/triggerableevent.cpp
+	$(CPP) -c src/triggerableevent.cpp -o src/triggerableevent.o $(CXXFLAGS)
+	
+src/typewrappers.o: src/typewrappers.cpp
+	$(CPP) -c src/typewrappers.cpp -o src/typewrappers.o $(CXXFLAGS)
+	
+src/utilities.o: src/utilities.cpp
+	$(CPP) -c src/utilities.cpp -o src/utilities.o $(CXXFLAGS)
+	
