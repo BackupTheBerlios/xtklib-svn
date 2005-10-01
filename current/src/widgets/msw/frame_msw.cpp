@@ -19,8 +19,9 @@
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#include "../../../include/xtk/widgets/msw/frame_msw.h"
-#include "../../../include/xtk/application.h"
+#include "../../../include/xtk/base/application.h"
+#include "../../../include/xtk/widgets/frame.h"
+#include "widgets_msw_private.h"
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
@@ -33,8 +34,13 @@ namespace xtk
 LRESULT CALLBACK xFrameWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
 	void* ptr = (void*)::GetWindowLongPtr(hwnd,GWL_USERDATA);
-	xFrame* frame = static_cast<xFrame*>(ptr);
-	return frame->windowProcedure(hwnd,uMsg,wParam,lParam);
+	if(ptr != NULL)
+	{
+		xFrame* frame = static_cast<xFrame*>(ptr);
+		return frame->windowProcedure(hwnd,uMsg,wParam,lParam);
+	}
+	else
+		return DefWindowProc(hwnd,uMsg,wParam,lParam);
 }
 
 //##############################################################################
@@ -44,13 +50,13 @@ xFrame::xFrame(xString title,int x,int y,int width,int height,xContainer* parent
 : xWindow(parent,layout),m_title(title)
 {	
 	WNDCLASS wclass;
-	if (!::GetClassInfo(xGetHinstance(),XTK_MSW_FRAME_CLASS_NAME,&wclass))
+	if (!::GetClassInfo(xApplication::getHinstance(),XTK_MSW_FRAME_CLASS_NAME,&wclass))
 	{	
 		wclass.style         = CS_HREDRAW | CS_VREDRAW;
 		wclass.lpfnWndProc   = (WNDPROC)xFrameWindowProcedure;
 		wclass.cbClsExtra    = 0;
 		wclass.cbWndExtra    = 0;
-		wclass.hInstance	 = xGetHinstance();
+		wclass.hInstance	 = xApplication::getHinstance();
 		wclass.hIcon		 = ::LoadIcon(NULL, IDI_APPLICATION);
 		wclass.hCursor       = ::LoadCursor (NULL, IDC_ARROW);
 		wclass.hbrBackground = GetSysColorBrush(COLOR_3DFACE);
@@ -60,7 +66,7 @@ xFrame::xFrame(xString title,int x,int y,int width,int height,xContainer* parent
 	}
 	
 	HWND hwnd = ::CreateWindow(XTK_MSW_FRAME_CLASS_NAME,title.c_str(),WS_OVERLAPPEDWINDOW,x,y,width,height,
-		NULL,NULL,xGetHinstance(),NULL);
+		NULL,NULL,xApplication::getHinstance(),NULL);
 	
 	//set the user data of the window to the current window object
 	::SetWindowLongPtr(hwnd,GWL_USERDATA,(LONG_PTR) this);

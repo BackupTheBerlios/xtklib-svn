@@ -26,9 +26,9 @@
 #include "widgetevent.h"
 #include "widgetlisteners.h"
 #include "font.h"
-#include "../color.h"
-#include "../geometry.h"
-#include "../datastructures.h"
+#include "../base/color.h"
+#include "../base/geometry.h"
+#include "../base/datastructures.h"
 
 #ifdef XTK_USE_WIDGETS
 namespace xtk
@@ -313,7 +313,7 @@ public:
 	/**
 	 * Returns whether this Component can be focused.
 	 */
-	virtual bool isFocusable() = 0;
+	//virtual bool isFocusable() = 0;
 	
 	/* ??
 	boolean 	isFocusCycleRoot(Container container)
@@ -343,17 +343,17 @@ public:
 	/**
 	 * Prints a listing of this component to the standard system output stream.
 	 */
-	virtual void list() = 0;
+	//virtual void list() = 0;
 	
 	/**
 	 * Prints a listing of this component to the specified output stream.
 	 */
-	virtual void list(xWriter& out) = 0;
+	//virtual void list(xWriter& out) = 0;
 	
 	/**
 	 * Prints out a list, starting at the specified indentation, to the specified char stream.
 	 */
-	virtual void list(xWriter& out, int indent) = 0;
+	//virtual void list(xWriter& out, int indent) = 0;
 		
 	/**
 	 * Removes the specified component listener so that it no longer receives component events 
@@ -453,7 +453,7 @@ public:
 	/**
 	* Returns a string representation of this component and its values.
 	*/
-	virtual xString toString() = 0;
+	//virtual xString toString() = 0;
 		
 	/* ???
 	void 	transferFocus()

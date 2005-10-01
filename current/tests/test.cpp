@@ -35,7 +35,7 @@ using namespace xtk;
 //#include "threadtest.cpp"
 //#include "zstreamtest.cpp"
 //#include "processtest.cpp"
-
+#include "widgetstest.cpp"
 
 //IMPLEMENT_MAIN
 
@@ -51,8 +51,8 @@ int xApplication::entryPoint()
 	//xLoggingTest l;
 	//l.startTest();
 
-	xStringTest s;
-	s.startTest();
+	//xStringTest s;
+	//s.startTest();
 
 	//xDateTest d;
 	//d.startTest();
@@ -72,9 +72,11 @@ int xApplication::entryPoint()
 	//xZStreamTest z;
 	//z.startTest();
 
-
 	//xProcessTest pr;
 	//pr.startTest();
+	
+	xWidgetsTest wt;
+	wt.startTest();
 
 	system("PAUSE");
 	return 0;

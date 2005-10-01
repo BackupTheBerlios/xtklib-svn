@@ -21,7 +21,7 @@
 
 #include "../../include/xtk/widgets/widget.h"
 #include "../../include/xtk/widgets/container.h"
-#include "../../include/xtk/smartptr.h"
+#include "../../include/xtk/base/smartptr.h"
 //#include "widgets_private.h"
 
 #ifdef XTK_USE_WIDGETS

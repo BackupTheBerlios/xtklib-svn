@@ -19,8 +19,8 @@
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#include "../../../include/xtk/widgets/msw/widget_msw.h"
-#include "../../../include/xtk/widgets/container.h"
+#include "../../../include/xtk/widgets/widget.h"
+#include "../../../include/xtk/base/thread.h"
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 

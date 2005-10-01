@@ -19,7 +19,7 @@
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#include "../../../include/xtk/widgets/msw/window_msw.h"
+#include "../../../include/xtk/widgets/window.h"
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 

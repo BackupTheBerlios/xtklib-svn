@@ -23,8 +23,8 @@
 #define XTK_WINDOW_H
 
 #include "../globals.h"
-#include "../array.h"
-#include "../datastructures.h"
+#include "../base/array.h"
+#include "../base/datastructures.h"
 #include "container.h"
 #include "widgetevent.h"
 #include "widgetlisteners.h"

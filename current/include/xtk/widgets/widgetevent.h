@@ -23,7 +23,7 @@
 #define XTK_WIDGETEVENT_H
 
 #include "../globals.h"
-#include "../event.h"
+#include "../base/event.h"
 
 #ifdef XTK_USE_WIDGETS
 namespace xtk

@@ -22,12 +22,12 @@
 #ifndef XTK_WIDGETS_MSW_PRIVATE_H
 #define XTK_WIDGETS_MSW_PRIVATE_H
 
-#include "../../globals.h"
-#include "../../interfaces.h"
+#include "../../../include/xtk/globals.h"
+#include "../../../include/xtk/base/interfaces.h"
+#include "../../../include/xtk/base/exception.h"
+#include <windows.h>
 
 #if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
-
-#include <Windows.h>
 
 namespace xtk
 {
@@ -62,7 +62,7 @@ public:
 		return equals(*h);
 	}
 	
-	virtual int hashCode(){return ((int)m_hWnd) ^ (int)((ptr_t)m_hWnd >> (sizeof(HWND) - sizeof(int))); }
+	virtual int hashCode(){return ((int)(xui64)m_hWnd) ^ (int)((xui64)m_hWnd >> (sizeof(HWND) - sizeof(int))); }
 	
 	int compareTo(xHwndObject& h)
 	{

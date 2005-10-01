@@ -23,6 +23,8 @@
 #define XTK_FRAME_H
 
 #include "../globals.h"
+#include "window.h"
+#include "../base/string.h"
 
 #ifdef XTK_USE_WIDGETS
 namespace xtk
@@ -58,9 +60,15 @@ public:
 	virtual void setTitle(xString title) = 0;
 };
 
-
-
 }//namespace
+
+//select include file
+#ifdef XTK_GUI_MSW
+	#include "msw/frame_msw.h"
+#elif defined(XTK_GUI_GTK2)
+	#include "gtk2/frame_gtk2.h"
+#endif
+
 #endif //XTK_USE_WIDGETS
 
 #endif //XTK_FRAME_H

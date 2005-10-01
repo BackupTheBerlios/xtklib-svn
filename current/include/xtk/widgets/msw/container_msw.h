@@ -22,9 +22,6 @@
 #ifndef XTK_CONTAINER_MSW_H
 #define XTK_CONTAINER_MSW_H
 
-#include "../../globals.h"
-#include "../container.h"
-
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
 #include <Windows.h>
@@ -41,7 +38,7 @@ class XTKAPI xContainer : public xAbstractContainer,public xWidget
 protected:
 	xHashMap			m_components;
 
-	xWidget* getChildByHandle(HWND hWnd);
+	MYOWNERSHIP xWidget* getChildByHandle(HWND hWnd);
 	virtual void removeChild(xWidget& comp);
 	virtual void addChild(xWidget* comp);
 	
@@ -51,7 +48,7 @@ public:
 
 	virtual void doLayout();
 	virtual int getComponentCount(){return m_components.size();}
-	virtual xArray<NODELETE xWidget*> getComponents();
+	virtual xArray<MYOWNERSHIP xWidget*> getComponents();
 	virtual bool isAncestorOf(xWidget& c);
 };
 

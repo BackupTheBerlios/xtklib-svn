@@ -22,10 +22,6 @@
 #ifndef XTK_WINDOW_MSW_H
 #define XTK_WINDOW_MSW_H
 
-#include "../../globals.h"
-#include "../window.h"
-#include "../layout.h"
-
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
 #include <Windows.h>
@@ -48,6 +44,7 @@ public:
 	virtual bool isActive();
 	virtual void toBack();
 	virtual void toFront();
+	virtual LRESULT windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam) = 0;
 };
 
 

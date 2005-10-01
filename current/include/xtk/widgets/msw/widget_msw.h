@@ -22,9 +22,6 @@
 #ifndef XTK_WIDGET_MSW_H
 #define XTK_WIDGET_MSW_H
 
-#include "../../globals.h"
-#include "../widget.h"
-
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
 #include <Windows.h>

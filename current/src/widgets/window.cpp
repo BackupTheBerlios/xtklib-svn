@@ -20,7 +20,7 @@
 */
 
 #include "../../include/xtk/widgets/window.h"
-#include "../../include/xtk/smartptr.h"
+#include "../../include/xtk/base/smartptr.h"
 
 #ifdef XTK_USE_WIDGETS
 

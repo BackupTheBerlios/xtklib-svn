@@ -22,15 +22,9 @@
 #ifndef XTK_FRAME_MSW_H
 #define XTK_FRAME_MSW_H
 
-#include "../widget.h"
-#include "../frame.h"
-#include "../window.h"
-#include "../../string.h"
+#if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
-#if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
-
-#include "widgets_msw_private.h"
-#include <Windows.h>
+#include <windows.h>
 
 namespace xtk
 {
@@ -38,7 +32,7 @@ namespace xtk
 /**
 * A xFrame object is a top-level window.
 */
-class XTKAPI xFrame : public xAbstractFrame,public xWindow,public xWindowProcedure
+class XTKAPI xFrame : public xAbstractFrame,public xWindow
 {
 private:
 	xString		m_title;

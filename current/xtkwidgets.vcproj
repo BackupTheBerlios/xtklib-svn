@@ -159,6 +159,9 @@
 				RelativePath=".\include\xtk\widgets\widgetlisteners.h">
 			</File>
 			<File
+				RelativePath=".\include\xtk\widgets.h">
+			</File>
+			<File
 				RelativePath=".\include\xtk\widgets\window.h">
 			</File>
 			<Filter

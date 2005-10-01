@@ -19,11 +19,11 @@
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#include "../../../include/xtk/widgets/msw/container_msw.h"
+#include "../../../include/xtk/widgets/container.h"
 #include "../../../include/xtk/widgets/msw/widgets_msw_private.h"
-#include "../../../include/xtk/smartptr.h"
+#include "../../../include/xtk/base/smartptr.h"
 
-#if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
+#if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
 namespace xtk
 {
@@ -60,7 +60,7 @@ void xContainer::doLayout()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xWidget* xContainer::getChildByHandle(HWND hWnd)
+NODELETE xWidget* xContainer::getChildByHandle(HWND hWnd)
 {
 	xHwndObject h(hWnd);
 	xObject& o = m_components.get(h);

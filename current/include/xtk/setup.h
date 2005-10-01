@@ -49,7 +49,7 @@
 ////////////////////////////////////////////////////////////
 
 //Enable the use of the widgets for GUI development
-/* <- Add/remove one '/' to/from the beginning of line to comment/uncomment the block
+//* <- Add/remove one '/' to/from the beginning of line to comment/uncomment the block
 #ifndef XTK_USE_WIDGETS
 	#define XTK_USE_WIDGETS
 #endif
