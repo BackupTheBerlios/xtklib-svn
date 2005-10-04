@@ -53,6 +53,9 @@ public:
 //##############################################################################
 void xBoxLayout::doLayout(xDimension& parentClientAreaSize)
 {
+	if(m_components.size() == 0)
+		return;
+		
 	if(m_orientation == X_AXIS)
 	{
 		xArray<xComponentWithConstraint*> components = m_components.toArray().castTo<xComponentWithConstraint*>();
@@ -138,7 +141,7 @@ void xBoxLayout::doLayout(xDimension& parentClientAreaSize)
 				break;
 			}
 			
-			assignedWeight += cnstr->m_weight * weightSize;
+			assignedWeight += cnstr->m_weight;
 			components[i]->m_component->setBounds(x,y,width,height);
 		}
 	}

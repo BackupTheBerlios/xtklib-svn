@@ -47,68 +47,54 @@ XTKAPI bool xtkProcessNextUIMessage();
 
 
 /**
- * Defines the prototype for the various implementation of class xWidget.
- * A widget is the base class for all Gui components.
- * Note that all children of the window will be deleted automatically by 
- * the destructor before the window itself is deleted.
+ * Defines the interface for the various implementation of class xWidget.
  */
-class XTKAPI xAbstractWidget : public virtual xObject
+class XTKAPI xIWidget
 {
-private:
-	static xObject	s_guiMutex;
-	
-	xLinkedList		m_componentListeners;
-	xLinkedList		m_focusListeners;
-	xLinkedList		m_keyListeners;
-	xLinkedList		m_mouseListeners;
-	xLinkedList		m_mouseMotionListeners;
-	
-	
 protected:
-	xContainer*		m_parent;
 	
-	/**
-	 * 
-	 */
-	static xObject& getSyncObj(){return s_guiMutex;}
 	 
-	xAbstractWidget(xContainer*	parent = NULL);
-	
+	xIWidget(xContainer* parent){}
 public:
-	virtual ~xAbstractWidget(){}
+	enum Defaults
+	{
+		XTK_DEFAULT_WIDGET_SIZE = -1,
+		XTK_DEFAULT_WIDGET_POSITION = -1, 
+	};
+
+	virtual ~xIWidget(){}
 	
 	/** 
 	 * Adds the specified component listener to receive component events from 
 	 * this component.
 	 */
-	virtual void addComponentListener(YOUROWNERSHIP xComponentListener* l)
-	{m_componentListeners.add(l);}
+	virtual void addComponentListener(YOUROWNERSHIP xComponentListener* l) = 0;
 
 	/**
 	 * Adds the specified focus listener to receive focus events from this
 	 * component when this component gains input focus.
 	 */
-	virtual void addFocusListener(YOUROWNERSHIP xFocusListener* l)
-	{m_focusListeners.add(l);}
+	virtual void addFocusListener(YOUROWNERSHIP xFocusListener* l) = 0;
+
 	
 	/**
 	 * Adds the specified key listener to receive key events from this component.
 	 */
-	virtual void addKeyListener(YOUROWNERSHIP xKeyListener* l)
-	{m_keyListeners.add(l);}
+	virtual void addKeyListener(YOUROWNERSHIP xKeyListener* l) = 0;
+
 	
 	/**
 	 * Adds the specified mouse listener to receive mouse events from this component.
 	 */
-	virtual void addMouseListener(YOUROWNERSHIP xMouseListener* l)
-	{m_mouseListeners.add(l);}
+	virtual void addMouseListener(YOUROWNERSHIP xMouseListener* l) = 0;
+
 		
 	/**
 	 * Adds the specified mouse motion listener to receive mouse motion events from 
 	 * this component.
 	 */
-	virtual void addMouseMotionListener(YOUROWNERSHIP xMouseMotionListener* l)
-	{m_mouseMotionListeners.add(l);}
+	virtual void addMouseMotionListener(YOUROWNERSHIP xMouseMotionListener* l) = 0;
+
 		
 	/*  ???
 	 * Adds the specified mouse wheel listener to receive mouse wheel events from this 
@@ -128,12 +114,8 @@ public:
 	 * Checks whether this component "contains" the specified point, 
 	 * where x and y are defined to be relative to the coordinate system of this component.
 	 */
-	virtual bool contains(int x, int y)
-	{	
-		return 
-			(x >= getX() && x <= getX()+getWidth()) &&
-			(y >= getY() && y <= getY()+getHeight());
-	}
+	virtual bool contains(int x, int y) = 0;
+
 	
 	/**
 	 * Prompts the layout manager to lay out this component.
@@ -156,10 +138,7 @@ public:
 	/**
 	 * Gets the bounds of this component in the form of a Rectangle object.
 	 */
-	virtual xRectangle* getBounds()
-	{
-		return new xRectangle(getX(),getY(),getWidth(),getHeight());
-	}
+	virtual xRectangle* getBounds() = 0;
 	
 	/**
 	 * Determines if this component or one of its immediate subcomponents 
@@ -170,8 +149,7 @@ public:
 	/**
 	 * Returns an array of all the component listeners registered on this component.
 	 */
-	virtual xArray<NODELETE xComponentListener*> getComponentListeners()
-	{return m_componentListeners.toArray().castTo<xComponentListener*>();}
+	virtual xArray<NODELETE xComponentListener*> getComponentListeners() = 0;
 		
 	/* ???
 	Cursor 	getCursor()
@@ -186,8 +164,7 @@ public:
 	/**
 	 * Returns an array of all the focus listeners registered on this component.
 	 */
-	virtual xArray<NODELETE xFocusListener*> getFocusListeners()
-	{return m_focusListeners.toArray().castTo<xFocusListener*>();}
+	virtual xArray<NODELETE xFocusListener*> getFocusListeners() = 0;
 		
 	/* ??
 	Set 	getFocusTraversalKeys(int id)
@@ -235,23 +212,19 @@ public:
 	/**
 	 * Returns an array of all the key listeners registered on this component.
 	 */
-	virtual xArray<NODELETE xKeyListener*> getKeyListeners()
-	{return m_keyListeners.toArray().castTo<xKeyListener*>();}
+	virtual xArray<NODELETE xKeyListener*> getKeyListeners() = 0;
 		
 	/**
 	 * Gets the location of this component in the form of a point specifying the component's 
 	 * top-left corner.
 	 */
-	virtual xPoint* getLocation()
-	{
-		return new xPoint(getX(),getY());
-	}
+	virtual xPoint* getLocation() = 0;
 	
 	/**
 	 * Gets the location of this component in the form of a point specifying the 
 	 * component's top-left corner in the screen's coordinate space.
 	 */
-	virtual xPoint* getLocationOnScreen();
+	virtual xPoint* getLocationOnScreen() = 0;
 	
 	/* ??
 	xDimension 	getMaximumSize()
@@ -263,27 +236,22 @@ public:
 	/**
 	 * Returns an array of all the mouse listeners registered on this component.
 	 */
-	virtual xArray<NODELETE xMouseListener*> getMouseListeners()
-	{return m_mouseListeners.toArray().castTo<xMouseListener*>();}
+	virtual xArray<NODELETE xMouseListener*> getMouseListeners() = 0;
 	
 	/**
 	 * Returns an array of all the mouse motion listeners registered on this component.
 	 */
-	virtual xArray<NODELETE xMouseMotionListener*> getMouseMotionListeners()
-	{return m_mouseMotionListeners.toArray().castTo<xMouseMotionListener*>();}
+	virtual xArray<NODELETE xMouseMotionListener*> getMouseMotionListeners() = 0;
 	
 	/**
 	 * Gets the parent of this widget.
 	 */
-	virtual NODELETE xContainer* getParent(){return m_parent;}
+	virtual NODELETE xContainer* getParent() = 0;
 		
 	/**
 	 * Returns the size of this component in the form of a Dimension object.
 	 */
-	virtual xDimension* getSize()
-	{
-		return new xDimension(getWidth(),getHeight());
-	}
+	virtual xDimension* getSize() = 0;
 		
 	/**
 	 * Returns the current width of this component.
@@ -359,33 +327,28 @@ public:
 	 * Removes the specified component listener so that it no longer receives component events 
 	 * from this component.
 	 */
-	virtual void removeComponentListener(xComponentListener* l)
-	{m_componentListeners.removeObject(*l);}
+	virtual void removeComponentListener(xComponentListener& l) = 0;
 	
 	/**
 	 * Removes the specified focus listener so that it no longer receives focus events from this component.
 	 */
-	virtual void removeFocusListener(xFocusListener* l)
-	{m_focusListeners.removeObject(*l);}
+	virtual void removeFocusListener(xFocusListener& l) = 0;
 	
 	/**
 	 * Removes the specified key listener so that it no longer receives key events from this component.
 	 */
-	virtual void removeKeyListener(xKeyListener* l)
-	{m_keyListeners.removeObject(*l);}
+	virtual void removeKeyListener(xKeyListener& l) = 0;
 	
 	/**
 	 * Removes the specified mouse listener so that it no longer receives mouse events from this component.
 	 */
-	virtual void removeMouseListener(xMouseListener* l)
-	{m_mouseListeners.removeObject(*l);}
+	virtual void removeMouseListener(xMouseListener& l) = 0;
 	
 	/**
 	 * Removes the specified mouse motion listener so that it no longer receives mouse motion events 
 	 * from this component.
 	 */
-	virtual void removeMouseMotionListener(xMouseMotionListener* l)
-	{m_mouseMotionListeners.removeObject(*l);}
+	virtual void removeMouseMotionListener(xMouseMotionListener& l) = 0;
 		
 	/**
 	 * Requests that this Widget get the input focus, and that this Widget's 
@@ -406,10 +369,7 @@ public:
 	/**
 	 * Moves and resizes this component to conform to the new bounding rectangle r.
 	 */
-	virtual void setBounds(xRectangle& r)
-	{
-		setBounds(r.getX(),r.getY(),r.getWidth(),r.getHeight());
-	}
+	virtual void setBounds(xRectangle& r) = 0;
 		
 	/**
 	 * Enables or disables this component, depending on the value of the parameter b.
@@ -475,29 +435,29 @@ protected:
 	 * Processes component events occurring on this component by dispatching 
 	 * them to any registered WidgetListener objects.
 	 */
-	virtual void processComponentEvent(xComponentEvent& e);
+	virtual void processComponentEvent(xComponentEvent& e) = 0;
 
 	/**
 	 * Processes focus events occurring on this component by dispatching them to
 	 * any registered FocusListener objects.
 	 */
-	virtual void processFocusEvent(xFocusEvent& e);
+	virtual void processFocusEvent(xFocusEvent& e) = 0;
 	
 	/**
 	 * Processes key events occurring on this component by dispatching them to any registered KeyListener objects.
 	 */
-	virtual void processKeyEvent(xKeyEvent& e);
+	virtual void processKeyEvent(xKeyEvent& e) = 0;
 	
 	/**
 	 * Processes mouse events occurring on this component by dispatching them to any registered MouseListener objects.
 	 */
-	virtual void processMouseEvent(xMouseEvent& e);
+	virtual void processMouseEvent(xMouseEvent& e) = 0;
 	
 	/**
 	 * Processes mouse motion events occurring on this component by dispatching them to any 
 	 * registered MouseMotionListener objects.
 	 */
-	virtual void processMouseMotionEvent(xMouseEvent& e);
+	virtual void processMouseMotionEvent(xMouseEvent& e) = 0;
 };
 
 

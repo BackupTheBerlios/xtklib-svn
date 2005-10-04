@@ -165,32 +165,14 @@ xHashMap::Node* xHashMap::addInList(xObject* data,xObject* key,Node* root)
 	if(root == NULL)
 	{
 		m_count++;
-		return new Node(data,key);	
+		return new Node(data,key);
 	}
 	else
 	{
 		Node* tmp = root;
 		for(;;)
 		{
-			if(tmp->key->equals(*key))
-			{
-				if(isOwner())
-				{
-					if((tmp->data != tmp->key) && (tmp->key != key))
-						delete tmp->key;
-					delete tmp->data;
-				}
-				else
-				{
-					if((tmp->data != tmp->key) && (tmp->key != key))
-						delete tmp->key;
-				}
-				
-				tmp->data = data;
-				tmp->key = key;
-				return root;
-			}
-			else if(tmp->next == NULL)
+			if(tmp->next == NULL)
 			{
 				tmp->next = new Node(data,key);
 				m_count++;

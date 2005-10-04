@@ -15,14 +15,19 @@
 */
 
 /**
-* @file window_msw.cpp
+* @file button_msw.cpp
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#include "../../../include/xtk/widgets/window.h"
+#include "../../../include/xtk/base/application.h"
+#include "../../../include/xtk/widgets/button.h"
+#include "../../../include/xtk/widgets/container.h"
 #include "../../../include/xtk/base/smartptr.h"
+#include "widgets_msw_private.h"
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
+
+#include <windows.h>
 
 namespace xtk
 {
@@ -30,69 +35,78 @@ namespace xtk
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-bool xWindow::isActive()
+xButton::xButton(xContainer* parent,xString label,int x,int y,int width,int height)
+	: xWidget(parent)
 {
-	return ::GetActiveWindow() == getHWND();
+	m_actionListeners.rescindOwnership();
+	
+	if(x == XTK_DEFAULT_WIDGET_POSITION)
+		x = 0;
+	if(y == XTK_DEFAULT_WIDGET_POSITION)
+		y = 0;
+	if(height == XTK_DEFAULT_WIDGET_SIZE)
+		height = 30;
+	//for width calculate best fit size
+	if(width == XTK_DEFAULT_WIDGET_SIZE)
+		width = 100;
+	
+	HWND hwnd = ::CreateWindow(_T("button"),label.c_str(),
+		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_NOTIFY | BS_TEXT,x,y,width,height,
+		parent->getHWND(),NULL,xApplication::getHinstance(),NULL);
+
+	//set the user data of the window to the current window object
+	::SetWindowLongPtr(hwnd,GWL_USERDATA,(LONG_PTR) this);
+
+	assert(hwnd != NULL);
+	setHWND(hwnd);
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xWindow::toBack()
+xButton::~xButton()
 {
-	::SetWindowPos(
-				getHWND(),				// handle of window
-				HWND_NOTOPMOST,			// placement-order handle
-				0,						// horizontal position
-				0,						// vertical position
-				0,						// width
-				0,						// height
-				SWP_NOMOVE|SWP_NOSIZE	// window-positioning flags
-				);
+
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xWindow::toFront()
+xString xButton::getLabel()
 {
-	::SetWindowPos(
-		getHWND(),				// handle of window
-		HWND_TOP,				// placement-order handle
-		0,						// horizontal position
-		0,						// vertical position
-		0,						// width
-		0,						// height
-		SWP_NOMOVE|SWP_NOSIZE	// window-positioning flags
-		);
+	int iLength = ::GetWindowTextLength(getHWND());
+	xArray<xchar> buff(iLength);
+	::GetWindowText(getHWND(), buff.getRawData(), buff.size());
+	
+	return xString(buff.getRawData(),buff.size());
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xWindow::processWindowEvent(xWindowEvent& e)
+void xButton::setLabel(xString label)
+{
+	::SetWindowText(getHWND(),label.c_str());
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xButton::processActionEvent(xActionEvent& e)
 {	
-	smartPtr<xIterator> iter = m_windowListeners.iterator();
+	smartPtr<xIterator> iter = m_actionListeners.iterator();
 	while(iter->hasNext())
 	{
-		xWindowListener* l = dynamic_cast<xWindowListener*>(&(iter->next()));
+		xActionListener* l = dynamic_cast<xActionListener*>(&(iter->next()));
 		assert(l != NULL);
 		switch(e.getID())
 		{
-		case XWE_WINDOW_ACTIVATED:		l->windowActivated(e);		break;
-		case XWE_WINDOW_CLOSED:			l->windowClosed(e);			break;
-		case XWE_WINDOW_CLOSING:		l->windowClosing(e);		break;
-		case XWE_WINDOW_DEACTIVATED:	l->windowDeactivated(e);	break;
-		case XWE_WINDOW_DEICONIFIED:	l->windowDeiconified(e);	break;
-		case XWE_WINDOW_FIRST:			l->windowFirst(e);			break;
-		case XWE_WINDOW_ICONIFIED:		l->windowIconified(e);		break;
-		case XWE_WINDOW_LAST:			l->windowLast(e);			break;
-		case XWE_WINDOW_OPENED:			l->windowOpened(e);			break;
+		case XWE_ACTION_PERFORMED:		l->actionPerformed(e);		break;
 		default:						assert(false);				break;
 		}
 	}
 }
-	
-}//namspace
 
-#endif//XTK_USE_WIDGETS
+}//namespace
+
+#endif //XTK_USE_WIDGETS

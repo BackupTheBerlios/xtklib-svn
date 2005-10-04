@@ -31,13 +31,13 @@ namespace xtk
 {
 
 
-class XTKAPI xAbstractFrame
+class XTKAPI xIFrame
 {
 protected:
-	xAbstractFrame(){}
+	xIFrame(){}
 	
 public:
-	virtual ~xAbstractFrame(){}
+	virtual ~xIFrame(){}
 
 	/**
 	 * Gets the title of the frame.

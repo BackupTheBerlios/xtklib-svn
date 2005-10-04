@@ -32,15 +32,15 @@ namespace xtk
 /**
 * A xFrame object is a top-level window.
 */
-class XTKAPI xFrame : public xAbstractFrame,public xWindow
+class XTKAPI xFrame : public xIFrame,public xWindow
 {
 private:
 	xString		m_title;
 	bool		m_resizable;
 	
 public:
-	xFrame(xString title,int x = xFrame::XTK_DEFAULT_WINDOW_POSITION,int y = xFrame::XTK_DEFAULT_WINDOW_POSITION,
-		int width = xFrame::XTK_DEFAULT_WINDOW_SIZE,int height = xFrame::XTK_DEFAULT_WINDOW_SIZE,
+	xFrame(xString title,int x = XTK_DEFAULT_WIDGET_POSITION,int y = XTK_DEFAULT_WIDGET_POSITION,
+		int width = XTK_DEFAULT_WIDGET_SIZE,int height = XTK_DEFAULT_WIDGET_SIZE,
 		xContainer* parent = NULL, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS));
 	
 	virtual ~xFrame();

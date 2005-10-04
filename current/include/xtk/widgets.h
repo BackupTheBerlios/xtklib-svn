@@ -29,6 +29,7 @@
 #include "widgets/layout.h"
 #include "widgets/widgetevent.h"
 #include "widgets/widgetlisteners.h"
+#include "widgets/button.h"
 
 
 #endif //XTK_WIDGETS_H

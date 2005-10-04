@@ -43,10 +43,11 @@ public:
 /**
 * Defines the interface for classes that know how to lay out xContainers.
 */
-class XTKAPI xLayoutManager : public virtual xObject
+class XTKAPI xLayoutManager : public xObject
 {
 friend class xBoxConstraintComparator;
 protected:
+
 	class xComponentWithConstraint : public xObject
 	{
 	public:
@@ -65,7 +66,11 @@ protected:
 				delete m_constraint;
 		}
 		
-		bool equals(xComponentWithConstraint& cc){return m_component->equals(*(cc.m_component));}
+		virtual bool equals(xComponentWithConstraint& cc)
+		{
+			return m_component->equals(*(cc.m_component));
+		}
+		
 		virtual bool equals(xObject& o)
 		{
 			xComponentWithConstraint* cc = dynamic_cast<xComponentWithConstraint*>(&o);
@@ -76,9 +81,9 @@ protected:
 		}
 	};
 
-	xLinkedList		m_components;
+	xArrayList		m_components;
 	
-	virtual void doSetConstraints(xWidget& c,xConstraint* co)
+	void doSetConstraints(xWidget& c,xConstraint* co)
 	{
 		xComponentWithConstraint cc(&c,NULL);
 		xObject& o = m_components.getByObject(cc);
@@ -88,7 +93,8 @@ protected:
 		cc2->m_constraint = co;
 	}
 	
-	xLayoutManager(){m_components.giveOwnership();}
+	xLayoutManager()
+	{m_components.giveOwnership();}
 public:
 	virtual ~xLayoutManager(){}
 	
@@ -97,6 +103,11 @@ public:
 	 * constraint of this layout.
 	 */
 	virtual void setConstraints(xWidget& c) = 0;
+	
+	/**
+	* Sets the constraints for the specified component in this layout.
+	*/
+	virtual void setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr) = 0;
 	
 	/**
 	 * Execute the layout of the components
@@ -108,7 +119,12 @@ public:
 		for(int i = 0;i < components.size();i++)
 			addComponent(components[i]);
 	}
-	void addComponent(YOUROWNERSHIP xWidget* c){m_components.add(new xComponentWithConstraint(c,NULL));}
+	void addComponent(YOUROWNERSHIP xWidget* c)
+	{
+		m_components.add(new xComponentWithConstraint(c,NULL));
+		setConstraints(*c);
+	}
+	
 	void removeComponent(xWidget& c)
 	{
 		xComponentWithConstraint cc(&c,NULL);
@@ -188,9 +204,17 @@ public:
 	xBoxLayout(xBoxLayout::BoxOrientation orientation){m_orientation = orientation;}
 	virtual ~xBoxLayout(){}
 	
-	virtual void setConstraints(xWidget& c){doSetConstraints(c,new xBoxConstraint());}
-	virtual void setBoxConstraints(xWidget& c,MYOWNERSHIP xBoxConstraint* constraint)
-	{doSetConstraints(c,constraint);}
+	virtual void setConstraints(xWidget& c)
+	{doSetConstraints(c,new xBoxConstraint());}
+	
+	virtual void setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr)
+	{
+		xBoxConstraint* boxc = dynamic_cast<xBoxConstraint*>(cnstr);
+		if(boxc == NULL)
+			throw xClassCastException();
+			
+		doSetConstraints(c,cnstr);
+	}
 	
 	virtual void doLayout(xDimension& parentClientAreaSize);
 };

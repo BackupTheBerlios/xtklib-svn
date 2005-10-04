@@ -20,7 +20,7 @@
 */
 
 #include "../../../include/xtk/widgets/container.h"
-#include "../../../include/xtk/widgets/msw/widgets_msw_private.h"
+#include "widgets_msw_private.h"
 #include "../../../include/xtk/base/smartptr.h"
 
 #if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
@@ -32,9 +32,18 @@ namespace xtk
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
 xContainer::xContainer(xContainer* parent, xLayoutManager* layout) 
-	: xAbstractContainer(layout),xWidget(parent)
+	: xIContainer(layout),xWidget(parent),m_layout(*layout)
 {
-	m_components.rescindOwnership();
+	m_containerListeners.rescindOwnership();
+	//m_components.rescindOwnership();
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+xContainer::~xContainer()
+{
+	delete &m_layout;
 }
 
 //##############################################################################
@@ -76,6 +85,7 @@ void xContainer::removeChild(xWidget& comp)
 {
 	xHwndObject h(comp.getHWND());
 	m_components.remove(h);
+	m_layout.removeComponent(comp);
 }
 
 //##############################################################################
@@ -84,6 +94,7 @@ void xContainer::removeChild(xWidget& comp)
 void xContainer::addChild(xWidget* comp)
 {
 	m_components.put(new xHwndObject(comp->getHWND()),comp);
+	m_layout.addComponent(comp);
 }
 
 //##############################################################################

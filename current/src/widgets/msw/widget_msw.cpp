@@ -20,12 +20,17 @@
 */
 
 #include "../../../include/xtk/widgets/widget.h"
+#include "../../../include/xtk/widgets/container.h"
 #include "../../../include/xtk/base/thread.h"
+#include "../../../include/xtk/base/datastructures.h"
+#include "../../../include/xtk/base/smartptr.h"
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
 namespace xtk
 {
+
+xObject xWidget::s_guiMutex;
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -54,9 +59,17 @@ bool xtkProcessNextUIMessage()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xWidget::xWidget(xContainer* parent) : xAbstractWidget(parent)
+xWidget::xWidget(xContainer* parent) : xIWidget(parent)
 {
+	m_componentListeners.rescindOwnership();
+	m_focusListeners.rescindOwnership();
+	m_keyListeners.rescindOwnership();
+	m_mouseListeners.rescindOwnership();
+	m_mouseMotionListeners.rescindOwnership();
+	m_parent = parent;
 	m_hWidget = NULL;
+	if(parent != NULL)
+		((xIContainer*)parent)->addChild(this);
 }
 
 //##############################################################################
@@ -138,6 +151,22 @@ xPoint* xWidget::getLocation()
 	::GetWindowRect(getHWND(),&rect);
 
 	return new xPoint(rect.left,rect.top);
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+xPoint* xWidget::getLocationOnScreen()
+{
+	if(getParent() == NULL)
+		return getLocation();
+	else
+	{
+		smartPtr<xPoint> parent_loc = getParent()->getLocation();
+		smartPtr<xPoint> my_loc = getLocation();
+
+		return new xPoint(parent_loc->getX() + my_loc->getX(),parent_loc->getY() + my_loc->getY());
+	}
 }
 
 //##############################################################################
@@ -342,6 +371,106 @@ void xWidget::validate()
 	::ValidateRect(getHWND(),NULL);
 }
 
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xWidget::processComponentEvent(xComponentEvent& e)
+{
+	smartPtr<xIterator> iter = m_componentListeners.iterator();
+	while(iter->hasNext())
+	{
+		xComponentListener* l = dynamic_cast<xComponentListener*>(&(iter->next()));
+		assert(l != NULL);
+		switch(e.getID())
+		{
+		case XWE_COMPONENT_HIDDEN:		l->componentHidden(e);	break;
+		case XWE_COMPONENT_MOVED:		l->componentMoved(e);	break;
+		case XWE_COMPONENT_RESIZED:		l->componentResized(e); break;
+		case XWE_COMPONENT_SHOWN:		l->componentShown(e);	break;
+		default:						assert(false);			break;
+		}
+	}
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xWidget::processFocusEvent(xFocusEvent& e)
+{
+	smartPtr<xIterator> iter = m_focusListeners.iterator();
+	while(iter->hasNext())
+	{
+		xFocusListener* l = dynamic_cast<xFocusListener*>(&(iter->next()));
+		assert(l != NULL);
+		switch(e.getID())
+		{
+		case XWE_FOCUS_GAINED:		l->focusGained(e);	break;
+		case XWE_FOCUS_LOST:		l->focusLost(e);	break;
+		default:					assert(false);		break;
+		}
+	}
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xWidget::processKeyEvent(xKeyEvent& e)
+{
+	smartPtr<xIterator> iter = m_keyListeners.iterator();
+	while(iter->hasNext())
+	{
+		xKeyListener* l = dynamic_cast<xKeyListener*>(&(iter->next()));
+		assert(l != NULL);
+		switch(e.getID())
+		{
+		case XWE_KEY_PRESSED:		l->keyPressed(e);	break;
+		case XWE_KEY_RELEASED:		l->keyReleased(e);	break;
+		case XWE_KEY_TYPED:			l->keyTyped(e);		break;
+		default:					assert(false);		break;
+		}
+	}
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xWidget::processMouseEvent(xMouseEvent& e)
+{
+	smartPtr<xIterator> iter = m_mouseListeners.iterator();
+	while(iter->hasNext())
+	{
+		xMouseListener* l = dynamic_cast<xMouseListener*>(&(iter->next()));
+		assert(l != NULL);
+		switch(e.getID())
+		{
+		case XWE_MOUSE_CLICKED:			l->mouseClicked(e);			break;
+		case XWE_MOUSE_DOUBLECLICKED:	l->mouseDoubleClicked(e);	break;
+		case XWE_MOUSE_PRESSED:			l->mousePressed(e);			break;
+		case XWE_MOUSE_RELEASED:		l->mouseReleased(e);		break;
+		default:						assert(false);				break;
+		}
+	}
+}
+
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xWidget::processMouseMotionEvent(xMouseEvent& e) 
+{
+	smartPtr<xIterator> iter = m_mouseMotionListeners.iterator();
+	while(iter->hasNext())
+	{
+		xMouseMotionListener* l = dynamic_cast<xMouseMotionListener*>(&(iter->next()));
+		assert(l != NULL);
+		switch(e.getID())
+		{
+		case XWE_MOUSE_MOVED:			l->mouseMoved(e);		break;
+		case XWE_MOUSE_DRAGGED:			l->mouseDragged(e);		break;
+		default:						assert(false);			break;
+		}
+	}
+}
 
 }//namespace
 

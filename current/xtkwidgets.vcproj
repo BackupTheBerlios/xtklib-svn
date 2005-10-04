@@ -22,7 +22,8 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;__WINDOWS__;__DEBUG__;"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
+				BufferSecurityCheck="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -99,13 +100,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\src\widgets\container.cpp">
-			</File>
-			<File
 				RelativePath=".\src\widgets\layout.cpp">
-			</File>
-			<File
-				RelativePath=".\src\widgets\widget.cpp">
 			</File>
 			<File
 				RelativePath=".\src\widgets\widgetevent.cpp">
@@ -113,12 +108,12 @@
 			<File
 				RelativePath=".\src\widgets\widgets_private.h">
 			</File>
-			<File
-				RelativePath=".\src\widgets\window.cpp">
-			</File>
 			<Filter
 				Name="msw"
 				Filter="">
+				<File
+					RelativePath=".\src\widgets\msw\button_msw.cpp">
+				</File>
 				<File
 					RelativePath=".\src\widgets\msw\container_msw.cpp">
 				</File>
@@ -137,6 +132,9 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			<File
+				RelativePath=".\include\xtk\widgets\button.h">
+			</File>
 			<File
 				RelativePath=".\include\xtk\widgets\container.h">
 			</File>
@@ -167,6 +165,9 @@
 			<Filter
 				Name="msw"
 				Filter="">
+				<File
+					RelativePath=".\include\xtk\widgets\msw\button_msw.h">
+				</File>
 				<File
 					RelativePath=".\include\xtk\widgets\msw\container_msw.h">
 				</File>

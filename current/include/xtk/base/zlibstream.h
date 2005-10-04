@@ -35,7 +35,7 @@ namespace xtk
 #ifdef XTK_USE_ZLIB
 
 /**
- * @brief A class containing some constants for use in xZLibInputStream,xZLibOutputStream
+ * A class containing some constants for use in xZLibInputStream,xZLibOutputStream.
  */
 class XTKAPI xZLibConst
 {

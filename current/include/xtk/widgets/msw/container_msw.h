@@ -33,10 +33,13 @@ namespace xtk
 /**
 * A component that can contain other components.
 */
-class XTKAPI xContainer : public xAbstractContainer,public xWidget
+class XTKAPI xContainer : public xIContainer,public xWidget
 {
+private:
+	xLinkedList			m_containerListeners;
 protected:
 	xHashMap			m_components;
+	xLayoutManager&		m_layout;
 
 	MYOWNERSHIP xWidget* getChildByHandle(HWND hWnd);
 	virtual void removeChild(xWidget& comp);
@@ -44,8 +47,28 @@ protected:
 	
 	xContainer(xContainer* parent, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS));
 public:
-	virtual ~xContainer(){}
+	virtual ~xContainer();
 
+	virtual void addContainerListener(YOUROWNERSHIP xContainerListener* l)
+	{m_containerListeners.add(l);}
+	
+	virtual xArray<NODELETE xContainerListener*> getContainerListeners()
+	{return m_containerListeners.toArray().castTo<xContainerListener*>();}
+	
+	virtual xLayoutManager& getLayout()
+	{return m_layout;}
+	
+	virtual void removeContainerListener(xContainerListener& l)
+	{m_containerListeners.removeObject(l);}
+	
+	virtual void setLayout(MYOWNERSHIP xLayoutManager* mgr)
+	{
+		assert(mgr != NULL);
+		mgr->addComponents(getComponents());
+		delete &m_layout;
+		m_layout = *mgr;
+	}
+	
 	virtual void doLayout();
 	virtual int getComponentCount(){return m_components.size();}
 	virtual xArray<MYOWNERSHIP xWidget*> getComponents();

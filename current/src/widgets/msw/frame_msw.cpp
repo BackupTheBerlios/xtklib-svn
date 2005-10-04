@@ -101,6 +101,26 @@ void xFrame::setTitle(xString title)
 //##############################################################################
 LRESULT xFrame::windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
+	HDC         hdc ;
+	PAINTSTRUCT ps ;
+	RECT        rect ;
+
+	switch(uMsg)
+	{
+	case WM_NCDESTROY:
+		delete this;
+		break;
+	case WM_DESTROY:
+		if(getDefaultCloseAction() == XTK_EXIT_ON_CLOSE)
+		{
+			PostQuitMessage(0);
+			return 0;
+		}
+		else if(getDefaultCloseAction() == XTK_HIDE_ON_CLOSE)
+			setVisible(false);
+		break;
+	}
+
 	return ::DefWindowProc(hwnd,uMsg,wParam,lParam);
 }
 

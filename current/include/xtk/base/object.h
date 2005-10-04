@@ -49,6 +49,10 @@ extern "C"
 namespace xtk
 {
 
+#ifdef XTK_USE_MEMCHECK
+	extern xAvlMemTrace g_memoryTrace;
+#endif
+
 class xMutex;
 class xString;
 

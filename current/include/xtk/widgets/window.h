@@ -36,38 +36,32 @@ namespace xtk
 
 
 /**
- * Defines the prototype for the various implementation of class xWindow.
- * A xWindow object is a top-level window.
+ * Defines the interface for the various implementation of class xWindow.
  */
-class XTKAPI xAbstractWindow
+class XTKAPI xIWindow
 {
-private:
-	xLinkedList		m_windowListeners;
-
 protected:
 
-	xAbstractWindow(){m_windowListeners.rescindOwnership();}
+	xIWindow(){}
 public:
-	enum
+	enum CloseAction
 	{
-		XTK_DEFAULT_WINDOW_SIZE = 100,
-		XTK_DEFAULT_WINDOW_POSITION = 0, 
+		XTK_EXIT_ON_CLOSE,
+		XTK_DESTROY_ON_CLOSE,
+		XTK_HIDE_ON_CLOSE
 	};
-
-
-	virtual ~xAbstractWindow(){}
+	
+	virtual ~xIWindow(){}
 	
 	/**
 	 * Adds the specified window listener to receive window events from this window.
 	 */
-	virtual void addWindowListener(xWindowListener* l)
-	{m_windowListeners.add(l);}
+	virtual void addWindowListener(YOUROWNERSHIP xWindowListener* l) = 0;
 		
 	/**
 	 * 
 	 */
-	virtual xArray<NODELETE xWindowListener*> getWindowListeners()
-	{return m_windowListeners.toArray().castTo<xWindowListener*>();}
+	virtual xArray<NODELETE xWindowListener*> getWindowListeners() = 0;
 		
 	/**
 	 * Returns whether this Window is active.
@@ -77,8 +71,7 @@ public:
 	/**
 	 * Removes the specified window listener so that it no longer receives window events from this window.
 	 */	
-	virtual void removeWindowListener(xWindowListener* l)
-	{m_windowListeners.removeObject(*l);}
+	virtual void removeWindowListener(xWindowListener& l) = 0;
 		
 	/**
 	 * If this Window is visible, sends this Window to the back and may cause it to lose focus or activation if it is the focused or active Window.
@@ -90,13 +83,21 @@ public:
 	 */
 	virtual void toFront() = 0;
 	
-		
+	/**
+	 * 
+	 */
+	virtual void setDefaultCloseAction(CloseAction caction) = 0;
+	
+	/**
+	* 
+	*/
+	virtual CloseAction getDefaultCloseAction() = 0;
 protected:
 	
 	/**
 	 * 
 	 */
-	virtual void processWindowEvent(xWindowEvent& e);
+	virtual void processWindowEvent(xWindowEvent& e) = 0;
 };
 
 }//namespace

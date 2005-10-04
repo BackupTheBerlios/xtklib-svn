@@ -5,7 +5,7 @@
 #---------------------------------------------------------------------------
 PROJECT_NAME           = XTKlib
 PROJECT_NUMBER         = 0.1.0
-OUTPUT_DIRECTORY       = ./base/
+OUTPUT_DIRECTORY       = ./full/
 CREATE_SUBDIRS         = NO
 OUTPUT_LANGUAGE        = English
 USE_WINDOWS_ENCODING   = NO
@@ -35,7 +35,7 @@ SUBGROUPING            = YES
 EXTRACT_ALL            = NO
 EXTRACT_PRIVATE        = NO
 EXTRACT_STATIC         = YES
-EXTRACT_LOCAL_CLASSES  = YES
+EXTRACT_LOCAL_CLASSES  = NO
 EXTRACT_LOCAL_METHODS  = NO
 HIDE_UNDOC_MEMBERS     = NO
 HIDE_UNDOC_CLASSES     = NO
@@ -71,9 +71,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = ../include/xtk/base \
-                         ../include/xtk/setup.h \
-                         ../include/xtk/globals.h
+INPUT                  = ../include/xtk/
 FILE_PATTERNS          = *.h
 RECURSIVE              = YES
 EXCLUDE                = 
@@ -182,7 +180,9 @@ SEARCH_INCLUDES        = YES
 INCLUDE_PATH           = 
 INCLUDE_FILE_PATTERNS  = 
 PREDEFINED             = __UNICODE__ \
-                         __WINDOWS__
+                         __WINDOWS__ \
+                         XTK_GUI_MSW \
+                         XTK_USE_WIDGETS
 EXPAND_AS_DEFINED      = 
 SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------

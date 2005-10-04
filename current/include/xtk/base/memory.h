@@ -167,7 +167,7 @@ namespace xtk
 		
 		static bool s_startTrackMemory;
 		
-		friend void xDumpMemoryLeaks(xAvlMemTrace::Node* root);
+		friend bool xDumpMemoryLeaks(xAvlMemTrace::Node* root);
 		friend void xDumpMemoryLeaks();
 	};
 #endif

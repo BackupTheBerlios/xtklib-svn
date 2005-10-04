@@ -351,7 +351,7 @@ namespace xtk
 	//##############################################################################
 	//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 	//##############################################################################
-	void xDumpMemoryLeaks(xAvlMemTrace::Node* root)
+	bool xDumpMemoryLeaks(xAvlMemTrace::Node* root)
 	{
 		if(root != NULL)
 		{
@@ -362,18 +362,21 @@ namespace xtk
 			printf("\nFile: %s",root->file);
 			printf("\nLine: %d",root->line);
 			printf("\nSize: %ul \n",(unsigned int) root->size);
+			return true;
 		}
+		return false;
 	}
 
 	//##############################################################################
 	//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 	//##############################################################################
-	inline void xDumpMemoryLeaks()
+	void xDumpMemoryLeaks()
 	{
 		if(!xAvlMemTrace::s_startTrackMemory)
 			printf("Memory tracking not started, use xStartMemoryTracking()");
 
-		xDumpMemoryLeaks(xObject::g_memoryTrace.m_pRootNode);
+		if(xDumpMemoryLeaks(g_memoryTrace.m_pRootNode))
+			system("PAUSE");
 		//xAvlMemTrace::s_startTrackMemory = false;
 	}
 #endif

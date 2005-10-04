@@ -34,21 +34,99 @@ namespace xtk
  * Note that all children of the window will be deleted automatically by 
  * the destructor before the window itself is deleted.
 */
-class XTKAPI xWidget : public xAbstractWidget
+class XTKAPI xWidget : public xObject,public xIWidget
 {
 private:
+	static xObject	s_guiMutex;
+
+	xLinkedList		m_componentListeners;
+	xLinkedList		m_focusListeners;
+	xLinkedList		m_keyListeners;
+	xLinkedList		m_mouseListeners;
+	xLinkedList		m_mouseMotionListeners;
+	xContainer*		m_parent;
+	
 	//In MSW all principal widgets are windows
 	HWND			m_hWidget;
 
 protected:
+	/**
+	 * 
+	 */
+	static xObject& getSyncObj(){return s_guiMutex;}
+	
+	/**
+	 * 
+	 */
 	void setHWND(HWND hWnd){m_hWidget = hWnd;}
 	
 	xWidget(xContainer* parent);
 public:
 	virtual ~xWidget();
 	
+
+	virtual void addComponentListener(YOUROWNERSHIP xComponentListener* l)
+	{m_componentListeners.add(l);}
+
+	virtual void addFocusListener(YOUROWNERSHIP xFocusListener* l)
+	{m_focusListeners.add(l);}
+
+	virtual void addKeyListener(YOUROWNERSHIP xKeyListener* l)
+	{m_keyListeners.add(l);}
+
+	virtual void addMouseListener(YOUROWNERSHIP xMouseListener* l)
+	{m_mouseListeners.add(l);}
+
+	virtual void addMouseMotionListener(YOUROWNERSHIP xMouseMotionListener* l)
+	{m_mouseMotionListeners.add(l);}
+	
+	virtual bool contains(int x, int y)
+	{	
+		return 
+			(x >= getX() && x <= getX()+getWidth()) &&
+			(y >= getY() && y <= getY()+getHeight());
+	}
+	
+	virtual void doLayout(){}
+	
+	virtual xArray<NODELETE xComponentListener*> getComponentListeners()
+	{return m_componentListeners.toArray().castTo<xComponentListener*>();}
+	
+	virtual xArray<NODELETE xFocusListener*> getFocusListeners()
+	{return m_focusListeners.toArray().castTo<xFocusListener*>();}
+	
+	virtual xArray<NODELETE xKeyListener*> getKeyListeners()
+	{return m_keyListeners.toArray().castTo<xKeyListener*>();}
+	
+	virtual xArray<NODELETE xMouseListener*> getMouseListeners()
+	{return m_mouseListeners.toArray().castTo<xMouseListener*>();}
+	
+	virtual xArray<NODELETE xMouseMotionListener*> getMouseMotionListeners()
+	{return m_mouseMotionListeners.toArray().castTo<xMouseMotionListener*>();}
+
+	virtual NODELETE xContainer* getParent(){return m_parent;}
+	
+	virtual void removeComponentListener(xComponentListener& l)
+	{m_componentListeners.removeObject(l);}
+
+	virtual void removeFocusListener(xFocusListener& l)
+	{m_focusListeners.removeObject(l);}
+
+	virtual void removeKeyListener(xKeyListener& l)
+	{m_keyListeners.removeObject(l);}
+
+	virtual void removeMouseListener(xMouseListener& l)
+	{m_mouseListeners.removeObject(l);}
+
+	virtual void removeMouseMotionListener(xMouseMotionListener& l)
+	{m_mouseMotionListeners.removeObject(l);}
+	
+	virtual void setBounds(xRectangle& r)
+	{
+		setBounds(r.getX(),r.getY(),r.getWidth(),r.getHeight());
+	}
+	
 	HWND getHWND(){return m_hWidget;}
-		
 	//! @todo to implement (MSW)
 	virtual xColor* getBackground();
 	virtual xRectangle* getBounds();
@@ -62,6 +140,7 @@ public:
 	//! @todo to implement (MSW)
 	virtual bool getIgnoreRepaint();
 	virtual xPoint* getLocation();
+	virtual xPoint* getLocationOnScreen();
 	virtual xDimension* getSize();
 	virtual int getWidth();
 	virtual int getX();
@@ -87,6 +166,13 @@ public:
 	virtual void setSize(int width, int height);
 	virtual void setVisible(boolean b);
 	virtual void validate();
+	
+protected:
+	virtual void processComponentEvent(xComponentEvent& e);
+	virtual void processFocusEvent(xFocusEvent& e);
+	virtual void processKeyEvent(xKeyEvent& e);
+	virtual void processMouseEvent(xMouseEvent& e);
+	virtual void processMouseMotionEvent(xMouseEvent& e);
 };
 
 

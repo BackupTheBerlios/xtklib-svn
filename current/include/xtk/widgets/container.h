@@ -23,7 +23,6 @@
 #define XTK_CONTAINER_H
 
 #include "../globals.h"
-#include "../base/datastructures.h"
 #include "widget.h"
 #include "layout.h"
 
@@ -33,44 +32,31 @@ namespace xtk
 {
 
 /**
- * Defines the prototype for the various implementation of class xContainer.
- * A component that can contain other components.
+ * Defines the interface for the various implementation of class xContainer.
  */
-class XTKAPI xAbstractContainer
+class XTKAPI xIContainer
 {
-friend class xAbstractWidget;
-private:
-	xLinkedList			m_containerListeners;
-	xLayoutManager&		m_layout;
-
 protected:
-	/**
-	 * Removes the specified component from this container.
-	 */
-	virtual void removeChild(xWidget& comp) = 0;
-	
-	/**
-	 * Removes the specified component from this container.
-	 */
-	virtual void addChild(xWidget* comp) = 0;
 
-	xAbstractContainer(MYOWNERSHIP xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS)) : m_layout(*layout)
-	{
-		m_containerListeners.rescindOwnership();
-	}	
-	
+	xIContainer(xLayoutManager* layout)
+	{}
 public:
-	virtual ~xAbstractContainer()
-	{
-		delete &m_layout;
-		m_containerListeners.giveOwnership();
-	}
+	virtual ~xIContainer(){}
+	
+	/**
+	* Removes the specified component from this container.
+	*/
+	virtual void removeChild(xWidget& comp) = 0;
+
+	/**
+	* Removes the specified component from this container.
+	*/
+	virtual void addChild(xWidget* comp) = 0;
 	
 	/**
 	 * Adds the specified container listener to receive container events from this container.
 	 */
-	virtual void addContainerListener(YOUROWNERSHIP xContainerListener* l)
-	{m_containerListeners.add(l);}
+	virtual void addContainerListener(YOUROWNERSHIP xContainerListener* l) = 0;
 	
 	/**
 	 * Gets the number of components in this panel.
@@ -85,8 +71,7 @@ public:
 	/**
 	 * Returns an array of all the container listeners registered on this container.
 	 */
-	virtual xArray<NODELETE xContainerListener*> getContainerListeners()
-	{return m_containerListeners.toArray().castTo<xContainerListener*>();}
+	virtual xArray<NODELETE xContainerListener*> getContainerListeners() = 0;
 	
 	/**
 	 * Determines the insets of this container, which indicate the size of the 
@@ -97,8 +82,7 @@ public:
 	/**
 	 * Gets the layout manager for this container.
 	 */	
-	virtual xLayoutManager& getLayout()
-	{return m_layout;}
+	virtual xLayoutManager& getLayout() = 0;
 
 	/**
 	 * Checks if the component is contained in the component hierarchy of this container.
@@ -108,19 +92,12 @@ public:
 	/**
 	 * Removes the specified container listener so it no longer receives container events from this container.
 	 */
-	virtual void removeContainerListener(xContainerListener& l)
-	{m_containerListeners.removeObject(l);}
+	virtual void removeContainerListener(xContainerListener& l) = 0;
 		
 	/**
 	 * Sets the layout manager for this container.
 	 */
-	virtual void setLayout(MYOWNERSHIP xLayoutManager* mgr)
-	{
-		assert(mgr != NULL);
-		mgr->addComponents(getComponents());
-		delete &m_layout;
-		m_layout = *mgr;
-	}
+	virtual void setLayout(MYOWNERSHIP xLayoutManager* mgr) = 0;
 };
 
 
