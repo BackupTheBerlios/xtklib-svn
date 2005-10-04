@@ -68,6 +68,7 @@ public:
 	virtual xString getLabel();
 	virtual void setLabel(xString label);
 	
+	virtual LRESULT windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 protected:
 	virtual void processActionEvent(xActionEvent& e);
 };

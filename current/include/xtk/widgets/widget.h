@@ -181,6 +181,11 @@ public:
 	virtual xFont* getFont() = 0;
 	
 	/**
+	* Gets the font of this component.
+	*/	
+	virtual xFontMetrics* getFontMetrics() = 0;
+	
+	/**
 	 * Gets the foreground color of this component.
 	 */
 	virtual xColor* getForeground() = 0;

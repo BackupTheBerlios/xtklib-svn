@@ -30,7 +30,9 @@
 namespace xtk
 {
 
-
+/**
+ * Defines the interface for the various implementation of class xFrame.
+ */
 class XTKAPI xIFrame
 {
 protected:

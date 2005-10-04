@@ -64,8 +64,6 @@ public:
 	virtual bool isActive();
 	virtual void toBack();
 	virtual void toFront();
-	virtual LRESULT windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam) = 0;
-	
 protected:
 	virtual void processWindowEvent(xWindowEvent& e);
 };

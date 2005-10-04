@@ -24,6 +24,7 @@
 
 #include "../globals.h"
 #include "../base/event.h"
+#include "../base/string.h"
 
 #ifdef XTK_USE_WIDGETS
 namespace xtk
@@ -467,9 +468,18 @@ public:
  */
 class XTKAPI xActionEvent : public xComponentEvent
 {
+private:
+	xString m_actionCommand;
+	
 public:
-	xActionEvent(xWidget* widget,xWidgetEventID id) : xComponentEvent(widget,id){}
+	xActionEvent(xWidget* widget,xWidgetEventID id,xString actionCommand) : xComponentEvent(widget,id)
+	{m_actionCommand = actionCommand;}
+	
 	virtual ~xActionEvent(){}
+	
+	virtual xString getActionCommand()
+	{return m_actionCommand;}
+	
 };
 
 

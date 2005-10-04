@@ -118,6 +118,9 @@
 					RelativePath=".\src\widgets\msw\container_msw.cpp">
 				</File>
 				<File
+					RelativePath=".\src\widgets\msw\font_msw.cpp">
+				</File>
+				<File
 					RelativePath=".\src\widgets\msw\frame_msw.cpp">
 				</File>
 				<File
@@ -170,6 +173,9 @@
 				</File>
 				<File
 					RelativePath=".\include\xtk\widgets\msw\container_msw.h">
+				</File>
+				<File
+					RelativePath=".\include\xtk\widgets\msw\font_msw.h">
 				</File>
 				<File
 					RelativePath=".\include\xtk\widgets\msw\frame_msw.h">

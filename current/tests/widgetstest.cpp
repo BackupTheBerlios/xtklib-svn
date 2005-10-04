@@ -33,10 +33,9 @@ private:
 		xFrame* frame = new xFrame(_T("Frame title"));
 		frame->setDefaultCloseAction(xWindow::XTK_EXIT_ON_CLOSE);
 		frame->setVisible(true);
-		xButton* butt = new xButton(frame,_T("test button 1"));
-		frame->getLayout().setConstraints(*butt,new xBoxConstraint(1,2,xBoxConstraint::FILL_HORIZONTAL));
-		xButton* butt2 = new xButton(frame,_T("test button 2"),103,0);
-		xButton* butt3 = new xButton(frame,_T("test button 3"),103,0);
+		xButton* butt = new xButton(frame,_T("|"));
+		xButton* butt2 = new xButton(frame,_T("13"),103,0);
+		xButton* butt3 = new xButton(frame,_T("aaaaaa"),103,0);
 		//butt2->setLabel(_T("Hello"));
 		frame->setSize(500,500);
 		frame->doLayout();

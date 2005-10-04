@@ -112,7 +112,16 @@ NODELETE xWidget* xWidget::getComponentAt(int x, int y)
 //##############################################################################
 xFont* xWidget::getFont()
 {
-	throw xNotImplementedException();
+	HFONT hFont = (HFONT) ::SendMessage((HWND) getHWND(),(UINT) WM_GETFONT,0,0);
+	return new xFont(hFont);
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+xFontMetrics* xWidget::getFontMetrics()
+{
+	return new xFontMetrics(getHWND());
 }
 
 //##############################################################################
@@ -305,7 +314,7 @@ void xWidget::setEnabled(bool b)
 //##############################################################################
 void xWidget::setFont(xFont& f)
 {
-	throw xNotImplementedException();
+	::SendMessage((HWND) getHWND(),(UINT) WM_SETFONT,(WPARAM) f.getHFONT(),(LPARAM) TRUE);
 }
 
 //##############################################################################

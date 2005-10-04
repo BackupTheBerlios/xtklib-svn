@@ -107,6 +107,14 @@ LRESULT xFrame::windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 
 	switch(uMsg)
 	{
+	case WM_COMMAND:
+		{
+		void* ptr = (void*)::GetWindowLongPtr((HWND)lParam,GWL_USERDATA);
+		xWidget* widg = static_cast<xWidget*>(ptr);
+		if(widg != this)
+			widg->windowProcedure(hwnd,uMsg,wParam,lParam);
+		}
+		break;
 	case WM_NCDESTROY:
 		delete this;
 		break;

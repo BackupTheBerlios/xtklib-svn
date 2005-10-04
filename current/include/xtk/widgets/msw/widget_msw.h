@@ -132,8 +132,8 @@ public:
 	virtual xRectangle* getBounds();
 	//! @todo to implement (MSW)
 	virtual NODELETE xWidget* getComponentAt(int x, int y);
-	//! @todo to implement (MSW)
 	virtual xFont* getFont();
+	virtual xFontMetrics* getFontMetrics();
 	//! @todo to implement (MSW)
 	virtual xColor* getForeground();
 	virtual int getHeight();
@@ -158,7 +158,6 @@ public:
 	virtual void setBackground(xColor& c);
 	virtual void setBounds(int x, int y, int width, int height);
 	virtual void setEnabled(bool b);
-	//! @todo to implement (MSW)
 	virtual void setFont(xFont& f);
 	//! @todo to implement (MSW)
 	virtual void setForeground(xColor& c);
@@ -166,6 +165,9 @@ public:
 	virtual void setSize(int width, int height);
 	virtual void setVisible(boolean b);
 	virtual void validate();
+	
+	virtual LRESULT windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+	{return ::DefWindowProc(hwnd,uMsg,wParam,lParam);}
 	
 protected:
 	virtual void processComponentEvent(xComponentEvent& e);

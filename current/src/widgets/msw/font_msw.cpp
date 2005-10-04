@@ -15,16 +15,12 @@
 */
 
 /**
-* @file button_msw.cpp
+* @file font_msw.cpp
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#include "../../../include/xtk/base/application.h"
-#include "../../../include/xtk/widgets/button.h"
-#include "../../../include/xtk/widgets/container.h"
-#include "../../../include/xtk/widgets/widgetevent.h"
-#include "../../../include/xtk/base/smartptr.h"
-#include "widgets_msw_private.h"
+#include "../../../include/xtk/widgets/font.h"
+#include "../../../include/xtk/base/exception.h"
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
@@ -36,107 +32,117 @@ namespace xtk
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xButton::xButton(xContainer* parent,xString label,int x,int y,int width,int height)
-	: xWidget(parent)
+xFont* xFont::getSystemFont(xIFont::SystemFonts sf)
 {
-	m_actionListeners.rescindOwnership();
-	
-	if(x == XTK_DEFAULT_WIDGET_POSITION)
-	
-		x = 0;
-	if(y == XTK_DEFAULT_WIDGET_POSITION)
-		y = 0;
-	if(height == XTK_DEFAULT_WIDGET_SIZE)
-		height = 30;
-	
-	HWND hwnd = ::CreateWindow(_T("button"),label.c_str(),
-		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_NOTIFY | BS_TEXT,x,y,width,height,
-		parent->getHWND(),NULL,xApplication::getHinstance(),NULL);
-	
-	assert(hwnd != NULL);
-
-	//set the user data of the window to the current window object
-	::SetWindowLongPtr(hwnd,GWL_USERDATA,(LONG_PTR) this);
-	setHWND(hwnd);
-	
-	//set font to default system font
-	xFont* fn = xFont::getSystemFont(xFont::XTK_GUI_FONT);	
-	::SendMessage(hwnd,(UINT) WM_SETFONT,(WPARAM) fn->getHFONT(),TRUE);
-	delete fn;
-	
-	//if was default size update to best fit width
-	if(width == XTK_DEFAULT_WIDGET_SIZE)
+	int fnObject = 0;
+	switch(sf)
 	{
-		xFontMetrics* fm = getFontMetrics();
-		int wid = fm->stringWidth(label);
-		setSize(wid + 10,height);
-		delete fm;
+	case xFont::XTK_GUI_FONT:
+		fnObject = DEFAULT_GUI_FONT;
+		break;
+	case xFont::XTK_SYSTEM_FONT:
+		fnObject = SYSTEM_FONT;
+		break;
 	}
+
+	HFONT font = (HFONT) ::GetStockObject(fnObject);
+	return new xFont(font);
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xButton::~xButton()
-{
-
-}
-
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xString xButton::getLabel()
+int xFontMetrics::stringWidth(xString str)
 {
-	int iLength = ::GetWindowTextLength(getHWND());
-	xArray<xchar> buff(iLength);
-	::GetWindowText(getHWND(), buff.getRawData(), buff.size());
+	SIZE strSize;
 	
-	return xString(buff.getRawData(),buff.size());
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xButton::setLabel(xString label)
-{
-	::SetWindowText(getHWND(),label.c_str());
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xButton::processActionEvent(xActionEvent& e)
-{	
-	smartPtr<xIterator> iter = m_actionListeners.iterator();
-	while(iter->hasNext())
+	if(::GetTextExtentPoint32(
+		m_deviceContext,		  // handle to DC
+		str.c_str(),				// text string
+		(int) str.size(),					// characters in string
+		&strSize				 // string size
+		) == 0)
 	{
-		xActionListener* l = dynamic_cast<xActionListener*>(&(iter->next()));
-		assert(l != NULL);
-		switch(e.getID())
-		{
-		case XWE_ACTION_PERFORMED:		l->actionPerformed(e);		break;
-		default:						assert(false);				break;
-		}
-	}
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-LRESULT xButton::windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
-{
-	switch (uMsg)
-	{
-	case WM_COMMAND:
-		xActionEvent ev(this,XWE_ACTION_PERFORMED,getActionCommand());
-		processActionEvent(ev);
-		break ;
+		throw xSystemException(_T("GetTextExtentPoint32 Failed"),GetLastError());
 	}
 	
-	return 0;
+	//this is an empiric value that trye to fit the best size
+	return strSize.cx - (str.size() * 2.3) + 5;
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+int xFontMetrics::charWidth(xchar ch)
+{
+	SIZE strSize;
+	if(::GetTextExtentPoint32(
+		m_deviceContext,		  // handle to DC
+		&ch,				// text string
+		1,					// characters in string
+		&strSize				 // string size
+		) == 0)
+	{
+		throw xSystemException(_T("GetTextExtentPoint32 Failed"),GetLastError());
+	}
+
+	return strSize.cx;
 }
 
 
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+int xFontMetrics::getAscent()
+{
+	TEXTMETRIC met;
+	if(::GetTextMetrics(
+		m_deviceContext,   // handle to DC
+		&met			   // text metrics
+		) == 0)
+	{
+		throw xSystemException(_T("GetTextMetrics Failed"),GetLastError());
+	}
+	
+	return met.tmAscent;
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+int xFontMetrics::getDescent()
+{
+	TEXTMETRIC met;
+	if(::GetTextMetrics(
+		m_deviceContext,   // handle to DC
+		&met			   // text metrics
+		) == 0)
+	{
+		throw xSystemException(_T("GetTextMetrics Failed"),GetLastError());
+	}
+
+	return met.tmDescent;
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+int xFontMetrics::getHeight()
+{
+	TEXTMETRIC met;
+	if(::GetTextMetrics(
+		m_deviceContext,   // handle to DC
+		&met			   // text metrics
+		) == 0)
+	{
+		throw xSystemException(_T("GetTextMetrics Failed"),GetLastError());
+	}
+
+	return met.tmHeight;
+}
 
 
 }//namespace
