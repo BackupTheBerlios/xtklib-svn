@@ -61,7 +61,7 @@ public:
 /**
  * 
  */
-class XTKAPI xLogRecord : public xObject
+class XTKAPI xLogRecord : public virtual xObject
 {
 private:
 	xLogLevel::Level	m_level;
@@ -194,7 +194,7 @@ public:
 /**
  * A Formatter provides support for formatting xLogRecords.
  */
-class XTKAPI xLogFormatter : public xObject
+class XTKAPI xLogFormatter : public virtual xObject
 {
 public:
 	virtual ~xLogFormatter(){}
@@ -221,7 +221,7 @@ public:
  * Handle the log records coming from a xLogger organize them in a specified
  * format and sends the resulting data to an output.
  */
-class XTKAPI xLogHandler : public xObject,public xOwnership
+class XTKAPI xLogHandler : public virtual xObject,public xOwnership
 {
 private:
 	xLogLevel::Level	m_level;
@@ -320,7 +320,7 @@ public:
 /**
  * A class for logging messages. Thread Safe.
  */
-class XTKAPI xLogger : public xObject,public xOwnership
+class XTKAPI xLogger : public virtual xObject,public xOwnership
 {
 
 private:

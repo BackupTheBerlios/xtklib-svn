@@ -57,10 +57,10 @@ namespace xtk
 * It uses shared resources, so you should not care about the order of deletion of various
 * objects.
 */
-class XTKAPI xTriggerableEvent : public xObject
+class XTKAPI xTriggerableEvent : public virtual xObject
 {
 private:
-	class xTriggerableEventData : public xObject
+	class xTriggerableEventData : public virtual xObject
 	{
 	public:
 		#ifdef XTK_OS_WINDOWS
@@ -275,7 +275,7 @@ public:
  * A thread group represents a set of threads. Only attached threads will be
  * added.
  */
-class XTKAPI xThreadGroup : public xObject
+class XTKAPI xThreadGroup : public virtual xObject
 {
 	friend class xThread;
 private:

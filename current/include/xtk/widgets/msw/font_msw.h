@@ -33,7 +33,7 @@ namespace xtk
 /**
 * Defines the interface for the various implementation of class xFont.
 */
-class XTKAPI xFont : public xObject,public xIFont
+class XTKAPI xFont : public virtual xObject,public xIFont
 {
 private:
 	HFONT	m_hFont;
@@ -58,7 +58,7 @@ public:
  * Defines a font metrics object, which encapsulates information 
  * about the rendering of a particular font on a particular device context.
  */
-class xFontMetrics : public xObject,public xIFontMetrics
+class XTKAPI xFontMetrics : public virtual xObject,public xIFontMetrics
 {
 private:
 	HDC		m_deviceContext;

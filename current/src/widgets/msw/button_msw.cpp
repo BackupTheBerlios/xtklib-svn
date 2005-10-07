@@ -39,8 +39,6 @@ namespace xtk
 xButton::xButton(xContainer* parent,xString label,int x,int y,int width,int height)
 	: xWidget(parent)
 {
-	m_actionListeners.rescindOwnership();
-	
 	if(x == XTK_DEFAULT_WIDGET_POSITION)
 	
 		x = 0;
@@ -56,7 +54,7 @@ xButton::xButton(xContainer* parent,xString label,int x,int y,int width,int heig
 	assert(hwnd != NULL);
 
 	//set the user data of the window to the current window object
-	::SetWindowLongPtr(hwnd,GWL_USERDATA,(LONG_PTR) this);
+	::SetWindowLongPtr(hwnd,GWL_USERDATA,(LONG_PTR)(xWidget*) this);
 	setHWND(hwnd);
 	
 	//set font to default system font
@@ -105,32 +103,20 @@ void xButton::setLabel(xString label)
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xButton::processActionEvent(xActionEvent& e)
-{	
-	smartPtr<xIterator> iter = m_actionListeners.iterator();
-	while(iter->hasNext())
-	{
-		xActionListener* l = dynamic_cast<xActionListener*>(&(iter->next()));
-		assert(l != NULL);
-		switch(e.getID())
-		{
-		case XWE_ACTION_PERFORMED:		l->actionPerformed(e);		break;
-		default:						assert(false);				break;
-		}
-	}
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
 LRESULT xButton::windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
 	switch (uMsg)
 	{
 	case WM_COMMAND:
-		xActionEvent ev(this,XWE_ACTION_PERFORMED,getActionCommand());
-		processActionEvent(ev);
-		break ;
+		switch(HIWORD(wParam))
+		{
+			case BN_CLICKED:
+				xActionEvent ev(this,XWE_ACTION_PERFORMED,getActionCommand());
+				processActionEvent(ev);
+				break ;
+			//should manage other events(maybe focus events)?
+		}
+		break;
 	}
 	
 	return 0;

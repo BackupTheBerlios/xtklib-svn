@@ -240,7 +240,7 @@ public:
 /**
 * The xBoolean class wraps a value of the primitive type bool in an object.
 */
-class XTKAPI xBoolean : public xObject
+class XTKAPI xBoolean : public virtual xObject
 {
 protected:
 	bool		m_value;

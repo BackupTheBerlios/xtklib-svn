@@ -32,7 +32,7 @@ namespace xtk
 /**
  * The root class from which all event state objects shall be derived.
  */
-class XTKAPI xEvent : public xObject
+class XTKAPI xEvent : public virtual xObject
 {
 protected:
 	xObject* m_source;

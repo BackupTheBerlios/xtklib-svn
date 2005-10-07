@@ -23,6 +23,7 @@
 #define XTK_BUTTON_H
 
 #include "../globals.h"
+#include "widgeteventgenerator.h"
 #include "widget.h"
 
 #ifdef XTK_USE_WIDGETS
@@ -32,28 +33,13 @@ namespace xtk
 /**
  * Defines the prototype for the various implementation of class xButton.
  */
-class XTKAPI xIButton
+class XTKAPI xIButton : public xMouseEventGenerator,public xActionEventGenerator
 {
 protected:
 	xIButton(){}
 	
 public:
 	virtual ~xIButton(){}
-
-	/**
-	 * Adds the specified action listener to receive action events from this button.
-	 */
-	virtual void addActionListener(YOUROWNERSHIP xActionListener* l) = 0;
-	
-	/**
-	 * Returns the command name of the action event fired by this button.
-	 */
-	virtual xString getActionCommand() = 0;
-		
-	/**
-	 * Returns an array of all the action listeners registered on this button.
-	 */
-	virtual xArray<NODELETE xActionListener*> getActionListeners() = 0;
 	
 	/**
 	 * Gets the label of this button.
@@ -61,26 +47,9 @@ public:
 	virtual xString getLabel() = 0;
 	
 	/**
-	 * Removes the specified action listener so that it no longer receives action events from this button.
-	 */	
-	virtual void removeActionListener(xActionListener& l) = 0;
-	
-	/**
-	 * Sets the command name for the action event fired by this button.
-	 */
-	virtual void setActionCommand(xString command) = 0;
-	
-	/**
 	 * Sets the button's label to be the specified string.
 	 */
 	virtual void setLabel(xString label) = 0;
-	
-protected:
-
-	/**
-	 * Processes action events occurring on this button by dispatching them to any registered ActionListener objects.
-	 */
-	virtual void processActionEvent(xActionEvent& e) = 0;
 };
 
 }//namespace

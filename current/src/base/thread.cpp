@@ -90,7 +90,7 @@ xThread::~xThread()
 	void* xThread::Execute(void* arg)
 	{
 		pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-		xThread* t = static_cast<xThread*>(arg);
+		xThread* t = dynamic_cast<xThread*>(arg);
 		t->threadStarted();
 
 		t->threadRunning();

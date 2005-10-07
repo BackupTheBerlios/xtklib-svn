@@ -37,10 +37,10 @@ namespace xtk
  * If you manually edit a preferences file will be preserved the header comment
  * the order of the params and the comment immediately up the params.
  */
-class XTKAPI xPreferences : public xObject,public xOwnership
+class XTKAPI xPreferences : public virtual xObject,public xOwnership
 {
 private:
-	class xPrefParam : public xObject
+	class xPrefParam : public virtual xObject
 	{
 	public:
 		enum ParamType

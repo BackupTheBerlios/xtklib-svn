@@ -106,6 +106,9 @@
 				RelativePath=".\src\widgets\widgetevent.cpp">
 			</File>
 			<File
+				RelativePath=".\src\widgets\widgeteventgenerator.cpp">
+			</File>
+			<File
 				RelativePath=".\src\widgets\widgets_private.h">
 			</File>
 			<Filter
@@ -157,6 +160,9 @@
 				RelativePath=".\include\xtk\widgets\widgetevent.h">
 			</File>
 			<File
+				RelativePath=".\include\xtk\widgets\widgeteventgenerator.h">
+			</File>
+			<File
 				RelativePath=".\include\xtk\widgets\widgetlisteners.h">
 			</File>
 			<File
@@ -182,9 +188,6 @@
 				</File>
 				<File
 					RelativePath=".\include\xtk\widgets\msw\widget_msw.h">
-				</File>
-				<File
-					RelativePath=".\include\xtk\widgets\msw\widgets_msw_private.h">
 				</File>
 				<File
 					RelativePath=".\include\xtk\widgets\msw\window_msw.h">

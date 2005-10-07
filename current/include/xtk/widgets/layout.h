@@ -32,7 +32,7 @@ namespace xtk
 /**
  * Tag class for all layout constraints class
  */
-class XTKAPI xConstraint : public xObject
+class XTKAPI xConstraint : public virtual xObject
 {
 public:
 	virtual ~xConstraint(){}
@@ -43,12 +43,12 @@ public:
 /**
 * Defines the interface for classes that know how to lay out xContainers.
 */
-class XTKAPI xLayoutManager : public xObject
+class XTKAPI xLayoutManager : public virtual xObject
 {
 friend class xBoxConstraintComparator;
 protected:
 
-	class xComponentWithConstraint : public xObject
+	class xComponentWithConstraint : public virtual xObject
 	{
 	public:
 		xWidget*		m_component;
@@ -89,7 +89,7 @@ protected:
 		xObject& o = m_components.getByObject(cc);
 		if(o.isNull())
 			return;
-		xComponentWithConstraint* cc2 = static_cast<xComponentWithConstraint*>(&o);
+		xComponentWithConstraint* cc2 = dynamic_cast<xComponentWithConstraint*>(&o);
 		cc2->m_constraint = co;
 	}
 	

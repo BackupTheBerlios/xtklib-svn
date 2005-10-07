@@ -100,7 +100,7 @@ protected:
  * A comparison function, which imposes a total ordering on two objects.
  */
 template<class TClass>
-class xComparator : public xObject
+class xComparator : public virtual xObject
 {
 public:
 	virtual ~xComparator(){}

@@ -73,7 +73,7 @@ protected:
 /**
  * Defines the interface for the various implementation of class xFontMetrics.
  */
-class xIFontMetrics
+class XTKAPI xIFontMetrics
 {
 protected:
 	xIFontMetrics(){}

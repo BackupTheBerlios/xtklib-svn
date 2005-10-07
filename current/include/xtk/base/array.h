@@ -47,10 +47,10 @@ namespace xtk
  * resizing or copying.
  */
 template <class TClass>
-class xArray : public xObject
+class xArray : public virtual xObject
 {
 private:
-	class xArrayData : public xObject
+	class xArrayData : public virtual xObject
 	{
 	public:
 		TClass*			m_array;

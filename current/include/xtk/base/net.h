@@ -41,7 +41,7 @@ namespace xtk
 /**
  * This is the superclass for all Internet addresses representations
  */
-class XTKAPI xInetAddress : public xObject
+class XTKAPI xInetAddress : public virtual xObject
 {
 public:
 	virtual ~xInetAddress(){}
@@ -170,7 +170,7 @@ public:
 /** 
 * @brief This class implements client sockets
 */
-class XTKAPI xSocket : public xObject
+class XTKAPI xSocket : public virtual xObject
 {
 friend class xServerSocket;
 friend class xSocketInputStream;
@@ -329,7 +329,7 @@ class XTKAPI xDatagramSocket
 * If you want to use this class you must call the static xSocket::start() 
 * function before, and the xSocket::end() function after the use.
 */
-class XTKAPI xServerSocket : public xObject
+class XTKAPI xServerSocket : public virtual xObject
 {
 private:
     bool m_closed;

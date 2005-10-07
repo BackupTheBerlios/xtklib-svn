@@ -28,20 +28,7 @@
 namespace xtk
 {
 
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-LRESULT CALLBACK xFrameWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
-{
-	void* ptr = (void*)::GetWindowLongPtr(hwnd,GWL_USERDATA);
-	if(ptr != NULL)
-	{
-		xFrame* frame = static_cast<xFrame*>(ptr);
-		return frame->windowProcedure(hwnd,uMsg,wParam,lParam);
-	}
-	else
-		return DefWindowProc(hwnd,uMsg,wParam,lParam);
-}
+extern LRESULT CALLBACK xContainerWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -52,8 +39,8 @@ xFrame::xFrame(xString title,int x,int y,int width,int height,xContainer* parent
 	WNDCLASS wclass;
 	if (!::GetClassInfo(xApplication::getHinstance(),XTK_MSW_FRAME_CLASS_NAME,&wclass))
 	{	
-		wclass.style         = CS_HREDRAW | CS_VREDRAW;
-		wclass.lpfnWndProc   = (WNDPROC)xFrameWindowProcedure;
+		wclass.style         = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
+		wclass.lpfnWndProc   = (WNDPROC)xContainerWindowProcedure;
 		wclass.cbClsExtra    = 0;
 		wclass.cbWndExtra    = 0;
 		wclass.hInstance	 = xApplication::getHinstance();
@@ -69,10 +56,11 @@ xFrame::xFrame(xString title,int x,int y,int width,int height,xContainer* parent
 		NULL,NULL,xApplication::getHinstance(),NULL);
 	
 	//set the user data of the window to the current window object
-	::SetWindowLongPtr(hwnd,GWL_USERDATA,(LONG_PTR) this);
+	::SetWindowLongPtr(hwnd,GWL_USERDATA,(LONG_PTR)(xWidget*)this);
 		
 	assert(hwnd != NULL);
-	setHWND(hwnd); 
+	setHWND(hwnd);
+	 
 	m_resizable = true;
 }
 
@@ -94,42 +82,6 @@ void xFrame::setTitle(xString title)
 		getHWND(),			// handle of window or control
 		title.c_str() 		// address of string
 		);
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-LRESULT xFrame::windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
-{
-	HDC         hdc ;
-	PAINTSTRUCT ps ;
-	RECT        rect ;
-
-	switch(uMsg)
-	{
-	case WM_COMMAND:
-		{
-		void* ptr = (void*)::GetWindowLongPtr((HWND)lParam,GWL_USERDATA);
-		xWidget* widg = static_cast<xWidget*>(ptr);
-		if(widg != this)
-			widg->windowProcedure(hwnd,uMsg,wParam,lParam);
-		}
-		break;
-	case WM_NCDESTROY:
-		delete this;
-		break;
-	case WM_DESTROY:
-		if(getDefaultCloseAction() == XTK_EXIT_ON_CLOSE)
-		{
-			PostQuitMessage(0);
-			return 0;
-		}
-		else if(getDefaultCloseAction() == XTK_HIDE_ON_CLOSE)
-			setVisible(false);
-		break;
-	}
-
-	return ::DefWindowProc(hwnd,uMsg,wParam,lParam);
 }
 
 

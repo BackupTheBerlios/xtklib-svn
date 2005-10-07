@@ -63,39 +63,7 @@ public:
 	};
 
 	virtual ~xIWidget(){}
-	
-	/** 
-	 * Adds the specified component listener to receive component events from 
-	 * this component.
-	 */
-	virtual void addComponentListener(YOUROWNERSHIP xComponentListener* l) = 0;
 
-	/**
-	 * Adds the specified focus listener to receive focus events from this
-	 * component when this component gains input focus.
-	 */
-	virtual void addFocusListener(YOUROWNERSHIP xFocusListener* l) = 0;
-
-	
-	/**
-	 * Adds the specified key listener to receive key events from this component.
-	 */
-	virtual void addKeyListener(YOUROWNERSHIP xKeyListener* l) = 0;
-
-	
-	/**
-	 * Adds the specified mouse listener to receive mouse events from this component.
-	 */
-	virtual void addMouseListener(YOUROWNERSHIP xMouseListener* l) = 0;
-
-		
-	/**
-	 * Adds the specified mouse motion listener to receive mouse motion events from 
-	 * this component.
-	 */
-	virtual void addMouseMotionListener(YOUROWNERSHIP xMouseMotionListener* l) = 0;
-
-		
 	/*  ???
 	 * Adds the specified mouse wheel listener to receive mouse wheel events from this 
 	 * component.
@@ -146,11 +114,6 @@ public:
 	 */
 	virtual NODELETE xWidget* getComponentAt(int x, int y) = 0;
 		
-	/**
-	 * Returns an array of all the component listeners registered on this component.
-	 */
-	virtual xArray<NODELETE xComponentListener*> getComponentListeners() = 0;
-		
 	/* ???
 	Cursor 	getCursor()
 	Gets the cursor set in the component.
@@ -160,11 +123,6 @@ public:
 	Returns the Container which is the focus cycle root of this Component's focus traversal cycle.
 	*/
 		
-		
-	/**
-	 * Returns an array of all the focus listeners registered on this component.
-	 */
-	virtual xArray<NODELETE xFocusListener*> getFocusListeners() = 0;
 		
 	/* ??
 	Set 	getFocusTraversalKeys(int id)
@@ -215,11 +173,6 @@ public:
 	virtual bool getIgnoreRepaint() = 0;
 		
 	/**
-	 * Returns an array of all the key listeners registered on this component.
-	 */
-	virtual xArray<NODELETE xKeyListener*> getKeyListeners() = 0;
-		
-	/**
 	 * Gets the location of this component in the form of a point specifying the component's 
 	 * top-left corner.
 	 */
@@ -237,16 +190,6 @@ public:
 	Dimension 	getMinimumSize()
 	Gets the minimum size of this component.
 	*/
-	
-	/**
-	 * Returns an array of all the mouse listeners registered on this component.
-	 */
-	virtual xArray<NODELETE xMouseListener*> getMouseListeners() = 0;
-	
-	/**
-	 * Returns an array of all the mouse motion listeners registered on this component.
-	 */
-	virtual xArray<NODELETE xMouseMotionListener*> getMouseMotionListeners() = 0;
 	
 	/**
 	 * Gets the parent of this widget.
@@ -329,33 +272,6 @@ public:
 	//virtual void list(xWriter& out, int indent) = 0;
 		
 	/**
-	 * Removes the specified component listener so that it no longer receives component events 
-	 * from this component.
-	 */
-	virtual void removeComponentListener(xComponentListener& l) = 0;
-	
-	/**
-	 * Removes the specified focus listener so that it no longer receives focus events from this component.
-	 */
-	virtual void removeFocusListener(xFocusListener& l) = 0;
-	
-	/**
-	 * Removes the specified key listener so that it no longer receives key events from this component.
-	 */
-	virtual void removeKeyListener(xKeyListener& l) = 0;
-	
-	/**
-	 * Removes the specified mouse listener so that it no longer receives mouse events from this component.
-	 */
-	virtual void removeMouseListener(xMouseListener& l) = 0;
-	
-	/**
-	 * Removes the specified mouse motion listener so that it no longer receives mouse motion events 
-	 * from this component.
-	 */
-	virtual void removeMouseMotionListener(xMouseMotionListener& l) = 0;
-		
-	/**
 	 * Requests that this Widget get the input focus, and that this Widget's 
 	 * top-level ancestor become the focused Window.
 	 */
@@ -433,36 +349,6 @@ public:
 	 * Ensures that this component has a valid layout.
 	 */
 	virtual void validate() = 0;
-	
-protected:
-
-	/**
-	 * Processes component events occurring on this component by dispatching 
-	 * them to any registered WidgetListener objects.
-	 */
-	virtual void processComponentEvent(xComponentEvent& e) = 0;
-
-	/**
-	 * Processes focus events occurring on this component by dispatching them to
-	 * any registered FocusListener objects.
-	 */
-	virtual void processFocusEvent(xFocusEvent& e) = 0;
-	
-	/**
-	 * Processes key events occurring on this component by dispatching them to any registered KeyListener objects.
-	 */
-	virtual void processKeyEvent(xKeyEvent& e) = 0;
-	
-	/**
-	 * Processes mouse events occurring on this component by dispatching them to any registered MouseListener objects.
-	 */
-	virtual void processMouseEvent(xMouseEvent& e) = 0;
-	
-	/**
-	 * Processes mouse motion events occurring on this component by dispatching them to any 
-	 * registered MouseMotionListener objects.
-	 */
-	virtual void processMouseMotionEvent(xMouseEvent& e) = 0;
 };
 
 

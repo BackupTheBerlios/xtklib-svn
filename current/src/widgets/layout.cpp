@@ -36,8 +36,8 @@ public:
 
 	virtual int compare(xLayoutManager::xComponentWithConstraint* o1,xLayoutManager::xComponentWithConstraint* o2)
 	{
-		xBoxConstraint* c1 = static_cast<xBoxConstraint*>(o1->m_constraint);
-		xBoxConstraint* c2 = static_cast<xBoxConstraint*>(o2->m_constraint);
+		xBoxConstraint* c1 = dynamic_cast<xBoxConstraint*>(o1->m_constraint);
+		xBoxConstraint* c2 = dynamic_cast<xBoxConstraint*>(o2->m_constraint);
 		
 		if(c1->m_place < c2->m_place)
 			return -1;
@@ -63,7 +63,7 @@ void xBoxLayout::doLayout(xDimension& parentClientAreaSize)
 		//calculate total weight
 		int totWeight = 0;
 		for(int i = 0; i < components.size();i++)
-			totWeight += (static_cast<xBoxConstraint*>(components[i]->m_constraint))->m_weight;
+			totWeight += (dynamic_cast<xBoxConstraint*>(components[i]->m_constraint))->m_weight;
 			
 		//calculate the size to give to 1 weight
 		int weightSize = parentClientAreaSize.getWidth() / totWeight;
@@ -78,7 +78,7 @@ void xBoxLayout::doLayout(xDimension& parentClientAreaSize)
 		{
 			int x,y,width,height;
 			x=y=width=height = 0;
-			xBoxConstraint* cnstr = static_cast<xBoxConstraint*>(components[i]->m_constraint);
+			xBoxConstraint* cnstr = dynamic_cast<xBoxConstraint*>(components[i]->m_constraint);
 			
 			switch(cnstr->m_fill)
 			{
@@ -152,7 +152,7 @@ void xBoxLayout::doLayout(xDimension& parentClientAreaSize)
 		//calculate total weight
 		int totWeight = 0;
 		for(int i = 0; i < components.size();i++)
-			totWeight += static_cast<xBoxConstraint*>(components[i]->m_constraint)->m_weight;
+			totWeight += dynamic_cast<xBoxConstraint*>(components[i]->m_constraint)->m_weight;
 
 		//calculate the size to give to 1 weight
 		int weightSize = parentClientAreaSize.getHeight() / totWeight;
@@ -167,7 +167,7 @@ void xBoxLayout::doLayout(xDimension& parentClientAreaSize)
 		{
 			int x,y,width,height;
 			x=y=width=height = 0;
-			xBoxConstraint* cnstr = static_cast<xBoxConstraint*>(components[i]->m_constraint);
+			xBoxConstraint* cnstr = dynamic_cast<xBoxConstraint*>(components[i]->m_constraint);
 
 			switch(cnstr->m_fill)
 			{
@@ -230,7 +230,7 @@ void xBoxLayout::doLayout(xDimension& parentClientAreaSize)
 				break;
 			}
 			
-			assignedWeight += cnstr->m_weight * weightSize;
+			assignedWeight += cnstr->m_weight;
 			components[i]->m_component->setBounds(x,y,width,height);
 		}
 	}

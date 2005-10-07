@@ -34,7 +34,7 @@ namespace xtk
  * The default version of this class use the "Tausworthe
    generator".
  */
-class XTKAPI xRandom : public xObject
+class XTKAPI xRandom : public virtual xObject
 {
 private:
 	int m_seed1;

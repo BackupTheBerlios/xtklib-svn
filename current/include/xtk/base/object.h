@@ -217,7 +217,7 @@ public:
 /**
  * A class for representing a NULL object
  */
-class XTKAPI xNullObject : public xObject
+class XTKAPI xNullObject : public virtual xObject
 {
 private:
 	xNullObject(){}
@@ -276,32 +276,16 @@ public:
 	*/
 
 	inline void* operator new(size_t size,const char* file,int line)
-	{
-		//for disable warnings
-		file = 0;
-		line = 0;
-
-		return malloc(size);
-	}
+	{return xtk::xtk_malloc(size);}
 
 	inline void operator delete( void* obj )
-	{
-		free(obj);
-	}
+	{xtk::xtk_free(obj);}
 
 	inline void* operator new[](size_t size,const char* file,int line)
-	{
-		//for disable warnings
-		file = 0;
-		line = 0;
-
-		return malloc(size);;
-	}
+	{return xtk::xtk_malloc(size);}
 
 	inline void operator delete[]( void* obj )
-	{
-		free(obj);
-	}
+	{xtk::xtk_free(obj);}
 #endif
 
 

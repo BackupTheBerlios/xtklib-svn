@@ -89,7 +89,7 @@ public:
  * sequence of bytes in a specific charset. This class is available only with
  * the flag XTK_USE_UNICODE defined.
  */
-class XTKAPI xCharsetEncoder : public xObject
+class XTKAPI xCharsetEncoder : public virtual xObject
 {
 private:
 	xCharset::Charset	m_charset;
@@ -141,7 +141,7 @@ public:
  * a sequence of wide Unicode characters.This class is available only with
  * the flag XTK_USE_UNICODE defined.
  */
-class XTKAPI xCharsetDecoder : public xObject
+class XTKAPI xCharsetDecoder : public virtual xObject
 {
 private:
 	xCharset::Charset	m_charset;

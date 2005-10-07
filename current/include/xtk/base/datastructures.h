@@ -39,11 +39,11 @@ namespace xtk
 /**
  * An iterator over a collection.
  * 
- * @warning Iterators in xtklib are not guaranteed to be coerent with the underling data
+ * @warning Iterators in xtklib are not guaranteed to be coherent with the underling data
  * structure if concurrent modifications occurs none exceptions are risen. This control 
  * is left to user.
  */
-class XTKAPI xIterator : virtual public xObject
+class XTKAPI xIterator : public virtual xObject
 {
 public:
 	/**
@@ -112,7 +112,7 @@ public:
 /**
  * Represents a collection of elements.
  */
-class XTKAPI xCollection : virtual public xObject,public xOwnership
+class XTKAPI xCollection : public virtual xObject,public xOwnership
 {
 public:
 	/**
@@ -213,7 +213,7 @@ public:
  * each key can map to at most one value. Key objects are unconditional ownership 
  * of the xMap object.
  */
-class XTKAPI xMap : public xObject,public xOwnership
+class XTKAPI xMap : public virtual xObject,public xOwnership
 {
 public:
 	/**
@@ -294,7 +294,7 @@ class XTKAPI xLinkedList : public xList
 {
 private:
 
-	struct Node : public xObject
+	struct Node : public virtual xObject
 	{
 		Node*			next;
 		Node*			previous;
@@ -527,7 +527,7 @@ public:
 class XTKAPI xAvlMap : public xMap
 {
 private:
-	struct Node : public xObject
+	struct Node : public virtual xObject
 	{
 		Node*			left;
 		Node*			right;

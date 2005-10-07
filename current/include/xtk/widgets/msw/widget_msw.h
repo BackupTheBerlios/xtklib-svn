@@ -34,16 +34,10 @@ namespace xtk
  * Note that all children of the window will be deleted automatically by 
  * the destructor before the window itself is deleted.
 */
-class XTKAPI xWidget : public xObject,public xIWidget
+class XTKAPI xWidget : public virtual xObject,public xIWidget
 {
 private:
 	static xObject	s_guiMutex;
-
-	xLinkedList		m_componentListeners;
-	xLinkedList		m_focusListeners;
-	xLinkedList		m_keyListeners;
-	xLinkedList		m_mouseListeners;
-	xLinkedList		m_mouseMotionListeners;
 	xContainer*		m_parent;
 	
 	//In MSW all principal widgets are windows
@@ -64,22 +58,6 @@ protected:
 public:
 	virtual ~xWidget();
 	
-
-	virtual void addComponentListener(YOUROWNERSHIP xComponentListener* l)
-	{m_componentListeners.add(l);}
-
-	virtual void addFocusListener(YOUROWNERSHIP xFocusListener* l)
-	{m_focusListeners.add(l);}
-
-	virtual void addKeyListener(YOUROWNERSHIP xKeyListener* l)
-	{m_keyListeners.add(l);}
-
-	virtual void addMouseListener(YOUROWNERSHIP xMouseListener* l)
-	{m_mouseListeners.add(l);}
-
-	virtual void addMouseMotionListener(YOUROWNERSHIP xMouseMotionListener* l)
-	{m_mouseMotionListeners.add(l);}
-	
 	virtual bool contains(int x, int y)
 	{	
 		return 
@@ -88,38 +66,8 @@ public:
 	}
 	
 	virtual void doLayout(){}
-	
-	virtual xArray<NODELETE xComponentListener*> getComponentListeners()
-	{return m_componentListeners.toArray().castTo<xComponentListener*>();}
-	
-	virtual xArray<NODELETE xFocusListener*> getFocusListeners()
-	{return m_focusListeners.toArray().castTo<xFocusListener*>();}
-	
-	virtual xArray<NODELETE xKeyListener*> getKeyListeners()
-	{return m_keyListeners.toArray().castTo<xKeyListener*>();}
-	
-	virtual xArray<NODELETE xMouseListener*> getMouseListeners()
-	{return m_mouseListeners.toArray().castTo<xMouseListener*>();}
-	
-	virtual xArray<NODELETE xMouseMotionListener*> getMouseMotionListeners()
-	{return m_mouseMotionListeners.toArray().castTo<xMouseMotionListener*>();}
 
 	virtual NODELETE xContainer* getParent(){return m_parent;}
-	
-	virtual void removeComponentListener(xComponentListener& l)
-	{m_componentListeners.removeObject(l);}
-
-	virtual void removeFocusListener(xFocusListener& l)
-	{m_focusListeners.removeObject(l);}
-
-	virtual void removeKeyListener(xKeyListener& l)
-	{m_keyListeners.removeObject(l);}
-
-	virtual void removeMouseListener(xMouseListener& l)
-	{m_mouseListeners.removeObject(l);}
-
-	virtual void removeMouseMotionListener(xMouseMotionListener& l)
-	{m_mouseMotionListeners.removeObject(l);}
 	
 	virtual void setBounds(xRectangle& r)
 	{
@@ -168,13 +116,6 @@ public:
 	
 	virtual LRESULT windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 	{return ::DefWindowProc(hwnd,uMsg,wParam,lParam);}
-	
-protected:
-	virtual void processComponentEvent(xComponentEvent& e);
-	virtual void processFocusEvent(xFocusEvent& e);
-	virtual void processKeyEvent(xKeyEvent& e);
-	virtual void processMouseEvent(xMouseEvent& e);
-	virtual void processMouseMotionEvent(xMouseEvent& e);
 };
 
 

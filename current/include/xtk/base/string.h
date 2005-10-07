@@ -323,7 +323,7 @@ public:
 /**
  * The string tokenizer class allows to break a string into tokens.
  */
-class XTKAPI xStringTokenizer : public xObject
+class XTKAPI xStringTokenizer : public virtual xObject
 {
 protected:
 	xString		m_str;

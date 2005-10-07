@@ -34,8 +34,8 @@ namespace xtk
  */
 class XTKAPI xWidgetListener : public virtual xObject
 {
-public:
-	virtual ~xWidgetListener(){}
+protected:
+	xWidgetListener(){}
 };
 
 

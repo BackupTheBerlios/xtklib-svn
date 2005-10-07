@@ -32,14 +32,34 @@ namespace xtk
 
 /**
 * A component that can contain other components.
+* 
+* @ramarks xContainer class and subclasses does not sends "mouseClicked"
+* (other mouse events are handled normally).
 */
 class XTKAPI xContainer : public xIContainer,public xWidget
 {
-private:
-	xLinkedList			m_containerListeners;
 protected:
 	xHashMap			m_components;
-	xLayoutManager&		m_layout;
+	xLayoutManager*		m_layout;
+	
+	int getModifiers(WPARAM wParam);
+	virtual LRESULT onLButtonPressed(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onMButtonPressed(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onRButtonPressed(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onLButtonReleased(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onMButtonReleased(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onRButtonReleased(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onLButtonDBLClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onMButtonDBLClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onRButtonDBLClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onNCDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT forwardToChild(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	/*
+	virtual LRESULT onLButtonClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onMButtonClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onRButtonClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	*/
 
 	MYOWNERSHIP xWidget* getChildByHandle(HWND hWnd);
 	virtual void removeChild(xWidget& comp);
@@ -48,31 +68,23 @@ protected:
 	xContainer(xContainer* parent, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS));
 public:
 	virtual ~xContainer();
-
-	virtual void addContainerListener(YOUROWNERSHIP xContainerListener* l)
-	{m_containerListeners.add(l);}
-	
-	virtual xArray<NODELETE xContainerListener*> getContainerListeners()
-	{return m_containerListeners.toArray().castTo<xContainerListener*>();}
 	
 	virtual xLayoutManager& getLayout()
-	{return m_layout;}
-	
-	virtual void removeContainerListener(xContainerListener& l)
-	{m_containerListeners.removeObject(l);}
+	{return *m_layout;}
 	
 	virtual void setLayout(MYOWNERSHIP xLayoutManager* mgr)
 	{
 		assert(mgr != NULL);
 		mgr->addComponents(getComponents());
-		delete &m_layout;
-		m_layout = *mgr;
+		delete m_layout;
+		m_layout = mgr;
 	}
 	
 	virtual void doLayout();
 	virtual int getComponentCount(){return m_components.size();}
 	virtual xArray<MYOWNERSHIP xWidget*> getComponents();
 	virtual bool isAncestorOf(xWidget& c);
+	virtual LRESULT windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 };
 
 

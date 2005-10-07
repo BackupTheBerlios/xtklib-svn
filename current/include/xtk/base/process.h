@@ -42,7 +42,7 @@ namespace xtk
  * The xProcess class is not insatiable directly,but can be obtained 
  * from the static methods execute(...).
  */
-class XTKAPI xProcess : public xObject
+class XTKAPI xProcess : public virtual xObject
 {
 	friend class xProcessWaitThread;
 private:

@@ -24,6 +24,7 @@
 
 #include "../globals.h"
 #include "widget.h"
+#include "widgeteventgenerator.h"
 #include "layout.h"
 
 #ifdef XTK_USE_WIDGETS
@@ -34,7 +35,7 @@ namespace xtk
 /**
  * Defines the interface for the various implementation of class xContainer.
  */
-class XTKAPI xIContainer
+class XTKAPI xIContainer : public xMouseEventGenerator
 {
 protected:
 
@@ -54,11 +55,6 @@ public:
 	virtual void addChild(xWidget* comp) = 0;
 	
 	/**
-	 * Adds the specified container listener to receive container events from this container.
-	 */
-	virtual void addContainerListener(YOUROWNERSHIP xContainerListener* l) = 0;
-	
-	/**
 	 * Gets the number of components in this panel.
 	 */
 	virtual int getComponentCount() = 0;
@@ -67,11 +63,6 @@ public:
 	 * Gets all the components in this container.
 	 */
 	virtual xArray<NODELETE xWidget*> getComponents() = 0;
-	
-	/**
-	 * Returns an array of all the container listeners registered on this container.
-	 */
-	virtual xArray<NODELETE xContainerListener*> getContainerListeners() = 0;
 	
 	/**
 	 * Determines the insets of this container, which indicate the size of the 
@@ -88,11 +79,6 @@ public:
 	 * Checks if the component is contained in the component hierarchy of this container.
 	 */
 	virtual bool isAncestorOf(xWidget& c) = 0;
-		
-	/**
-	 * Removes the specified container listener so it no longer receives container events from this container.
-	 */
-	virtual void removeContainerListener(xContainerListener& l) = 0;
 		
 	/**
 	 * Sets the layout manager for this container.

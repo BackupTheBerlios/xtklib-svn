@@ -33,7 +33,7 @@ namespace xtk
 /**
  * Abstract class for reading character streams.
  */
-class XTKAPI xReader : public xObject
+class XTKAPI xReader : public virtual xObject
 {
 public:
 	virtual ~xReader(){}
@@ -91,7 +91,7 @@ public:
 /**
  * Abstract class for writing to character streams.
  */
-class XTKAPI xWriter : public xObject
+class XTKAPI xWriter : public virtual xObject
 {
 public:
 	virtual ~xWriter(){}

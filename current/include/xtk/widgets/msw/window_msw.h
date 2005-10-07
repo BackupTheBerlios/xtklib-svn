@@ -35,25 +35,17 @@ namespace xtk
 class XTKAPI xWindow : public xIWindow,public xContainer
 {
 private:
-	xLinkedList		m_windowListeners;
 	CloseAction		m_closeAction;
 	
 protected:
+	virtual LRESULT onDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+
 	xWindow(xContainer* parent, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS))
 	: xContainer(parent,layout)
-	{m_windowListeners.rescindOwnership();m_closeAction = XTK_DESTROY_ON_CLOSE;}
+	{m_closeAction = XTK_DESTROY_ON_CLOSE;}
+	
 public:
 	virtual ~xWindow(){}
-
-	virtual void addWindowListener(YOUROWNERSHIP xWindowListener* l)
-	{m_windowListeners.add(l);}
-
-	virtual xArray<NODELETE xWindowListener*> getWindowListeners()
-	{return m_windowListeners.toArray().castTo<xWindowListener*>();}
-	
-	virtual void removeWindowListener(xWindowListener& l)
-	{m_windowListeners.removeObject(l);}
-	
 
 	virtual void setDefaultCloseAction(CloseAction caction)
 	{m_closeAction = caction;}
@@ -64,8 +56,6 @@ public:
 	virtual bool isActive();
 	virtual void toBack();
 	virtual void toFront();
-protected:
-	virtual void processWindowEvent(xWindowEvent& e);
 };
 
 

@@ -70,27 +70,17 @@ void xWindow::toFront()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xWindow::processWindowEvent(xWindowEvent& e)
-{	
-	smartPtr<xIterator> iter = m_windowListeners.iterator();
-	while(iter->hasNext())
+LRESULT xWindow::onDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+{
+	if(getDefaultCloseAction() == XTK_EXIT_ON_CLOSE)
 	{
-		xWindowListener* l = dynamic_cast<xWindowListener*>(&(iter->next()));
-		assert(l != NULL);
-		switch(e.getID())
-		{
-		case XWE_WINDOW_ACTIVATED:		l->windowActivated(e);		break;
-		case XWE_WINDOW_CLOSED:			l->windowClosed(e);			break;
-		case XWE_WINDOW_CLOSING:		l->windowClosing(e);		break;
-		case XWE_WINDOW_DEACTIVATED:	l->windowDeactivated(e);	break;
-		case XWE_WINDOW_DEICONIFIED:	l->windowDeiconified(e);	break;
-		case XWE_WINDOW_FIRST:			l->windowFirst(e);			break;
-		case XWE_WINDOW_ICONIFIED:		l->windowIconified(e);		break;
-		case XWE_WINDOW_LAST:			l->windowLast(e);			break;
-		case XWE_WINDOW_OPENED:			l->windowOpened(e);			break;
-		default:						assert(false);				break;
-		}
+		PostQuitMessage(0);
+		return 0;
 	}
+	else if(getDefaultCloseAction() == XTK_HIDE_ON_CLOSE)
+		setVisible(false);
+		
+	return ::DefWindowProc(hwnd,uMsg,wParam,lParam);
 }
 	
 }//namspace

@@ -50,7 +50,6 @@ public:
 	virtual bool isResizable(){return m_resizable;}
 	virtual void setResizable(bool resizable){m_resizable = resizable;}
 	virtual void setTitle(xString title);
-	virtual LRESULT windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 };
 
 

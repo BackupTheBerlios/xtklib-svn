@@ -61,11 +61,6 @@ bool xtkProcessNextUIMessage()
 //##############################################################################
 xWidget::xWidget(xContainer* parent) : xIWidget(parent)
 {
-	m_componentListeners.rescindOwnership();
-	m_focusListeners.rescindOwnership();
-	m_keyListeners.rescindOwnership();
-	m_mouseListeners.rescindOwnership();
-	m_mouseMotionListeners.rescindOwnership();
 	m_parent = parent;
 	m_hWidget = NULL;
 	if(parent != NULL)
@@ -94,7 +89,7 @@ xColor* xWidget::getBackground()
 xRectangle* xWidget::getBounds()
 {
 	RECT rect;
-	::GetWindowRect(getHWND(),&rect);
+	::GetClientRect(getHWND(),&rect);
 
 	return new xRectangle(rect.left,rect.top,rect.right - rect.left,rect.bottom - rect.top);
 }
@@ -138,7 +133,7 @@ xColor* xWidget::getForeground()
 int xWidget::getHeight()
 {
 	RECT rect;
-	::GetWindowRect(getHWND(),&rect);
+	::GetClientRect(getHWND(),&rect);
 
 	return rect.bottom - rect.top;
 }
@@ -157,7 +152,7 @@ bool xWidget::getIgnoreRepaint()
 xPoint* xWidget::getLocation()
 {
 	RECT rect;
-	::GetWindowRect(getHWND(),&rect);
+	::GetClientRect(getHWND(),&rect);
 
 	return new xPoint(rect.left,rect.top);
 }
@@ -184,7 +179,7 @@ xPoint* xWidget::getLocationOnScreen()
 xDimension* xWidget::getSize()
 {
 	RECT rect;
-	::GetWindowRect(getHWND(),&rect);
+	::GetClientRect(getHWND(),&rect);
 
 	return new xDimension(rect.right - rect.left,rect.bottom - rect.top);
 }
@@ -195,7 +190,7 @@ xDimension* xWidget::getSize()
 int xWidget::getWidth()
 {
 	RECT rect;
-	::GetWindowRect(getHWND(),&rect);
+	::GetClientRect(getHWND(),&rect);
 
 	return rect.right - rect.left;
 }
@@ -206,7 +201,7 @@ int xWidget::getWidth()
 int xWidget::getX()
 {
 	RECT rect;
-	::GetWindowRect(getHWND(),&rect);
+	::GetClientRect(getHWND(),&rect);
 
 	return rect.left;
 }
@@ -217,7 +212,7 @@ int xWidget::getX()
 int xWidget::getY()
 {
 	RECT rect;
-	::GetWindowRect(getHWND(),&rect);
+	::GetClientRect(getHWND(),&rect);
 
 	return rect.top;
 }
@@ -378,107 +373,6 @@ void xWidget::setVisible(boolean b)
 void xWidget::validate()
 {
 	::ValidateRect(getHWND(),NULL);
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidget::processComponentEvent(xComponentEvent& e)
-{
-	smartPtr<xIterator> iter = m_componentListeners.iterator();
-	while(iter->hasNext())
-	{
-		xComponentListener* l = dynamic_cast<xComponentListener*>(&(iter->next()));
-		assert(l != NULL);
-		switch(e.getID())
-		{
-		case XWE_COMPONENT_HIDDEN:		l->componentHidden(e);	break;
-		case XWE_COMPONENT_MOVED:		l->componentMoved(e);	break;
-		case XWE_COMPONENT_RESIZED:		l->componentResized(e); break;
-		case XWE_COMPONENT_SHOWN:		l->componentShown(e);	break;
-		default:						assert(false);			break;
-		}
-	}
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidget::processFocusEvent(xFocusEvent& e)
-{
-	smartPtr<xIterator> iter = m_focusListeners.iterator();
-	while(iter->hasNext())
-	{
-		xFocusListener* l = dynamic_cast<xFocusListener*>(&(iter->next()));
-		assert(l != NULL);
-		switch(e.getID())
-		{
-		case XWE_FOCUS_GAINED:		l->focusGained(e);	break;
-		case XWE_FOCUS_LOST:		l->focusLost(e);	break;
-		default:					assert(false);		break;
-		}
-	}
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidget::processKeyEvent(xKeyEvent& e)
-{
-	smartPtr<xIterator> iter = m_keyListeners.iterator();
-	while(iter->hasNext())
-	{
-		xKeyListener* l = dynamic_cast<xKeyListener*>(&(iter->next()));
-		assert(l != NULL);
-		switch(e.getID())
-		{
-		case XWE_KEY_PRESSED:		l->keyPressed(e);	break;
-		case XWE_KEY_RELEASED:		l->keyReleased(e);	break;
-		case XWE_KEY_TYPED:			l->keyTyped(e);		break;
-		default:					assert(false);		break;
-		}
-	}
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidget::processMouseEvent(xMouseEvent& e)
-{
-	smartPtr<xIterator> iter = m_mouseListeners.iterator();
-	while(iter->hasNext())
-	{
-		xMouseListener* l = dynamic_cast<xMouseListener*>(&(iter->next()));
-		assert(l != NULL);
-		switch(e.getID())
-		{
-		case XWE_MOUSE_CLICKED:			l->mouseClicked(e);			break;
-		case XWE_MOUSE_DOUBLECLICKED:	l->mouseDoubleClicked(e);	break;
-		case XWE_MOUSE_PRESSED:			l->mousePressed(e);			break;
-		case XWE_MOUSE_RELEASED:		l->mouseReleased(e);		break;
-		default:						assert(false);				break;
-		}
-	}
-}
-
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidget::processMouseMotionEvent(xMouseEvent& e) 
-{
-	smartPtr<xIterator> iter = m_mouseMotionListeners.iterator();
-	while(iter->hasNext())
-	{
-		xMouseMotionListener* l = dynamic_cast<xMouseMotionListener*>(&(iter->next()));
-		assert(l != NULL);
-		switch(e.getID())
-		{
-		case XWE_MOUSE_MOVED:			l->mouseMoved(e);		break;
-		case XWE_MOUSE_DRAGGED:			l->mouseDragged(e);		break;
-		default:						assert(false);			break;
-		}
-	}
 }
 
 }//namespace

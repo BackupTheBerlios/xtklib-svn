@@ -43,7 +43,7 @@ namespace xtk
 * function that record the performance after a given number of iterations.
 * A lower time value is the result of a faster code.
 */ 
-class XTKAPI xProfiler : public xObject
+class XTKAPI xProfiler : public virtual xObject
 {
 protected:
 	clock_t startTicks;
@@ -159,7 +159,7 @@ public:
  * A class for execute unit testing. For using it you must inherit it in yor class
  * and override the virtual function doTest(), here you must insert all your test code.
  */
-class XTKAPI xTest : public xObject
+class XTKAPI xTest : public virtual xObject
 {
 protected:
 	int m_testNumber;

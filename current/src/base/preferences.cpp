@@ -137,7 +137,7 @@ void xPreferences::setInt(xString paramName,int value)
 	xObject& o = m_params.get(paramName);
 	if(!o.isNull())
 	{
-		xPrefParam* p = static_cast<xPrefParam*>(&o);
+		xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 		if(p->value != NULL)
 			delete p->value;
 		p->type = xPrefParam::INT;
@@ -162,7 +162,7 @@ void xPreferences::setString(xString paramName,xString value)
 	xObject& o = m_params.get(paramName);
 	if(!o.isNull())
 	{
-		xPrefParam* p = static_cast<xPrefParam*>(&o);
+		xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 		if(p->value != NULL)
 			delete p->value;
 		p->type = xPrefParam::STRING;
@@ -188,7 +188,7 @@ void xPreferences::setBool(xString paramName,bool value)
 	xObject& o = m_params.get(paramName);
 	if(!o.isNull())
 	{
-		xPrefParam* p = static_cast<xPrefParam*>(&o);
+		xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 		if(p->value != NULL)
 			delete p->value;
 		p->type = xPrefParam::BOOLEAN;
@@ -213,7 +213,7 @@ void xPreferences::setFloat(xString paramName,float value)
 	xObject& o = m_params.get(paramName);
 	if(!o.isNull())
 	{
-		xPrefParam* p = static_cast<xPrefParam*>(&o);
+		xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 		if(p->value != NULL)
 			delete p->value;
 		p->type = xPrefParam::FLOAT;
@@ -240,7 +240,7 @@ int xPreferences::getInt(xString paramName,int def) throw(xDataFormatException)
 	if(o.isNull())
 		return def;
 	
-	xPrefParam* p = static_cast<xPrefParam*>(&o);
+	xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 	if(p->type != xPrefParam::INT)
 		throw xDataFormatException();
 	
@@ -257,7 +257,7 @@ xString xPreferences::getString(xString paramName,xString def) throw(xDataFormat
 	if(o.isNull())
 		return def;
 
-	xPrefParam* p = static_cast<xPrefParam*>(&o);
+	xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 	if(p->type != xPrefParam::STRING)
 		throw xDataFormatException();
 
@@ -273,7 +273,7 @@ bool xPreferences::getBool(xString paramName,bool def) throw(xDataFormatExceptio
 	if(o.isNull())
 		return def;
 
-	xPrefParam* p = static_cast<xPrefParam*>(&o);
+	xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 	if(p->type != xPrefParam::BOOLEAN)
 		throw xDataFormatException();
 
@@ -289,7 +289,7 @@ float xPreferences::getFloat(xString paramName,float def) throw(xDataFormatExcep
 	if(o.isNull())
 		return def;
 
-	xPrefParam* p = static_cast<xPrefParam*>(&o);
+	xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 	if(p->type != xPrefParam::FLOAT)
 		throw xDataFormatException();
 
@@ -306,7 +306,7 @@ void xPreferences::setComment(xString paramName,xString comment)
 	if(o.isNull())
 		return;
 
-	xPrefParam* p = static_cast<xPrefParam*>(&o);
+	xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 	if(p->comment != NULL)
 		delete p->comment;
 	
@@ -322,7 +322,7 @@ bool xPreferences::hasComment(xString paramName)
 	if(o.isNull())
 		return false;
 		
-	xPrefParam* p = static_cast<xPrefParam*>(&o);
+	xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 	return p->comment != NULL;
 
 }
@@ -336,7 +336,7 @@ xString xPreferences::getComment(xString paramName) throw(xNotAvailableDataExcep
 	if(o.isNull())
 		throw xNotAvailableDataException();
 
-	xPrefParam* p = static_cast<xPrefParam*>(&o);
+	xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 	if(p->comment == NULL)
 		throw xNotAvailableDataException();
 		
@@ -352,7 +352,7 @@ int xPreferences::getOrder(xString paramName) throw(xNotAvailableDataException)
 	if(o.isNull())
 		throw xNotAvailableDataException();
 
-	xPrefParam* p = static_cast<xPrefParam*>(&o);
+	xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 	return p->paramOrder;
 }
 
@@ -365,7 +365,7 @@ void xPreferences::setOrder(xString paramName,int ord)
 	if(o.isNull())
 		return;
 
-	xPrefParam* p = static_cast<xPrefParam*>(&o);
+	xPrefParam* p = dynamic_cast<xPrefParam*>(&o);
 	p->paramOrder = ord;
 }
 

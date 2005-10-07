@@ -70,7 +70,7 @@ int xFontMetrics::stringWidth(xString str)
 	}
 	
 	//this is an empiric value that trye to fit the best size
-	return strSize.cx - (str.size() * 2.3) + 5;
+	return strSize.cx - (int)(str.size() * 2.3) + 5;
 }
 
 //##############################################################################

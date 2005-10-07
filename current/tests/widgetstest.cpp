@@ -25,15 +25,19 @@
 #include "../include/xtk/widgets.h"
 using namespace xtk;
 
-class xWidgetsTest : public xTest
+class xWidgetsTest : public xTest,public xActionListener,public xMouseListener
 {
 private:
 	virtual void doTest()
 	{
 		xFrame* frame = new xFrame(_T("Frame title"));
+		frame->setLayout(new xBoxLayout(xBoxLayout::Y_AXIS));
 		frame->setDefaultCloseAction(xWindow::XTK_EXIT_ON_CLOSE);
 		frame->setVisible(true);
+		frame->addMouseListener(this);
+		
 		xButton* butt = new xButton(frame,_T("|"));
+		butt->addActionListener(this);
 		xButton* butt2 = new xButton(frame,_T("13"),103,0);
 		xButton* butt3 = new xButton(frame,_T("aaaaaa"),103,0);
 		//butt2->setLabel(_T("Hello"));
@@ -45,6 +49,24 @@ private:
 
 public:
 	xWidgetsTest() : xTest("Widgets Test"){}
+	
+	virtual void actionPerformed(xActionEvent& e)
+	{
+		xSystem::getStdout().write(_T("Button 1 activated\n"));
+	}
+	
+	virtual void mousePressed(xMouseEvent& ev)
+	{
+		xSystem::getStdout().write(_T("Mouse button pressed\n"));
+	}
+	
+	virtual void mouseReleased(xMouseEvent& ev)
+	{
+		xSystem::getStdout().write(_T("Mouse button released\n"));
+	}
+	
+	virtual void mouseDoubleClicked(xMouseEvent& ev)
+	{
+		xSystem::getStdout().write(_T("Mouse button double clicked\n"));
+	}
 };
-
-

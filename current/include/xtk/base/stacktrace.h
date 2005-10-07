@@ -33,7 +33,7 @@ namespace xtk
 /**
  * Represent a single stack frame.
  */
-class XTKAPI xStackFrame : public xObject
+class XTKAPI xStackFrame : public virtual xObject
 {
 friend class xStackFrameInternal;
 friend class xStackTrace;
@@ -67,7 +67,7 @@ public:
  * Contains methods for manipulation of the stack.
  * This class works correctly only on Windows+VC and Unix+RecentLibc+GCC.
  */
-class XTKAPI xStackTrace : public xObject
+class XTKAPI xStackTrace : public virtual xObject
 {
 private:
 	xStackTrace(){}

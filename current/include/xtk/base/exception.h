@@ -46,7 +46,7 @@ class xWriter;
 /**
  * @brief The superclass for all exceptions in xtklib
  */
-class XTKAPI xException : public xObject
+class XTKAPI xException : public virtual xObject
 {
 protected:
 	xString					m_description;

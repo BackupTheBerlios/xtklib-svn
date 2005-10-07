@@ -52,26 +52,11 @@ public:
 	};
 	
 	virtual ~xIWindow(){}
-	
-	/**
-	 * Adds the specified window listener to receive window events from this window.
-	 */
-	virtual void addWindowListener(YOUROWNERSHIP xWindowListener* l) = 0;
-		
-	/**
-	 * 
-	 */
-	virtual xArray<NODELETE xWindowListener*> getWindowListeners() = 0;
-		
+
 	/**
 	 * Returns whether this Window is active.
 	 */
 	virtual bool isActive() = 0;
-		
-	/**
-	 * Removes the specified window listener so that it no longer receives window events from this window.
-	 */	
-	virtual void removeWindowListener(xWindowListener& l) = 0;
 		
 	/**
 	 * If this Window is visible, sends this Window to the back and may cause it to lose focus or activation if it is the focused or active Window.
@@ -92,12 +77,6 @@ public:
 	* 
 	*/
 	virtual CloseAction getDefaultCloseAction() = 0;
-protected:
-	
-	/**
-	 * 
-	 */
-	virtual void processWindowEvent(xWindowEvent& e) = 0;
 };
 
 }//namespace
