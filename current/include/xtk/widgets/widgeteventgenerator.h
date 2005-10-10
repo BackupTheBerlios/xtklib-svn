@@ -112,7 +112,33 @@ public:
 };
 
 
+/**
+* A class able to send xFocusEvent events.
+*/
+class XTKAPI xFocusEventGenerator : public virtual xWidgetEventGenerator
+{
+private:
+	xLinkedList		m_focusListeners;
 
+protected:
+	xFocusEventGenerator(){m_focusListeners.rescindOwnership();}
+
+	virtual void processFocusEvent(xFocusEvent& e);
+public:
+	virtual ~xFocusEventGenerator(){}
+
+	/**
+	* Adds the specified mouse listener to receive mouse events from this generator.
+	*/
+	virtual void addFocusListener(YOUROWNERSHIP xFocusListener* l)
+	{m_focusListeners.add(l);}
+
+	virtual xArray<NODELETE xFocusListener*> getFocusListeners()
+	{return m_focusListeners.toArray().castTo<xFocusListener*>();}
+
+	virtual void removeFocusListener(xFocusListener& l)
+	{m_focusListeners.removeObject(l);}
+};
 
 }//namespace
 

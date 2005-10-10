@@ -28,19 +28,19 @@
 namespace xtk
 {
 
-extern LRESULT CALLBACK xContainerWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+extern LRESULT CALLBACK xWidgetWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xFrame::xFrame(xString title,int x,int y,int width,int height,xContainer* parent, xLayoutManager* layout)
+xFrame::xFrame(xString title,int x,int y,int width,int height,xWidget* parent, xLayoutManager* layout)
 : xWindow(parent,layout),m_title(title)
 {	
 	WNDCLASS wclass;
 	if (!::GetClassInfo(xApplication::getHinstance(),XTK_MSW_FRAME_CLASS_NAME,&wclass))
 	{	
 		wclass.style         = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
-		wclass.lpfnWndProc   = (WNDPROC)xContainerWindowProcedure;
+		wclass.lpfnWndProc   = (WNDPROC)xWidgetWindowProcedure;
 		wclass.cbClsExtra    = 0;
 		wclass.cbWndExtra    = 0;
 		wclass.hInstance	 = xApplication::getHinstance();

@@ -25,6 +25,7 @@
 #include "../globals.h"
 #include "widgetevent.h"
 #include "widgetlisteners.h"
+#include "widgeteventgenerator.h"
 #include "font.h"
 #include "../base/color.h"
 #include "../base/geometry.h"
@@ -49,12 +50,12 @@ XTKAPI bool xtkProcessNextUIMessage();
 /**
  * Defines the interface for the various implementation of class xWidget.
  */
-class XTKAPI xIWidget
+class XTKAPI xIWidget : public xMouseEventGenerator
 {
 protected:
 	
 	 
-	xIWidget(xContainer* parent){}
+	xIWidget(xWidget* parent){}
 public:
 	enum Defaults
 	{
@@ -192,9 +193,9 @@ public:
 	*/
 	
 	/**
-	 * Gets the parent of this widget.
+	 * Gets the parent of this widget.NULL if there are no parent.
 	 */
-	virtual NODELETE xContainer* getParent() = 0;
+	virtual NODELETE xWidget* getParent() = 0;
 		
 	/**
 	 * Returns the size of this component in the form of a Dimension object.

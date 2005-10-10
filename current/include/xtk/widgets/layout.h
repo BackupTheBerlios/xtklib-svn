@@ -90,6 +90,8 @@ protected:
 		if(o.isNull())
 			return;
 		xComponentWithConstraint* cc2 = dynamic_cast<xComponentWithConstraint*>(&o);
+		if(cc2->m_constraint != NULL)
+			delete cc2->m_constraint;
 		cc2->m_constraint = co;
 	}
 	

@@ -127,7 +127,13 @@
 					RelativePath=".\src\widgets\msw\frame_msw.cpp">
 				</File>
 				<File
+					RelativePath=".\src\widgets\msw\panel_msw.cpp">
+				</File>
+				<File
 					RelativePath=".\src\widgets\msw\widget_msw.cpp">
+				</File>
+				<File
+					RelativePath=".\src\widgets\msw\widgets_msw_private.h">
 				</File>
 				<File
 					RelativePath=".\src\widgets\msw\window_msw.cpp">
@@ -152,6 +158,9 @@
 			</File>
 			<File
 				RelativePath=".\include\xtk\widgets\layout.h">
+			</File>
+			<File
+				RelativePath=".\include\xtk\widgets\panel.h">
 			</File>
 			<File
 				RelativePath=".\include\xtk\widgets\widget.h">
@@ -185,6 +194,9 @@
 				</File>
 				<File
 					RelativePath=".\include\xtk\widgets\msw\frame_msw.h">
+				</File>
+				<File
+					RelativePath=".\include\xtk\widgets\msw\panel_msw.h">
 				</File>
 				<File
 					RelativePath=".\include\xtk\widgets\msw\widget_msw.h">

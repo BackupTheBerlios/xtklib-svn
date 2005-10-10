@@ -25,21 +25,27 @@
 #include "../include/xtk/widgets.h"
 using namespace xtk;
 
-class xWidgetsTest : public xTest,public xActionListener,public xMouseListener
+class xWidgetsTest : public xTest,public xActionListener,public xMouseListener,public xFocusListener
 {
 private:
 	virtual void doTest()
 	{
 		xFrame* frame = new xFrame(_T("Frame title"));
-		frame->setLayout(new xBoxLayout(xBoxLayout::Y_AXIS));
+		//frame->setLayout(new xBoxLayout(xBoxLayout::Y_AXIS));
 		frame->setDefaultCloseAction(xWindow::XTK_EXIT_ON_CLOSE);
 		frame->setVisible(true);
 		frame->addMouseListener(this);
 		
-		xButton* butt = new xButton(frame,_T("|"));
+		xPanel* panel1 = new xPanel(frame,xPanel::BORDER_TITLED,_T("This is a panel"));
+		frame->getLayout().setConstraints(*panel1,new xBoxConstraint(1,1,xBoxConstraint::FILL_BOTH));
+		xPanel* panel2 = new xPanel(frame,xPanel::BORDER_TITLED,_T("This is a panel2"));
+		frame->getLayout().setConstraints(*panel2,new xBoxConstraint(2,1,xBoxConstraint::FILL_BOTH));
+		
+		xButton* butt = new xButton(panel1,_T("|"));
 		butt->addActionListener(this);
-		xButton* butt2 = new xButton(frame,_T("13"),103,0);
-		xButton* butt3 = new xButton(frame,_T("aaaaaa"),103,0);
+		butt->addFocusListener(this);
+		xButton* butt2 = new xButton(panel1,_T("13"),103,0);
+		xButton* butt3 = new xButton(panel1,_T("aaaaaa"),103,0);
 		//butt2->setLabel(_T("Hello"));
 		frame->setSize(500,500);
 		frame->doLayout();
@@ -68,5 +74,10 @@ public:
 	virtual void mouseDoubleClicked(xMouseEvent& ev)
 	{
 		xSystem::getStdout().write(_T("Mouse button double clicked\n"));
+	}
+	
+	virtual void focusGained(xFocusEvent& e)
+	{
+		xSystem::getStdout().write(_T("Button focus gained\n"));
 	}
 };

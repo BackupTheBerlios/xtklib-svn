@@ -40,7 +40,7 @@ private:
 protected:
 	virtual LRESULT onDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 
-	xWindow(xContainer* parent, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS))
+	xWindow(xWidget* parent, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS))
 	: xContainer(parent,layout)
 	{m_closeAction = XTK_DESTROY_ON_CLOSE;}
 	

@@ -71,7 +71,7 @@
 //*/
 
 //Add Memory checking support,this will be effect only in debug mode
-/* <- Add/remove one '/' to/from the beginning of line to comment/uncomment the block
+//* <- Add/remove one '/' to/from the beginning of line to comment/uncomment the block
 #ifndef XTK_USE_MEMCHECK
 	#define XTK_USE_MEMCHECK
 #endif

@@ -42,19 +42,6 @@ protected:
 	xHashMap			m_components;
 	xLayoutManager*		m_layout;
 	
-	int getModifiers(WPARAM wParam);
-	virtual LRESULT onLButtonPressed(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onMButtonPressed(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onRButtonPressed(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onLButtonReleased(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onMButtonReleased(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onRButtonReleased(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onLButtonDBLClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onMButtonDBLClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onRButtonDBLClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onNCDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT forwardToChild(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	/*
 	virtual LRESULT onLButtonClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	virtual LRESULT onMButtonClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
@@ -65,7 +52,7 @@ protected:
 	virtual void removeChild(xWidget& comp);
 	virtual void addChild(xWidget* comp);
 	
-	xContainer(xContainer* parent, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS));
+	xContainer(xWidget* parent, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS));
 public:
 	virtual ~xContainer();
 	
@@ -84,7 +71,6 @@ public:
 	virtual int getComponentCount(){return m_components.size();}
 	virtual xArray<MYOWNERSHIP xWidget*> getComponents();
 	virtual bool isAncestorOf(xWidget& c);
-	virtual LRESULT windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 };
 
 

@@ -72,6 +72,30 @@ void xActionEventGenerator::processActionEvent(xActionEvent& e)
 	}
 }
 
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xFocusEventGenerator::processFocusEvent(xFocusEvent& e)
+{
+	if(m_focusListeners.isEmpty())
+		return;
+
+	smartPtr<xIterator> iter = m_focusListeners.iterator();
+	while(iter->hasNext())
+	{
+		xFocusListener* l = dynamic_cast<xFocusListener*>(&(iter->next()));
+		assert(l != NULL);
+		switch(e.getID())
+		{
+		case XWE_FOCUS_GAINED:			l->focusGained(e);		break;
+		case XWE_FOCUS_LOST:			l->focusLost(e);		break;
+		default:						assert(false);			break;
+		}
+	}
+}
+
+
+
 
 }//namespace
 

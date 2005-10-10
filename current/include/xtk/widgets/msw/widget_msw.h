@@ -38,12 +38,29 @@ class XTKAPI xWidget : public virtual xObject,public xIWidget
 {
 private:
 	static xObject	s_guiMutex;
-	xContainer*		m_parent;
+	xWidget*		m_parent;
 	
 	//In MSW all principal widgets are windows
 	HWND			m_hWidget;
 
 protected:
+	int getModifiers(WPARAM wParam);
+	virtual LRESULT onLButtonPressed(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onMButtonPressed(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onRButtonPressed(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onLButtonReleased(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onMButtonReleased(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onRButtonReleased(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onLButtonDBLClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onMButtonDBLClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onRButtonDBLClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onNCDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onCommand(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onSetFocus(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onKillFocus(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	
 	/**
 	 * 
 	 */
@@ -54,7 +71,7 @@ protected:
 	 */
 	void setHWND(HWND hWnd){m_hWidget = hWnd;}
 	
-	xWidget(xContainer* parent);
+	xWidget(xWidget* parent);
 public:
 	virtual ~xWidget();
 	
@@ -67,12 +84,11 @@ public:
 	
 	virtual void doLayout(){}
 
-	virtual NODELETE xContainer* getParent(){return m_parent;}
+	virtual NODELETE xWidget* getParent()
+	{return m_parent;}
 	
 	virtual void setBounds(xRectangle& r)
-	{
-		setBounds(r.getX(),r.getY(),r.getWidth(),r.getHeight());
-	}
+	{setBounds(r.getX(),r.getY(),r.getWidth(),r.getHeight());}
 	
 	HWND getHWND(){return m_hWidget;}
 	//! @todo to implement (MSW)
@@ -114,8 +130,7 @@ public:
 	virtual void setVisible(boolean b);
 	virtual void validate();
 	
-	virtual LRESULT windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
-	{return ::DefWindowProc(hwnd,uMsg,wParam,lParam);}
+	virtual LRESULT windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 };
 
 

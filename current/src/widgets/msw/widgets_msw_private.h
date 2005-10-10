@@ -36,7 +36,7 @@ namespace xtk
  *
  */
 #define XTK_MSW_FRAME_CLASS_NAME _T("xFrame")
-
+#define XTK_MSW_PANEL_NOBORDER_CLASS_NAME _T("xPanelNoBorder")
 
 /*
 * A wrapper class around MSW HWND type

@@ -35,7 +35,7 @@ namespace xtk
 /**
  * Defines the interface for the various implementation of class xContainer.
  */
-class XTKAPI xIContainer : public xMouseEventGenerator
+class XTKAPI xIContainer
 {
 protected:
 

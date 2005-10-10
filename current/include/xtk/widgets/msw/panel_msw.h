@@ -15,12 +15,12 @@
 */
 
 /**
-* @file button_msw.h
+* @file panel_msw.h
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#ifndef XTK_BUTTON_MSW_H
-#define XTK_BUTTON_MSW_H
+#ifndef XTK_PANEL_MSW_H
+#define XTK_PANEL_MSW_H
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
@@ -31,26 +31,24 @@ namespace xtk
 
 
 /**
-* This class creates a labeled button
+* A panel is a widget used to organize and group other widgets
 */
-class XTKAPI xButton : public xWidget,public xIButton
+class XTKAPI xPanel : public xContainer,public xIPanel
 {
 private:
 	WNDPROC m_baseWndProc;
+	Border	m_border;
 	
 protected:
-	virtual LRESULT onSetFocus(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onKillFocus(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onCommand(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	virtual LRESULT onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	
+
 public:
-	xButton(xContainer* parent,xString label = _T(""),int x = XTK_DEFAULT_WIDGET_POSITION,
+	xPanel(xContainer* parent,xPanel::Border border,xString label = _T(""),int x = XTK_DEFAULT_WIDGET_POSITION,
 		int y = XTK_DEFAULT_WIDGET_POSITION,int width = XTK_DEFAULT_WIDGET_SIZE,
 		int height = XTK_DEFAULT_WIDGET_SIZE);
-		
-	virtual ~xButton();
-	
+
+	virtual ~xPanel();
+
 	virtual xString getLabel();
 	virtual void setLabel(xString label);
 };

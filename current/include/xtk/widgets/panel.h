@@ -15,52 +15,60 @@
 */
 
 /**
-* @file button.h
+* @file panel.h
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#ifndef XTK_BUTTON_H
-#define XTK_BUTTON_H
+#ifndef XTK_PANEL_H
+#define XTK_PANEL_H
 
 #include "../globals.h"
 #include "widgeteventgenerator.h"
 #include "widget.h"
+#include "../base/string.h"
 
 #ifdef XTK_USE_WIDGETS
 namespace xtk
 {
 
 /**
- * Defines the prototype for the various implementation of class xButton.
- */
-class XTKAPI xIButton : public xActionEventGenerator,public xFocusEventGenerator
+* Defines the prototype for the various implementation of class xPanel.
+*/
+class XTKAPI xIPanel
 {
 protected:
-	xIButton(){}
-	
+	xIPanel(){}
+
 public:
-	virtual ~xIButton(){}
-	
+	enum Border
+	{
+		BORDER_TITLED,
+		BORDER_NONE
+	};
+
+	virtual ~xIPanel(){}
+
 	/**
-	 * Gets the label of this button.
-	 */
+	* Gets the label of this panel.
+	*/
 	virtual xString getLabel() = 0;
-	
+
 	/**
-	 * Sets the button's label to be the specified string.
-	 */
+	* Sets the button's label to be the specified string.
+	*/
 	virtual void setLabel(xString label) = 0;
 };
+
 
 }//namespace
 
 //select include file
 #ifdef XTK_GUI_MSW
-	#include "msw/button_msw.h"
+	#include "msw/panel_msw.h"
 #elif defined(XTK_GUI_GTK2)
-	#include "gtk2/button_gtk2.h"
+	#include "gtk2/panel_gtk2.h"
 #endif
 
 #endif //XTK_USE_WIDGETS
 
-#endif //XTK_BUTTON_H
+#endif //XTK_PANEL_H

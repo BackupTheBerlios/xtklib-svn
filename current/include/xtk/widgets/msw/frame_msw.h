@@ -41,7 +41,7 @@ private:
 public:
 	xFrame(xString title,int x = XTK_DEFAULT_WIDGET_POSITION,int y = XTK_DEFAULT_WIDGET_POSITION,
 		int width = XTK_DEFAULT_WIDGET_SIZE,int height = XTK_DEFAULT_WIDGET_SIZE,
-		xContainer* parent = NULL, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS));
+		xWidget* parent = NULL, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS));
 	
 	virtual ~xFrame();
 
