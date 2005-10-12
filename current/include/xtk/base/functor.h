@@ -15,24 +15,30 @@
 */
 
 /**
-* @file widgets.h
+* @file functor.h
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#ifndef XTK_WIDGETS_H
-#define XTK_WIDGETS_H
+#ifndef XTK_FUNCTOR_H
+#define XTK_FUNCTOR_H
 
-#include "globals.h"
-#include "widgets/widget.h"
-#include "widgets/container.h"
-#include "widgets/window.h"
-#include "widgets/frame.h"
-#include "widgets/font.h"
-#include "widgets/layout.h"
-#include "widgets/widgetevent.h"
-#include "widgets/widgeteventhandler.h"
-#include "widgets/button.h"
-#include "widgets/panel.h"
-#include "widgets/label.h"
+#include "../globals.h"
 
-#endif //XTK_WIDGETS_H
+namespace xtk
+{
+
+/**
+* Functors are objects used to encapsulate C++ function pointers, xFunctor is just 
+* a tagging class for all functors.
+*/
+class XTKAPI xFunctor : public virtual xObject
+{
+protected:
+	xFunctor(){}
+public:
+	virtual ~xFunctor(){}
+};
+
+
+}//namespace
+#endif //XTK_FUNCTOR_H

@@ -27,22 +27,25 @@
 #include "../base/datastructures.h"
 #include "container.h"
 #include "widgetevent.h"
-#include "widgetlisteners.h"
 
 #ifdef XTK_USE_WIDGETS
 
 namespace xtk
 {
 
+class xWindowInternal;
 
 /**
- * Defines the interface for the various implementation of class xWindow.
+ * A xWindow object is a top-level window.
  */
-class XTKAPI xIWindow
+class XTKAPI xWindow : public xContainer
 {
+private:
+	xWindowInternal* m_internal;
+	
 protected:
-
-	xIWindow(){}
+	xWindow(xWidget* parent,xLayoutManager* layout,xWindowInternal* i);
+	
 public:
 	enum CloseAction
 	{
@@ -51,43 +54,35 @@ public:
 		XTK_HIDE_ON_CLOSE
 	};
 	
-	virtual ~xIWindow(){}
+	virtual ~xWindow();
 
 	/**
 	 * Returns whether this Window is active.
 	 */
-	virtual bool isActive() = 0;
+	virtual bool isActive();
 		
 	/**
 	 * If this Window is visible, sends this Window to the back and may cause it to lose focus or activation if it is the focused or active Window.
 	 */
-	virtual void toBack() = 0;
+	virtual void toBack();
 		
 	/**
 	 * If this Window is visible, brings this Window to the front and may make it the focused Window.
 	 */
-	virtual void toFront() = 0;
+	virtual void toFront();
 	
 	/**
 	 * 
 	 */
-	virtual void setDefaultCloseAction(CloseAction caction) = 0;
+	virtual void setDefaultCloseAction(CloseAction caction);
 	
 	/**
 	* 
 	*/
-	virtual CloseAction getDefaultCloseAction() = 0;
+	virtual CloseAction getDefaultCloseAction();
 };
 
 }//namespace
-
-
-//select include file
-#ifdef XTK_GUI_MSW
-	#include "msw/window_msw.h"
-#elif defined(XTK_GUI_GTK2)
-	#include "gtk2/window_gtk2.h"
-#endif
 
 #endif //XTK_USE_WIDGETS
 

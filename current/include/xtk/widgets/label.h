@@ -15,49 +15,56 @@
 */
 
 /**
-* @file panel_msw.h
+* @file label.h
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#ifndef XTK_PANEL_MSW_H
-#define XTK_PANEL_MSW_H
+#ifndef XTK_LABEL_H
+#define XTK_LABEL_H
 
-#if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
+#include "../globals.h"
+#include "widget.h"
+#include "../base/string.h"
 
-#include <Windows.h>
-
+#ifdef XTK_USE_WIDGETS
 namespace xtk
 {
 
+class xLabelInternal;
 
 /**
-* A panel is a widget used to organize and group other widgets
-*/
-class XTKAPI xPanel : public xContainer,public xIPanel
+ * A label is a static widget that cannot interact with the user,used to display texts 
+ * other drawings
+ */
+class XTKAPI xLabel : public xWidget
 {
 private:
-	WNDPROC m_baseWndProc;
-	Border	m_border;
+	xLabelInternal* m_internal;
 	
 protected:
-	virtual LRESULT onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-
+	xLabel(xWidget* parent,xString text,int x,int y ,int width,int height,xLabelInternal* i);
+		
 public:
-	xPanel(xContainer* parent,xPanel::Border border,xString label = _T(""),int x = XTK_DEFAULT_WIDGET_POSITION,
+	xLabel(xWidget* parent,xString text = _T(""),int x = XTK_DEFAULT_WIDGET_POSITION,
 		int y = XTK_DEFAULT_WIDGET_POSITION,int width = XTK_DEFAULT_WIDGET_SIZE,
 		int height = XTK_DEFAULT_WIDGET_SIZE);
+	
+	virtual ~xLabel();
 
-	virtual ~xPanel();
+	/**
+	* Gets the text of this label.
+	*/
+	virtual xString getText();
 
-	virtual xString getLabel();
-	virtual void setLabel(xString label);
+	/**
+	* Set the text of this label.
+	*/
+	virtual void setText(xString label);
 };
-
-
 
 
 }//namespace
 
 #endif //XTK_USE_WIDGETS
 
-#endif //XTK_BUTTON_MSW_H
+#endif //XTK_LABEL_H

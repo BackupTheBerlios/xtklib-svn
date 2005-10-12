@@ -24,7 +24,7 @@
 
 #include "../globals.h"
 #include "widgetevent.h"
-#include "widgetlisteners.h"
+#include "widgeteventhandler.h"
 #include "widgeteventgenerator.h"
 #include "font.h"
 #include "../base/color.h"
@@ -36,8 +36,7 @@ namespace xtk
 {
 
 //forward
-class xWidget;
-class xContainer;
+class xWidgetInternal;
 
 /**
 * Process the next message of the windowing system message or event queue;
@@ -46,16 +45,23 @@ class xContainer;
 */
 XTKAPI bool xtkProcessNextUIMessage();
 
-
 /**
- * Defines the interface for the various implementation of class xWidget.
+ * A widget is the base class for all Gui components.
+ * Note that all children of the window will be deleted automatically by 
+ * the destructor before the window itself is deleted.
  */
-class XTKAPI xIWidget : public xMouseEventGenerator
+class XTKAPI xWidget : public xMouseEventGenerator,public virtual xObject
 {
-protected:
+private:
+	xWidgetInternal*	m_internal;
+	friend class xWidgetInternal;
 	
-	 
-	xIWidget(xWidget* parent){}
+protected:
+	xWidget(xWidget* parent,xWidgetInternal* i);
+	
+	virtual void processEvent(xWidgetEvent& ev);
+	virtual void addEventHandler(MYOWNERSHIP xWidgetEventHandlerBase* evh,xWidgetEventID evmask);
+	virtual void removeEventHandler(xWidgetEventHandlerBase& evh,xWidgetEventID evmask);
 public:
 	enum Defaults
 	{
@@ -63,309 +69,201 @@ public:
 		XTK_DEFAULT_WIDGET_POSITION = -1, 
 	};
 
-	virtual ~xIWidget(){}
+	virtual ~xWidget();
 
-	/*  ???
-	 * Adds the specified mouse wheel listener to receive mouse wheel events from this 
-	 * component.
-	virtual void addMouseWheelListener(xMouseWheelListener* l) = 0;	
-	*/
-		
-	/*   ???
-	void 	applyComponentOrientation(ComponentOrientation orientation)
-	Sets the ComponentOrientation property of this component and all components contained within it.
-	boolean 	areFocusTraversalKeysSet(int id)
-	Returns whether the Set of focus traversal keys for the given focus traversal operation has been explicitly defined for this Component.
-	*/
-	
-	
 	/**
 	 * Checks whether this component "contains" the specified point, 
 	 * where x and y are defined to be relative to the coordinate system of this component.
 	 */
-	virtual bool contains(int x, int y) = 0;
-
+	virtual bool contains(int x, int y);
 	
 	/**
 	 * Prompts the layout manager to lay out this component.
 	 */
-	virtual void doLayout() = 0;
-		
-	
-	/* ???
-	float 	getAlignmentX()
-	Returns the alignment along the x axis.
-	float 	getAlignmentY()
-	Returns the alignment along the y axis.
-	*/
+	virtual void doLayout();
 	
 	/**
 	 * Gets the background color of this component.
 	 */
-	virtual xColor* getBackground() = 0;
+	virtual xColor* getBackground();
 	
 	/**
 	 * Gets the bounds of this component in the form of a Rectangle object.
 	 */
-	virtual xRectangle* getBounds() = 0;
+	virtual xRectangle* getBounds();
 	
 	/**
 	 * Determines if this component or one of its immediate subcomponents 
 	 * contains the (x, y) location, and if so, returns the containing component.
 	 */
-	virtual NODELETE xWidget* getComponentAt(int x, int y) = 0;
-		
-	/* ???
-	Cursor 	getCursor()
-	Gets the cursor set in the component.
-	DropTarget 	getDropTarget()
-	Gets the DropTarget associated with this Component.
-	Container 	getFocusCycleRootAncestor()
-	Returns the Container which is the focus cycle root of this Component's focus traversal cycle.
-	*/
-		
-		
-	/* ??
-	Set 	getFocusTraversalKeys(int id)
-	Returns the Set of focus traversal keys for a given traversal operation for this Component.
-	boolean 	getFocusTraversalKeysEnabled()
-	Returns whether focus traversal keys are enabled for this Component.
-	boolean 	getFocusTraversalKeysEnabled()
-	Returns whether focus traversal keys are enabled for this Component.
-	*/
+	virtual MYOWNERSHIP xWidget* getComponentAt(int x, int y);
 	
 	/**
 	 * Gets the font of this component.
 	 */	
-	virtual xFont* getFont() = 0;
+	virtual xFont* getFont();
 	
 	/**
 	* Gets the font of this component.
 	*/	
-	virtual xFontMetrics* getFontMetrics() = 0;
+	virtual xFontMetrics* getFontMetrics();
 	
 	/**
 	 * Gets the foreground color of this component.
 	 */
-	virtual xColor* getForeground() = 0;
-	
-	/* ???
-	xGraphics getGraphics()
-	Creates a graphics context for this component.
-	GraphicsConfiguration 	getGraphicsConfiguration()
-	Gets the GraphicsConfiguration associated with this Component.
-	*/
+	virtual xColor* getForeground();
 	
 	/**
 	 * Returns the current height of this component.
 	 */
-	virtual int getHeight() = 0;
+	virtual int getHeight();
 	
-	/* ??
-	HierarchyBoundsListener[] 	getHierarchyBoundsListeners()
-	Returns an array of all the hierarchy bounds listeners registered on this component.
-	HierarchyListener[] 	getHierarchyListeners()
-	Returns an array of all the hierarchy listeners registered on this component.
-	*/
+	xWidgetInternal* getInternal()
+	{return m_internal;}
 	
 	/**
 	 * 
 	 */
-	virtual bool getIgnoreRepaint() = 0;
+	virtual bool getIgnoreRepaint();
 		
 	/**
 	 * Gets the location of this component in the form of a point specifying the component's 
 	 * top-left corner.
 	 */
-	virtual xPoint* getLocation() = 0;
+	virtual xPoint* getLocation();
 	
 	/**
 	 * Gets the location of this component in the form of a point specifying the 
 	 * component's top-left corner in the screen's coordinate space.
 	 */
-	virtual xPoint* getLocationOnScreen() = 0;
-	
-	/* ??
-	xDimension 	getMaximumSize()
-	Gets the maximum size of this component.
-	Dimension 	getMinimumSize()
-	Gets the minimum size of this component.
-	*/
+	virtual xPoint* getLocationOnScreen();
 	
 	/**
 	 * Gets the parent of this widget.NULL if there are no parent.
 	 */
-	virtual NODELETE xWidget* getParent() = 0;
+	virtual MYOWNERSHIP xWidget* getParent();
 		
 	/**
 	 * Returns the size of this component in the form of a Dimension object.
 	 */
-	virtual xDimension* getSize() = 0;
+	virtual xDimension* getSize();
 		
 	/**
 	 * Returns the current width of this component.
 	 */
-	virtual int getWidth() = 0;
+	virtual int getWidth();
 	
 	/**
 	 * Returns the current x coordinate of the components origin.
 	 */
-	virtual int getX() = 0;
+	virtual int getX();
 	
 	/**
 	 * Returns the current y coordinate of the components origin.
 	 */
-	virtual int getY() = 0;
+	virtual int getY();
 		
 	/**
 	 * Invalidates this component.
 	 */
-	virtual void invalidate() = 0;
+	virtual void invalidate();
 		
 	/**
 	 * Determines whether this component is enabled.
 	 */
-	virtual bool isEnabled() = 0;
+	virtual bool isEnabled();
 	
 	/**
 	 * Returns whether this Component can be focused.
 	 */
-	//virtual bool isFocusable() = 0;
-	
-	/* ??
-	boolean 	isFocusCycleRoot(Container container)
-	Returns whether the specified Container is the focus cycle root of this Component's focus traversal cycle.
-	*/
+	virtual bool isFocusable();
 	
 	/**
 	 * Returns true if this Component is the focus owner.
 	 */
-	virtual bool isFocusOwner() = 0;
+	virtual bool isFocusOwner();
 		
 	/**
 	 * Determines whether this component is showing on screen.
 	 */
-	virtual bool isShowing() = 0;
+	virtual bool isShowing();
 	
 	/**
 	 * Determines whether this component is valid.
 	 */
-	virtual bool isValid() = 0;
+	virtual bool isValid();
 	
 	/**
 	 * Determines whether this component should be visible when its parent is visible.
 	 */
-	virtual bool isVisible() = 0;
-	
-	/**
-	 * Prints a listing of this component to the standard system output stream.
-	 */
-	//virtual void list() = 0;
-	
-	/**
-	 * Prints a listing of this component to the specified output stream.
-	 */
-	//virtual void list(xWriter& out) = 0;
-	
-	/**
-	 * Prints out a list, starting at the specified indentation, to the specified char stream.
-	 */
-	//virtual void list(xWriter& out, int indent) = 0;
+	virtual bool isVisible();
 		
 	/**
 	 * Requests that this Widget get the input focus, and that this Widget's 
 	 * top-level ancestor become the focused Window.
 	 */
-	virtual void requestFocus() = 0;
+	virtual void requestFocus();
 		
 	/**
 	 * Sets the background color of this component.
 	 */
-	virtual void setBackground(xColor& c) = 0;
+	virtual void setBackground(xColor& c);
 	
 	/**
 	 * Moves and resizes this component.
 	 */
-	virtual void setBounds(int x, int y, int width, int height) = 0;
+	virtual void setBounds(int x, int y, int width, int height);
 	
 	/**
 	 * Moves and resizes this component to conform to the new bounding rectangle r.
 	 */
-	virtual void setBounds(xRectangle& r) = 0;
+	virtual void setBounds(xRectangle& r);
 		
 	/**
 	 * Enables or disables this component, depending on the value of the parameter b.
 	 */
-	virtual void setEnabled(bool b) = 0;
-	
-	/* ???
-	void setFocusable(boolean focusable)
-	Sets the focusable state of this Component to the specified value.
-	void 	setFocusTraversalKeys(int id, Set keystrokes)
-	Sets the focus traversal keys for a given traversal operation for this Component.
-	void 	setFocusTraversalKeysEnabled(boolean focusTraversalKeysEnabled)
-	Sets whether focus traversal keys are enabled for this Component.
-	*/
+	virtual void setEnabled(bool b);
 		
 	/**
 	 * Sets the font of this component.
 	 */
-	virtual void setFont(xFont& f) = 0;
+	virtual void setFont(xFont& f);
 	
 	/**
 	 * Sets the foreground color of this component.
 	 */
-	virtual void setForeground(xColor& c) = 0;
+	virtual void setForeground(xColor& c);
 	
 	/**
 	 * Moves this component to a new location.
 	 */
-	virtual void setLocation(int x, int y) = 0;
+	virtual void setLocation(int x, int y);
 
 	/**
 	 * Resizes this component so that it has width width and height height.
 	 */
-	virtual void setSize(int width, int height) = 0;
+	virtual void setSize(int width, int height);
 	
 	/**
 	 * Shows or hides this component depending on the value of parameter b.
 	 */
-	virtual void setVisible(boolean b) = 0;
+	virtual void setVisible(boolean b);
 		
 	/**
 	* Returns a string representation of this component and its values.
 	*/
 	//virtual xString toString() = 0;
-		
-	/* ???
-	void 	transferFocus()
-	Transfers the focus to the next component, as though this Component were the focus owner.
-	void 	transferFocusBackward()
-	Transfers the focus to the previous component, as though this Component were the focus owner.
-	void 	transferFocusUpCycle()
-	Transfers the focus up one focus traversal cycle.
-	*/
 	
 	/**
 	 * Ensures that this component has a valid layout.
 	 */
-	virtual void validate() = 0;
+	virtual void validate();
 };
 
 
 
 
 }//namespace
-
-
-//select include file
-#ifdef XTK_GUI_MSW
-	#include "msw/widget_msw.h"
-#elif defined(XTK_GUI_GTK2)
-	#include "gtk2/widget_gtk2.h"
-#endif
-
-
 
 #endif //XTK_USE_WIDGETS
 #endif //XTK_WIDGET_H

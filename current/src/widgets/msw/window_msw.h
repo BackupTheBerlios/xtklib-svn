@@ -22,35 +22,37 @@
 #ifndef XTK_WINDOW_MSW_H
 #define XTK_WINDOW_MSW_H
 
-#if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
+#include "../../../include/xtk/widgets/window.h"
+#include "container_msw.h"
 
+#if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 #include <Windows.h>
 
 namespace xtk
 {
 
 /**
- * A xWindow object is a top-level window.
+ * 
  */
-class XTKAPI xWindow : public xIWindow,public xContainer
+class XTKAPI xWindowInternal : public xContainerInternal
 {
 private:
-	CloseAction		m_closeAction;
+	xWindow::CloseAction		m_closeAction;
 	
 protected:
 	virtual LRESULT onDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 
-	xWindow(xWidget* parent, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS))
-	: xContainer(parent,layout)
-	{m_closeAction = XTK_DESTROY_ON_CLOSE;}
+	xWindowInternal(xWidget* parent, xLayoutManager* layout,xWindow* external)
+	: xContainerInternal(parent,layout,external)
+	{m_closeAction = xWindow::XTK_DESTROY_ON_CLOSE;}
 	
 public:
-	virtual ~xWindow(){}
+	virtual ~xWindowInternal(){}
 
-	virtual void setDefaultCloseAction(CloseAction caction)
+	virtual void setDefaultCloseAction(xWindow::CloseAction caction)
 	{m_closeAction = caction;}
 
-	virtual CloseAction getDefaultCloseAction()
+	virtual xWindow::CloseAction getDefaultCloseAction()
 	{return m_closeAction;}
 	
 	virtual bool isActive();

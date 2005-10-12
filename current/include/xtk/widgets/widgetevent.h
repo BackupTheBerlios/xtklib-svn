@@ -468,18 +468,11 @@ public:
  */
 class XTKAPI xActionEvent : public xComponentEvent
 {
-private:
-	xString m_actionCommand;
-	
 public:
-	xActionEvent(xWidget* widget,xWidgetEventID id,xString actionCommand) : xComponentEvent(widget,id)
-	{m_actionCommand = actionCommand;}
+	xActionEvent(xWidget* widget,xWidgetEventID id) : xComponentEvent(widget,id)
+	{}
 	
 	virtual ~xActionEvent(){}
-	
-	virtual xString getActionCommand()
-	{return m_actionCommand;}
-	
 };
 
 

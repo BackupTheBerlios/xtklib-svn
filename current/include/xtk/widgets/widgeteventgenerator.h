@@ -26,18 +26,21 @@
 #include "../base/string.h"
 #include "../base/datastructures.h"
 #include "widgetevent.h"
-#include "widgetlisteners.h"
+#include "widgeteventhandler.h"
 
 #ifdef XTK_USE_WIDGETS
 namespace xtk
 {
 
 /**
- * Tagging class for all xWidgetEventGenerator subclasses
+ * The superclass for all xWidgetEventGenerator subclasses
  */
 class XTKAPI xWidgetEventGenerator : public virtual xObject
 {
 protected:
+	virtual void processEvent(xWidgetEvent& ev) = 0;
+	virtual void addEventHandler(MYOWNERSHIP xWidgetEventHandlerBase* evh,xWidgetEventID evmask) = 0;
+	virtual void removeEventHandler(xWidgetEventHandlerBase& evh,xWidgetEventID evmask) = 0;
 	xWidgetEventGenerator(){}
 public:
 	virtual ~xWidgetEventGenerator(){}
@@ -51,26 +54,47 @@ public:
 */
 class XTKAPI xMouseEventGenerator : public virtual xWidgetEventGenerator
 {
-private:
-	xLinkedList		m_mouseListeners;
 protected:
-	xMouseEventGenerator(){m_mouseListeners.rescindOwnership();}
+	xMouseEventGenerator(){}
 	
-	virtual void processMouseEvent(xMouseEvent& e);
 public:
 	virtual ~xMouseEventGenerator(){}
 	
 	/**
-	* Adds the specified mouse listener to receive mouse events from this generator.
-	*/
-	virtual void addMouseListener(YOUROWNERSHIP xMouseListener* l)
-	{m_mouseListeners.add(l);}
+	 * 
+	 */
+	virtual void addMouseClickedHandler(MYOWNERSHIP xWidgetEventHandlerBase* evh)
+	{addEventHandler(evh,XWE_MOUSE_CLICKED);}
 	
-	virtual xArray<NODELETE xMouseListener*> getMouseListeners()
-	{return m_mouseListeners.toArray().castTo<xMouseListener*>();}
+	virtual void removeMouseClickedHandler(xWidgetEventHandlerBase& l)
+	{removeEventHandler(l,XWE_MOUSE_CLICKED);}
 	
-	virtual void removeMouseListener(xMouseListener& l)
-	{m_mouseListeners.removeObject(l);}
+	/**
+	 * 
+	 */
+	virtual void addMouseDoubleClickedHandler(MYOWNERSHIP xWidgetEventHandlerBase* evh)
+	{addEventHandler(evh,XWE_MOUSE_DOUBLECLICKED);}
+
+	virtual void removeMouseDoubleClickedHandler(xWidgetEventHandlerBase& l)
+	{removeEventHandler(l,XWE_MOUSE_DOUBLECLICKED);}
+	
+	/**
+	 * 
+	 */
+	virtual void addMousePressedHandler(MYOWNERSHIP xWidgetEventHandlerBase* evh)
+	{addEventHandler(evh,XWE_MOUSE_PRESSED);}
+
+	virtual void removeMousePressedHandler(xWidgetEventHandlerBase& l)
+	{removeEventHandler(l,XWE_MOUSE_PRESSED);}
+	
+	/**
+	 * 
+	 */
+	virtual void addMouseReleasedHandler(MYOWNERSHIP xWidgetEventHandlerBase* evh)
+	{addEventHandler(evh,XWE_MOUSE_RELEASED);}
+
+	virtual void removeMouseReleasedHandler(xWidgetEventHandlerBase& l)
+	{removeEventHandler(l,XWE_MOUSE_RELEASED);}
 };
 
 
@@ -81,34 +105,20 @@ public:
 */
 class XTKAPI xActionEventGenerator : public virtual xWidgetEventGenerator
 {
-private:
-	xLinkedList		m_actionListeners;
-	xString			m_actionCommand;
-	
 protected:
-	xActionEventGenerator(){m_actionListeners.rescindOwnership();}
+	xActionEventGenerator(){}
 
-	virtual void processActionEvent(xActionEvent& e);
 public:
 	virtual ~xActionEventGenerator(){}
-
-	virtual xString getActionCommand()
-	{return m_actionCommand;}
-	
-	virtual void setActionCommand(xString ac)
-	{m_actionCommand = ac;}
 	
 	/**
-	* Adds the specified mouse listener to receive mouse events from this generator.
+	* 
 	*/
-	virtual void addActionListener(YOUROWNERSHIP xActionListener* l)
-	{m_actionListeners.add(l);}
+	virtual void addActionPerformedHandler(MYOWNERSHIP xWidgetEventHandlerBase* evh)
+	{addEventHandler(evh,XWE_ACTION_PERFORMED);}
 
-	virtual xArray<NODELETE xActionListener*> getActionListeners()
-	{return m_actionListeners.toArray().castTo<xActionListener*>();}
-
-	virtual void removeActionListener(xActionListener& l)
-	{m_actionListeners.removeObject(l);}
+	virtual void removeActionPerformedHandler(xWidgetEventHandlerBase& l)
+	{removeEventHandler(l,XWE_ACTION_PERFORMED);}
 };
 
 
@@ -117,28 +127,31 @@ public:
 */
 class XTKAPI xFocusEventGenerator : public virtual xWidgetEventGenerator
 {
-private:
-	xLinkedList		m_focusListeners;
-
 protected:
-	xFocusEventGenerator(){m_focusListeners.rescindOwnership();}
+	xFocusEventGenerator(){}
 
-	virtual void processFocusEvent(xFocusEvent& e);
 public:
 	virtual ~xFocusEventGenerator(){}
 
 	/**
-	* Adds the specified mouse listener to receive mouse events from this generator.
+	* 
 	*/
-	virtual void addFocusListener(YOUROWNERSHIP xFocusListener* l)
-	{m_focusListeners.add(l);}
+	virtual void addFocusGainedHandler(MYOWNERSHIP xWidgetEventHandlerBase* evh)
+	{addEventHandler(evh,XWE_FOCUS_GAINED);}
 
-	virtual xArray<NODELETE xFocusListener*> getFocusListeners()
-	{return m_focusListeners.toArray().castTo<xFocusListener*>();}
+	virtual void removeFocusGainedHandler(xWidgetEventHandlerBase& l)
+	{removeEventHandler(l,XWE_FOCUS_GAINED);}
+	
+	/**
+	* 
+	*/
+	virtual void addFocusLostHandler(MYOWNERSHIP xWidgetEventHandlerBase* evh)
+	{addEventHandler(evh,XWE_FOCUS_LOST);}
 
-	virtual void removeFocusListener(xFocusListener& l)
-	{m_focusListeners.removeObject(l);}
+	virtual void removeFocusLostHandler(xWidgetEventHandlerBase& l)
+	{removeEventHandler(l,XWE_FOCUS_LOST);}
 };
+
 
 }//namespace
 

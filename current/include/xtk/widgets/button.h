@@ -30,36 +30,38 @@
 namespace xtk
 {
 
+class xButtonInternal;
+
 /**
  * Defines the prototype for the various implementation of class xButton.
  */
-class XTKAPI xIButton : public xActionEventGenerator,public xFocusEventGenerator
+class XTKAPI xButton : public xWidget,public xActionEventGenerator,public xFocusEventGenerator
 {
+private:
+	xButtonInternal* m_internal;
+	
 protected:
-	xIButton(){}
+	xButton(xWidget* parent,xString label,int x,int y,int width,int height,xButtonInternal* i);
 	
 public:
-	virtual ~xIButton(){}
+	xButton(xWidget* parent,xString label = _T(""),int x = XTK_DEFAULT_WIDGET_POSITION,
+		int y = XTK_DEFAULT_WIDGET_POSITION,int width = XTK_DEFAULT_WIDGET_SIZE,
+		int height = XTK_DEFAULT_WIDGET_SIZE);
+		
+	virtual ~xButton();
 	
 	/**
 	 * Gets the label of this button.
 	 */
-	virtual xString getLabel() = 0;
+	virtual xString getLabel();
 	
 	/**
 	 * Sets the button's label to be the specified string.
 	 */
-	virtual void setLabel(xString label) = 0;
+	virtual void setLabel(xString label);
 };
 
 }//namespace
-
-//select include file
-#ifdef XTK_GUI_MSW
-	#include "msw/button_msw.h"
-#elif defined(XTK_GUI_GTK2)
-	#include "gtk2/button_gtk2.h"
-#endif
 
 #endif //XTK_USE_WIDGETS
 

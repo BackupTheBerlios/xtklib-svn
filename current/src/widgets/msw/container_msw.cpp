@@ -19,8 +19,9 @@
 * @author Mario Casciaro (xshadow@email.it)
 */
 
+
 #include "../../../include/xtk/widgets/container.h"
-#include "widgets_msw_private.h"
+#include "container_msw.h"
 #include "../../../include/xtk/base/smartptr.h"
 
 #if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
@@ -31,8 +32,8 @@ namespace xtk
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xContainer::xContainer(xWidget* parent, xLayoutManager* layout) 
-	: xIContainer(layout),xWidget(parent)
+xContainerInternal::xContainerInternal(xWidget* parent, xLayoutManager* layout,xContainer* external) 
+	: xWidgetInternal(parent,external)
 {
 	m_layout = layout;
 	//m_components.rescindOwnership();
@@ -41,7 +42,7 @@ xContainer::xContainer(xWidget* parent, xLayoutManager* layout)
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xContainer::~xContainer()
+xContainerInternal::~xContainerInternal()
 {
 	delete m_layout;
 }
@@ -49,7 +50,7 @@ xContainer::~xContainer()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xContainer::doLayout()
+void xContainerInternal::doLayout()
 {
 	//first our layout
 	xDimension* dim = getSize();
@@ -57,6 +58,8 @@ void xContainer::doLayout()
 	delete dim;
 	
 	//then childs
+	//automatically called for every child when resized
+	/*
 	smartPtr<xIterator> iter = m_components.iterator();
 	while(iter->hasNext())
 	{
@@ -64,55 +67,42 @@ void xContainer::doLayout()
 		if(c != NULL)
 			c->doLayout();
 	}
+	*/
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-NODELETE xWidget* xContainer::getChildByHandle(HWND hWnd)
+void xContainerInternal::removeChild(xWidget& comp)
 {
-	xHwndObject h(hWnd);
-	xObject& o = m_components.get(h);
-	if(o.isNull())
-		return NULL;
-	return dynamic_cast<xWidget*>(&o);
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xContainer::removeChild(xWidget& comp)
-{
-	xHwndObject h(comp.getHWND());
-	m_components.remove(h);
+	m_components.removeObject(comp);
 	m_layout->removeComponent(comp);
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xContainer::addChild(xWidget* comp)
+void xContainerInternal::addChild(xWidget* comp)
 {
-	m_components.put(new xHwndObject(comp->getHWND()),comp);
+	m_components.add(comp);
 	m_layout->addComponent(comp);
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xArray<NODELETE xWidget*> xContainer::getComponents()
+xArray<NODELETE xWidget*> xContainerInternal::getComponents()
 {
-	return smartPtr<xCollection>(m_components.values())->toArray().castTo<xWidget*>();
+	return m_components.toArray().castTo<xWidget*>();
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-bool xContainer::isAncestorOf(xWidget& c)
+bool xContainerInternal::isAnchestorOf(xWidget& c)
 {
 	//verify this level
-	xHwndObject h(c.getHWND());
-	if(m_components.containsKey(h))
+	if(m_components.contains(c))
 		return true;
 		
 	//now for every child container
@@ -124,7 +114,6 @@ bool xContainer::isAncestorOf(xWidget& c)
 			if(cn->isAncestorOf(c))
 				return true;
 	}
-	
 	return false;	
 }
 

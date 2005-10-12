@@ -19,7 +19,7 @@
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#include "../../../include/xtk/widgets/font.h"
+#include "font_msw.h"
 #include "../../../include/xtk/base/exception.h"
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
@@ -32,7 +32,7 @@ namespace xtk
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xFont* xFont::getSystemFont(xIFont::SystemFonts sf)
+xFont* xFontInternal::getSystemFont(xFont::SystemFonts sf)
 {
 	int fnObject = 0;
 	switch(sf)
@@ -46,7 +46,7 @@ xFont* xFont::getSystemFont(xIFont::SystemFonts sf)
 	}
 
 	HFONT font = (HFONT) ::GetStockObject(fnObject);
-	return new xFont(font);
+	return new xFont(new xFontInternal(font));
 }
 
 //##############################################################################
@@ -55,7 +55,7 @@ xFont* xFont::getSystemFont(xIFont::SystemFonts sf)
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-int xFontMetrics::stringWidth(xString str)
+int xFontMetricsInternal::stringWidth(xString str)
 {
 	SIZE strSize;
 	
@@ -76,7 +76,7 @@ int xFontMetrics::stringWidth(xString str)
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-int xFontMetrics::charWidth(xchar ch)
+int xFontMetricsInternal::charWidth(xchar ch)
 {
 	SIZE strSize;
 	if(::GetTextExtentPoint32(
@@ -96,7 +96,7 @@ int xFontMetrics::charWidth(xchar ch)
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-int xFontMetrics::getAscent()
+int xFontMetricsInternal::getAscent()
 {
 	TEXTMETRIC met;
 	if(::GetTextMetrics(
@@ -113,7 +113,7 @@ int xFontMetrics::getAscent()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-int xFontMetrics::getDescent()
+int xFontMetricsInternal::getDescent()
 {
 	TEXTMETRIC met;
 	if(::GetTextMetrics(
@@ -130,7 +130,7 @@ int xFontMetrics::getDescent()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-int xFontMetrics::getHeight()
+int xFontMetricsInternal::getHeight()
 {
 	TEXTMETRIC met;
 	if(::GetTextMetrics(

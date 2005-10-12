@@ -22,8 +22,10 @@
 #ifndef XTK_BUTTON_MSW_H
 #define XTK_BUTTON_MSW_H
 
-#if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
+#include "../../../include/xtk/widgets/button.h"
+#include "widget_msw.h"
 
+#if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 #include <Windows.h>
 
 namespace xtk
@@ -33,7 +35,7 @@ namespace xtk
 /**
 * This class creates a labeled button
 */
-class XTKAPI xButton : public xWidget,public xIButton
+class XTKAPI xButtonInternal : public xWidgetInternal
 {
 private:
 	WNDPROC m_baseWndProc;
@@ -45,11 +47,9 @@ protected:
 	virtual LRESULT onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	
 public:
-	xButton(xContainer* parent,xString label = _T(""),int x = XTK_DEFAULT_WIDGET_POSITION,
-		int y = XTK_DEFAULT_WIDGET_POSITION,int width = XTK_DEFAULT_WIDGET_SIZE,
-		int height = XTK_DEFAULT_WIDGET_SIZE);
+	xButtonInternal(xWidget* parent,xString label,int x,int y,int width,int height,xButton* external);
 		
-	virtual ~xButton();
+	virtual ~xButtonInternal();
 	
 	virtual xString getLabel();
 	virtual void setLabel(xString label);

@@ -30,46 +30,53 @@
 namespace xtk
 {
 
+class xFrameInternal;
+
 /**
  * Defines the interface for the various implementation of class xFrame.
  */
-class XTKAPI xIFrame
+class XTKAPI xFrame : public xWindow
 {
+private:
+	xFrameInternal* m_internal;
+	
 protected:
-	xIFrame(){}
+	xFrame(xWidget* parent,xString title,int x,
+		int y ,
+		int width ,int height,
+		xLayoutManager* layout,
+		xFrameInternal* i);
 	
 public:
-	virtual ~xIFrame(){}
+	xFrame(xWidget* parent,xString title,int x = XTK_DEFAULT_WIDGET_POSITION,
+		int y = XTK_DEFAULT_WIDGET_POSITION,
+		int width = XTK_DEFAULT_WIDGET_SIZE,int height = XTK_DEFAULT_WIDGET_SIZE,
+		xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS));
+		
+	virtual ~xFrame();
 
 	/**
 	 * Gets the title of the frame.
 	 */
-	virtual xString getTitle() = 0;
+	virtual xString getTitle();
 	
 	/**
 	 * Indicates whether this frame is resizable by the user.
 	 */
-	virtual bool isResizable() = 0;
+	virtual bool isResizable();
 	
 	/**
 	 * Sets whether this frame is resizable by the user.
 	 */
-	virtual void setResizable(bool resizable) = 0;
+	virtual void setResizable(bool resizable);
 		
 	/**
 	 * Sets the title for this frame to the specified string.
 	 */
-	virtual void setTitle(xString title) = 0;
+	virtual void setTitle(xString title);
 };
 
 }//namespace
-
-//select include file
-#ifdef XTK_GUI_MSW
-	#include "msw/frame_msw.h"
-#elif defined(XTK_GUI_GTK2)
-	#include "gtk2/frame_gtk2.h"
-#endif
 
 #endif //XTK_USE_WIDGETS
 

@@ -23,51 +23,56 @@
 #define XTK_PANEL_H
 
 #include "../globals.h"
-#include "widgeteventgenerator.h"
-#include "widget.h"
+#include "container.h"
 #include "../base/string.h"
 
 #ifdef XTK_USE_WIDGETS
 namespace xtk
 {
 
-/**
-* Defines the prototype for the various implementation of class xPanel.
-*/
-class XTKAPI xIPanel
-{
-protected:
-	xIPanel(){}
+class xPanelInternal;
 
+/**
+* A panel is a widget used to organize and group other widgets.
+*/
+class XTKAPI xPanel : public xContainer
+{
 public:
 	enum Border
 	{
 		BORDER_TITLED,
 		BORDER_NONE
 	};
+	
+protected:
+	xPanelInternal* m_internal;
 
-	virtual ~xIPanel(){}
+	xPanel(xWidget* parent,xPanel::Border border,xString label,xLayoutManager* layout,int x,int y,
+		int width,int height,xPanelInternal* i);
+	
+public:
+	
+	xPanel(xWidget* parent,xPanel::Border border,xString label = _T(""),
+		xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS),
+		int x = XTK_DEFAULT_WIDGET_POSITION,
+		int y = XTK_DEFAULT_WIDGET_POSITION,int width = XTK_DEFAULT_WIDGET_SIZE,
+		int height = XTK_DEFAULT_WIDGET_SIZE);
+	
+	virtual ~xPanel();
 
 	/**
 	* Gets the label of this panel.
 	*/
-	virtual xString getLabel() = 0;
+	virtual xString getLabel();
 
 	/**
 	* Sets the button's label to be the specified string.
 	*/
-	virtual void setLabel(xString label) = 0;
+	virtual void setLabel(xString label);
 };
 
 
 }//namespace
-
-//select include file
-#ifdef XTK_GUI_MSW
-	#include "msw/panel_msw.h"
-#elif defined(XTK_GUI_GTK2)
-	#include "gtk2/panel_gtk2.h"
-#endif
 
 #endif //XTK_USE_WIDGETS
 

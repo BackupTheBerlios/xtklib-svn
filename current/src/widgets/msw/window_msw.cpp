@@ -19,8 +19,7 @@
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#include "../../../include/xtk/widgets/window.h"
-#include "../../../include/xtk/base/smartptr.h"
+#include "window_msw.h"
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
@@ -30,7 +29,7 @@ namespace xtk
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-bool xWindow::isActive()
+bool xWindowInternal::isActive()
 {
 	return ::GetActiveWindow() == getHWND();
 }
@@ -38,7 +37,7 @@ bool xWindow::isActive()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xWindow::toBack()
+void xWindowInternal::toBack()
 {
 	::SetWindowPos(
 				getHWND(),				// handle of window
@@ -54,7 +53,7 @@ void xWindow::toBack()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xWindow::toFront()
+void xWindowInternal::toFront()
 {
 	::SetWindowPos(
 		getHWND(),				// handle of window
@@ -70,14 +69,14 @@ void xWindow::toFront()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-LRESULT xWindow::onDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+LRESULT xWindowInternal::onDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
-	if(getDefaultCloseAction() == XTK_EXIT_ON_CLOSE)
+	if(getDefaultCloseAction() == xWindow::XTK_EXIT_ON_CLOSE)
 	{
 		PostQuitMessage(0);
 		return 0;
 	}
-	else if(getDefaultCloseAction() == XTK_HIDE_ON_CLOSE)
+	else if(getDefaultCloseAction() == xWindow::XTK_HIDE_ON_CLOSE)
 		setVisible(false);
 		
 	return ::DefWindowProc(hwnd,uMsg,wParam,lParam);

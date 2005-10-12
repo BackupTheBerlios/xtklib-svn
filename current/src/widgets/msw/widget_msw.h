@@ -22,6 +22,9 @@
 #ifndef XTK_WIDGET_MSW_H
 #define XTK_WIDGET_MSW_H
 
+#include "../../../include/xtk/widgets/widget.h"
+#include "../widgeteventgenerator_internal.h"
+
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
 #include <Windows.h>
@@ -30,11 +33,9 @@ namespace xtk
 {
 
 /**
- * A widget is the base class for all Gui components.
- * Note that all children of the window will be deleted automatically by 
- * the destructor before the window itself is deleted.
-*/
-class XTKAPI xWidget : public virtual xObject,public xIWidget
+ *
+ */
+class XTKAPI xWidgetInternal : public virtual xObject,public xWidgetEventGeneratorInternal
 {
 private:
 	static xObject	s_guiMutex;
@@ -48,6 +49,7 @@ protected:
 	virtual LRESULT onLButtonPressed(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	virtual LRESULT onMButtonPressed(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	virtual LRESULT onRButtonPressed(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	
 	virtual LRESULT onLButtonReleased(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	virtual LRESULT onMButtonReleased(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	virtual LRESULT onRButtonReleased(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
@@ -59,6 +61,7 @@ protected:
 	virtual LRESULT onCommand(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	virtual LRESULT onSetFocus(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	virtual LRESULT onKillFocus(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onSize(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	virtual LRESULT onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	
 	/**
@@ -71,9 +74,14 @@ protected:
 	 */
 	void setHWND(HWND hWnd){m_hWidget = hWnd;}
 	
-	xWidget(xWidget* parent);
+	xWidget* m_external;
+	
+	xWidgetInternal(xWidget* parent,xWidget* external);
 public:
-	virtual ~xWidget();
+	virtual ~xWidgetInternal();
+	
+	xWidget* getExternal()
+	{return m_external;}
 	
 	virtual bool contains(int x, int y)
 	{	
@@ -95,7 +103,7 @@ public:
 	virtual xColor* getBackground();
 	virtual xRectangle* getBounds();
 	//! @todo to implement (MSW)
-	virtual NODELETE xWidget* getComponentAt(int x, int y);
+	virtual MYOWNERSHIP xWidget* getComponentAt(int x, int y);
 	virtual xFont* getFont();
 	virtual xFontMetrics* getFontMetrics();
 	//! @todo to implement (MSW)
@@ -111,6 +119,7 @@ public:
 	virtual int getY();
 	virtual void invalidate();
 	virtual bool isEnabled();
+	virtual bool isFocusable();
 	virtual bool isFocusOwner();
 	virtual bool isShowing();
 	//! @todo to implement (MSW)

@@ -22,28 +22,28 @@
 #ifndef XTK_FRAME_MSW_H
 #define XTK_FRAME_MSW_H
 
-#if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
+#include "../../../include/xtk/widgets/frame.h"
+#include "window_msw.h"
 
+#if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 #include <windows.h>
 
 namespace xtk
 {
 
 /**
-* A xFrame object is a top-level window.
+* 
 */
-class XTKAPI xFrame : public xIFrame,public xWindow
+class XTKAPI xFrameInternal : public xWindowInternal
 {
 private:
 	xString		m_title;
 	bool		m_resizable;
 	
 public:
-	xFrame(xString title,int x = XTK_DEFAULT_WIDGET_POSITION,int y = XTK_DEFAULT_WIDGET_POSITION,
-		int width = XTK_DEFAULT_WIDGET_SIZE,int height = XTK_DEFAULT_WIDGET_SIZE,
-		xWidget* parent = NULL, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS));
+	xFrameInternal(xWidget* parent,xString title,int x,int y,int width,int height,xLayoutManager* layout,xFrame* external);
 	
-	virtual ~xFrame();
+	virtual ~xFrameInternal();
 
 
 	virtual xString getTitle(){return m_title;}

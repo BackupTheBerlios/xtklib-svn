@@ -22,8 +22,10 @@
 #ifndef XTK_CONTAINER_MSW_H
 #define XTK_CONTAINER_MSW_H
 
-#if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
+#include "../../../include/xtk/widgets/container.h"
+#include "widget_msw.h"
 
+#if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 #include <Windows.h>
 
 namespace xtk
@@ -31,30 +33,17 @@ namespace xtk
 
 
 /**
-* A component that can contain other components.
-* 
-* @ramarks xContainer class and subclasses does not sends "mouseClicked"
-* (other mouse events are handled normally).
+ *
 */
-class XTKAPI xContainer : public xIContainer,public xWidget
+class XTKAPI xContainerInternal : public xWidgetInternal
 {
 protected:
-	xHashMap			m_components;
+	xLinkedList			m_components;
 	xLayoutManager*		m_layout;
 	
-	/*
-	virtual LRESULT onLButtonClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onMButtonClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	virtual LRESULT onRButtonClicked(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-	*/
-
-	MYOWNERSHIP xWidget* getChildByHandle(HWND hWnd);
-	virtual void removeChild(xWidget& comp);
-	virtual void addChild(xWidget* comp);
-	
-	xContainer(xWidget* parent, xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS));
+	xContainerInternal(xWidget* parent, xLayoutManager* layout,xContainer* external);
 public:
-	virtual ~xContainer();
+	virtual ~xContainerInternal();
 	
 	virtual xLayoutManager& getLayout()
 	{return *m_layout;}
@@ -70,7 +59,9 @@ public:
 	virtual void doLayout();
 	virtual int getComponentCount(){return m_components.size();}
 	virtual xArray<MYOWNERSHIP xWidget*> getComponents();
-	virtual bool isAncestorOf(xWidget& c);
+	virtual bool isAnchestorOf(xWidget& c);
+	virtual void removeChild(xWidget& comp);
+	virtual void addChild(xWidget* comp);
 };
 
 

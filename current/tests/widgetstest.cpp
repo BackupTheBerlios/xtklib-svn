@@ -25,28 +25,34 @@
 #include "../include/xtk/widgets.h"
 using namespace xtk;
 
-class xWidgetsTest : public xTest,public xActionListener,public xMouseListener,public xFocusListener
+class xWidgetsTest : public xTest
 {
 private:
 	virtual void doTest()
 	{
-		xFrame* frame = new xFrame(_T("Frame title"));
+		xFrame* frame = new xFrame(NULL,_T("Frame title"));
 		//frame->setLayout(new xBoxLayout(xBoxLayout::Y_AXIS));
 		frame->setDefaultCloseAction(xWindow::XTK_EXIT_ON_CLOSE);
 		frame->setVisible(true);
-		frame->addMouseListener(this);
 		
-		xPanel* panel1 = new xPanel(frame,xPanel::BORDER_TITLED,_T("This is a panel"));
+		frame->addMousePressedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::mousePressed));
+		frame->addMouseReleasedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::mouseReleased));
+		frame->addMouseDoubleClickedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::mouseDblClicked));
+		
+		xPanel* panel1 = new xPanel(frame,xPanel::BORDER_TITLED,_T("Panel1"));
+		xPanel* panel2 = new xPanel(frame,xPanel::BORDER_TITLED,_T("Panel2"));
+		
 		frame->getLayout().setConstraints(*panel1,new xBoxConstraint(1,1,xBoxConstraint::FILL_BOTH));
-		xPanel* panel2 = new xPanel(frame,xPanel::BORDER_TITLED,_T("This is a panel2"));
 		frame->getLayout().setConstraints(*panel2,new xBoxConstraint(2,1,xBoxConstraint::FILL_BOTH));
-		
+
 		xButton* butt = new xButton(panel1,_T("|"));
-		butt->addActionListener(this);
-		butt->addFocusListener(this);
+		butt->addActionPerformedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::actionPerformed));
 		xButton* butt2 = new xButton(panel1,_T("13"),103,0);
 		xButton* butt3 = new xButton(panel1,_T("aaaaaa"),103,0);
-		//butt2->setLabel(_T("Hello"));
+		
+		xLabel* label1 = new xLabel(panel2,_T("Label1"));
+		xLabel* label2 = new xLabel(panel2,_T("Label2"));
+
 		frame->setSize(500,500);
 		frame->doLayout();
 		
@@ -56,24 +62,24 @@ private:
 public:
 	xWidgetsTest() : xTest("Widgets Test"){}
 	
-	virtual void actionPerformed(xActionEvent& e)
+	virtual void actionPerformed(xWidgetEvent& e)
 	{
 		xSystem::getStdout().write(_T("Button 1 activated\n"));
 	}
 	
-	virtual void mousePressed(xMouseEvent& ev)
+	virtual void mousePressed(xWidgetEvent& ev)
 	{
 		xSystem::getStdout().write(_T("Mouse button pressed\n"));
 	}
 	
-	virtual void mouseReleased(xMouseEvent& ev)
+	virtual void mouseReleased(xWidgetEvent& ev)
 	{
 		xSystem::getStdout().write(_T("Mouse button released\n"));
 	}
 	
-	virtual void mouseDoubleClicked(xMouseEvent& ev)
+	virtual void mouseDblClicked(xWidgetEvent& ev)
 	{
-		xSystem::getStdout().write(_T("Mouse button double clicked\n"));
+		xSystem::getStdout().write(_T("Mouse double clicked\n"));
 	}
 	
 	virtual void focusGained(xFocusEvent& e)

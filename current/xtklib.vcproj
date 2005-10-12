@@ -235,6 +235,9 @@
 				RelativePath=".\include\xtk\base\file.h">
 			</File>
 			<File
+				RelativePath=".\include\xtk\base\functor.h">
+			</File>
+			<File
 				RelativePath=".\include\xtk\base\geometry.h">
 			</File>
 			<File

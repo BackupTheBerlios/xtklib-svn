@@ -22,8 +22,9 @@
 #ifndef XTK_FONT_MSW_H
 #define XTK_FONT_MSW_H
 
-#if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
+#include "../../../include/xtk/widgets/font.h"
 
+#if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 #include <Windows.h>
 
 namespace xtk
@@ -31,18 +32,18 @@ namespace xtk
 
 
 /**
-* Defines the interface for the various implementation of class xFont.
-*/
-class XTKAPI xFont : public virtual xObject,public xIFont
+ * Defines the interface for the various implementation of class xFont.
+ */
+class XTKAPI xFontInternal : public virtual xObject
 {
 private:
 	HFONT	m_hFont;
 	
 public:
-	xFont(MYOWNERSHIP HFONT font){m_hFont = font;}
-	xFont(int size_pixel,xIFont::Family family,int style,xIFont::Weight weight){}
-	xFont(int size_pixel,xString fontface,int style,xIFont::Weight weight){}
-	virtual ~xFont(){::DeleteObject(m_hFont);}
+	xFontInternal(MYOWNERSHIP HFONT font){m_hFont = font;}
+	xFontInternal(int size_pixel,xFont::Family family,int style,xFont::Weight weight){}
+	xFontInternal(int size_pixel,xString fontface,int style,xFont::Weight weight){}
+	virtual ~xFontInternal(){::DeleteObject(m_hFont);}
 	
 	//plus function for retrieve system fonts
 	
@@ -50,7 +51,7 @@ public:
 	{return m_hFont;}
 	
 	//--------------STATIC-----------
-	static xFont* getSystemFont(xIFont::SystemFonts sf);
+	static xFont* getSystemFont(xFont::SystemFonts sf);
 };
 	
 	
@@ -58,16 +59,16 @@ public:
  * Defines a font metrics object, which encapsulates information 
  * about the rendering of a particular font on a particular device context.
  */
-class XTKAPI xFontMetrics : public virtual xObject,public xIFontMetrics
+class XTKAPI xFontMetricsInternal : public virtual xObject
 {
 private:
 	HDC		m_deviceContext;
 	HWND	m_hWnd;
 	
 public:
-	xFontMetrics(HWND hWnd){m_deviceContext = ::GetDC(hWnd);m_hWnd = hWnd;}
+	xFontMetricsInternal(HWND hWnd){m_deviceContext = ::GetDC(hWnd);m_hWnd = hWnd;}
 
-	virtual ~xFontMetrics(){::ReleaseDC(m_hWnd,m_deviceContext);}
+	virtual ~xFontMetricsInternal(){::ReleaseDC(m_hWnd,m_deviceContext);}
 
 	virtual int stringWidth(xString str);
 	virtual int charWidth(xchar ch);

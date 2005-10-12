@@ -19,12 +19,8 @@
 * @author Mario Casciaro (xshadow@email.it)
 */
 
+#include "button_msw.h"
 #include "../../../include/xtk/base/application.h"
-#include "../../../include/xtk/widgets/button.h"
-#include "../../../include/xtk/widgets/container.h"
-#include "../../../include/xtk/widgets/widgetevent.h"
-#include "../../../include/xtk/base/smartptr.h"
-#include "widgets_msw_private.h"
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
@@ -33,38 +29,25 @@
 namespace xtk
 {
 
-LRESULT CALLBACK xButtonWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
-{
-	void* ptr = (void*)(::GetWindowLongPtr(hwnd,GWL_USERDATA));
-	if(ptr != NULL)
-	{
-		xButton* cnt = dynamic_cast<xButton*>((xWidget*)(ptr));
-		if(cnt != NULL)
-			return cnt->windowProcedure(hwnd,uMsg,wParam,lParam);
-		else
-			return -1;
-	}
-	else
-		return ::DefWindowProc(hwnd,uMsg,wParam,lParam);
-}
+extern LRESULT CALLBACK xWidgetWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xButton::xButton(xContainer* parent,xString label,int x,int y,int width,int height)
-	: xWidget(parent)
+xButtonInternal::xButtonInternal(xWidget* parent,xString label,int x,int y,int width,int height,xButton* external)
+	: xWidgetInternal(parent,external)
 {
-	if(x == XTK_DEFAULT_WIDGET_POSITION)
+	if(x == xWidget::XTK_DEFAULT_WIDGET_POSITION)
 	
 		x = 0;
-	if(y == XTK_DEFAULT_WIDGET_POSITION)
+	if(y == xWidget::XTK_DEFAULT_WIDGET_POSITION)
 		y = 0;
-	if(height == XTK_DEFAULT_WIDGET_SIZE)
+	if(height == xWidget::XTK_DEFAULT_WIDGET_SIZE)
 		height = 30;
 
 	HWND hwnd = ::CreateWindow(_T("button"),label.c_str(),
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_TEXT,
-		x,y,width,height,parent->getHWND(),NULL,xApplication::getHinstance(),NULL);
+		x,y,width,height,parent->getInternal()->getHWND(),NULL,xApplication::getHinstance(),NULL);
 	
 	assert(hwnd != NULL);
 
@@ -72,17 +55,17 @@ xButton::xButton(xContainer* parent,xString label,int x,int y,int width,int heig
 	::SetWindowLongPtr(hwnd,GWL_USERDATA,(LONG_PTR)(xWidget*) this);
 	
 	//subclassing
-	m_baseWndProc = (WNDPROC) ::SetWindowLongPtr(hwnd,GWL_WNDPROC,(LONG_PTR)xButtonWindowProcedure);
+	m_baseWndProc = (WNDPROC) ::SetWindowLongPtr(hwnd,GWL_WNDPROC,(LONG_PTR)xWidgetWindowProcedure);
 	
 	setHWND(hwnd);
 	
 	//set font to default system font
-	xFont* fn = xFont::getSystemFont(xFont::XTK_GUI_FONT);	
-	::SendMessage(hwnd,(UINT) WM_SETFONT,(WPARAM) fn->getHFONT(),TRUE);
+	xFont* fn = xFont::getSystemFont(xFont::XTK_GUI_FONT);
+	setFont(*fn);
 	delete fn;
 	
 	//if was default size update to best fit width
-	if(width == XTK_DEFAULT_WIDGET_SIZE)
+	if(width == xWidget::XTK_DEFAULT_WIDGET_SIZE)
 	{
 		xFontMetrics* fm = getFontMetrics();
 		int wid = fm->stringWidth(label);
@@ -94,15 +77,14 @@ xButton::xButton(xContainer* parent,xString label,int x,int y,int width,int heig
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xButton::~xButton()
+xButtonInternal::~xButtonInternal()
 {
-
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xString xButton::getLabel()
+xString xButtonInternal::getLabel()
 {
 	int iLength = ::GetWindowTextLength(getHWND());
 	xArray<xchar> buff(iLength);
@@ -114,7 +96,7 @@ xString xButton::getLabel()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xButton::setLabel(xString label)
+void xButtonInternal::setLabel(xString label)
 {
 	::SetWindowText(getHWND(),label.c_str());
 }
@@ -122,13 +104,13 @@ void xButton::setLabel(xString label)
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-LRESULT xButton::onCommand(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+LRESULT xButtonInternal::onCommand(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
 	//forward this message to child window
 	if(wParam == BN_CLICKED)
 	{
-		xActionEvent ev(this,XWE_ACTION_PERFORMED,getActionCommand());
-		processActionEvent(ev);
+		xActionEvent ev(getExternal(),XWE_ACTION_PERFORMED);
+		processEvent(ev);
 	}
 	return 0;
 }
@@ -136,27 +118,27 @@ LRESULT xButton::onCommand(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-LRESULT xButton::onSetFocus(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+LRESULT xButtonInternal::onSetFocus(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
-	xFocusEvent ev(this,XWE_FOCUS_GAINED);
-	processFocusEvent(ev);
+	xFocusEvent ev(getExternal(),XWE_FOCUS_GAINED);
+	processEvent(ev);
 	return onDefault(hwnd,uMsg,wParam,lParam);
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-LRESULT xButton::onKillFocus(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+LRESULT xButtonInternal::onKillFocus(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
-	xFocusEvent ev(this,XWE_FOCUS_LOST);
-	processFocusEvent(ev);
+	xFocusEvent ev(getExternal(),XWE_FOCUS_LOST);
+	processEvent(ev);
 	return onDefault(hwnd,uMsg,wParam,lParam);
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-LRESULT xButton::onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+LRESULT xButtonInternal::onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
 	return ::CallWindowProc(m_baseWndProc,hwnd,uMsg,wParam,lParam);
 }

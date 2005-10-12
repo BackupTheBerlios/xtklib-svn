@@ -19,6 +19,7 @@
 * @author Mario Casciaro (xshadow@email.it)
 */
 
+#include "frame_msw.h"
 #include "../../../include/xtk/base/application.h"
 #include "../../../include/xtk/widgets/frame.h"
 #include "widgets_msw_private.h"
@@ -33,8 +34,9 @@ extern LRESULT CALLBACK xWidgetWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xFrame::xFrame(xString title,int x,int y,int width,int height,xWidget* parent, xLayoutManager* layout)
-: xWindow(parent,layout),m_title(title)
+xFrameInternal::xFrameInternal(xWidget* parent,xString title,int x,int y,int width,int height, 
+	xLayoutManager* layout,xFrame* external)
+: xWindowInternal(parent,layout,external),m_title(title)
 {	
 	WNDCLASS wclass;
 	if (!::GetClassInfo(xApplication::getHinstance(),XTK_MSW_FRAME_CLASS_NAME,&wclass))
@@ -56,7 +58,7 @@ xFrame::xFrame(xString title,int x,int y,int width,int height,xWidget* parent, x
 		NULL,NULL,xApplication::getHinstance(),NULL);
 	
 	//set the user data of the window to the current window object
-	::SetWindowLongPtr(hwnd,GWL_USERDATA,(LONG_PTR)(xWidget*)this);
+	::SetWindowLongPtr(hwnd,GWL_USERDATA,(LONG_PTR)(xWidgetInternal*)this);
 		
 	assert(hwnd != NULL);
 	setHWND(hwnd);
@@ -67,7 +69,7 @@ xFrame::xFrame(xString title,int x,int y,int width,int height,xWidget* parent, x
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xFrame::~xFrame()
+xFrameInternal::~xFrameInternal()
 {
 	
 }
@@ -75,7 +77,7 @@ xFrame::~xFrame()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xFrame::setTitle(xString title)
+void xFrameInternal::setTitle(xString title)
 {
 	m_title = title;
 	::SetWindowText(

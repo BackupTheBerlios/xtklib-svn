@@ -100,16 +100,43 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath=".\src\widgets\button.cpp">
+			</File>
+			<File
+				RelativePath=".\src\widgets\container.cpp">
+			</File>
+			<File
+				RelativePath=".\src\widgets\font.cpp">
+			</File>
+			<File
+				RelativePath=".\src\widgets\frame.cpp">
+			</File>
+			<File
+				RelativePath=".\src\widgets\label.cpp">
+			</File>
+			<File
 				RelativePath=".\src\widgets\layout.cpp">
+			</File>
+			<File
+				RelativePath=".\src\widgets\panel.cpp">
+			</File>
+			<File
+				RelativePath=".\src\widgets\widget.cpp">
 			</File>
 			<File
 				RelativePath=".\src\widgets\widgetevent.cpp">
 			</File>
 			<File
-				RelativePath=".\src\widgets\widgeteventgenerator.cpp">
+				RelativePath=".\src\widgets\widgeteventgenerator_internal.cpp">
+			</File>
+			<File
+				RelativePath=".\src\widgets\widgeteventgenerator_internal.h">
 			</File>
 			<File
 				RelativePath=".\src\widgets\widgets_private.h">
+			</File>
+			<File
+				RelativePath=".\src\widgets\window.cpp">
 			</File>
 			<Filter
 				Name="msw"
@@ -118,25 +145,52 @@
 					RelativePath=".\src\widgets\msw\button_msw.cpp">
 				</File>
 				<File
+					RelativePath=".\src\widgets\msw\button_msw.h">
+				</File>
+				<File
 					RelativePath=".\src\widgets\msw\container_msw.cpp">
+				</File>
+				<File
+					RelativePath=".\src\widgets\msw\container_msw.h">
 				</File>
 				<File
 					RelativePath=".\src\widgets\msw\font_msw.cpp">
 				</File>
 				<File
+					RelativePath=".\src\widgets\msw\font_msw.h">
+				</File>
+				<File
 					RelativePath=".\src\widgets\msw\frame_msw.cpp">
+				</File>
+				<File
+					RelativePath=".\src\widgets\msw\frame_msw.h">
+				</File>
+				<File
+					RelativePath=".\src\widgets\msw\label_msw.cpp">
+				</File>
+				<File
+					RelativePath=".\src\widgets\msw\label_msw.h">
 				</File>
 				<File
 					RelativePath=".\src\widgets\msw\panel_msw.cpp">
 				</File>
 				<File
+					RelativePath=".\src\widgets\msw\panel_msw.h">
+				</File>
+				<File
 					RelativePath=".\src\widgets\msw\widget_msw.cpp">
+				</File>
+				<File
+					RelativePath=".\src\widgets\msw\widget_msw.h">
 				</File>
 				<File
 					RelativePath=".\src\widgets\msw\widgets_msw_private.h">
 				</File>
 				<File
 					RelativePath=".\src\widgets\msw\window_msw.cpp">
+				</File>
+				<File
+					RelativePath=".\src\widgets\msw\window_msw.h">
 				</File>
 			</Filter>
 		</Filter>
@@ -157,6 +211,9 @@
 				RelativePath=".\include\xtk\widgets\frame.h">
 			</File>
 			<File
+				RelativePath=".\include\xtk\widgets\label.h">
+			</File>
+			<File
 				RelativePath=".\include\xtk\widgets\layout.h">
 			</File>
 			<File
@@ -172,7 +229,7 @@
 				RelativePath=".\include\xtk\widgets\widgeteventgenerator.h">
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets\widgetlisteners.h">
+				RelativePath=".\include\xtk\widgets\widgeteventhandler.h">
 			</File>
 			<File
 				RelativePath=".\include\xtk\widgets.h">
@@ -180,31 +237,6 @@
 			<File
 				RelativePath=".\include\xtk\widgets\window.h">
 			</File>
-			<Filter
-				Name="msw"
-				Filter="">
-				<File
-					RelativePath=".\include\xtk\widgets\msw\button_msw.h">
-				</File>
-				<File
-					RelativePath=".\include\xtk\widgets\msw\container_msw.h">
-				</File>
-				<File
-					RelativePath=".\include\xtk\widgets\msw\font_msw.h">
-				</File>
-				<File
-					RelativePath=".\include\xtk\widgets\msw\frame_msw.h">
-				</File>
-				<File
-					RelativePath=".\include\xtk\widgets\msw\panel_msw.h">
-				</File>
-				<File
-					RelativePath=".\include\xtk\widgets\msw\widget_msw.h">
-				</File>
-				<File
-					RelativePath=".\include\xtk\widgets\msw\window_msw.h">
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"

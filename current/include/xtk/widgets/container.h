@@ -24,7 +24,6 @@
 
 #include "../globals.h"
 #include "widget.h"
-#include "widgeteventgenerator.h"
 #include "layout.h"
 
 #ifdef XTK_USE_WIDGETS
@@ -32,37 +31,44 @@
 namespace xtk
 {
 
-/**
- * Defines the interface for the various implementation of class xContainer.
- */
-class XTKAPI xIContainer
-{
-protected:
+class xContainerInternal;
 
-	xIContainer(xLayoutManager* layout)
-	{}
+/**
+ * A component that can contain other components.
+ * 
+ * @ramarks xContainer class and subclasses does not sends "mouseClicked"
+ * (other mouse events are handled normally).
+ */
+class XTKAPI xContainer : public xWidget
+{
+private:
+	xContainerInternal* m_internal;
+	
+protected:
+	xContainer(xWidget* parent,xLayoutManager* layout,xContainerInternal* i);
+	
 public:
-	virtual ~xIContainer(){}
+	virtual ~xContainer();
 	
 	/**
 	* Removes the specified component from this container.
 	*/
-	virtual void removeChild(xWidget& comp) = 0;
+	virtual void removeChild(xWidget& comp);
 
 	/**
 	* Removes the specified component from this container.
 	*/
-	virtual void addChild(xWidget* comp) = 0;
+	virtual void addChild(xWidget* comp);
 	
 	/**
 	 * Gets the number of components in this panel.
 	 */
-	virtual int getComponentCount() = 0;
+	virtual int getComponentCount();
 		
 	/**
 	 * Gets all the components in this container.
 	 */
-	virtual xArray<NODELETE xWidget*> getComponents() = 0;
+	virtual xArray<MYOWNERSHIP xWidget*> getComponents();
 	
 	/**
 	 * Determines the insets of this container, which indicate the size of the 
@@ -73,29 +79,21 @@ public:
 	/**
 	 * Gets the layout manager for this container.
 	 */	
-	virtual xLayoutManager& getLayout() = 0;
+	virtual xLayoutManager& getLayout();
 
 	/**
 	 * Checks if the component is contained in the component hierarchy of this container.
 	 */
-	virtual bool isAncestorOf(xWidget& c) = 0;
+	virtual bool isAncestorOf(xWidget& c);
 		
 	/**
 	 * Sets the layout manager for this container.
 	 */
-	virtual void setLayout(MYOWNERSHIP xLayoutManager* mgr) = 0;
+	virtual void setLayout(MYOWNERSHIP xLayoutManager* mgr);
 };
 
 
 }//namespace
-
-
-//select include file
-#ifdef XTK_GUI_MSW
-	#include "msw/container_msw.h"
-#elif defined(XTK_GUI_GTK2)
-	#include "gtk2/container_gtk2.h"
-#endif
 
 
 #endif //XTK_USE_WIDGETS
