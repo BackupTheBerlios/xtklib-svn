@@ -35,6 +35,9 @@
 // #define __UNIX__ 
 //			for UNIX compatibility
 //
+// #define __WIDGETS__
+//			to enable widgets module
+//
 // #define __MAKEDLL__
 //			to compile as DLL
 //
@@ -47,13 +50,6 @@
 ////////////////////////////////////////////////////////////
 // XLIB CONFIGURATION///////////////////////////////////////
 ////////////////////////////////////////////////////////////
-
-//Enable the use of the widgets for GUI development
-//* <- Add/remove one '/' to/from the beginning of line to comment/uncomment the block
-#ifndef XTK_USE_WIDGETS
-	#define XTK_USE_WIDGETS
-#endif
-//*/
 
 //Enable the use of xApplication for wrapping main
 //* <- Add/remove one '/' to/from the beginning of line to comment/uncomment the block

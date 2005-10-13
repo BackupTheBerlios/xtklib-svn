@@ -276,16 +276,16 @@ public:
 	*/
 
 	inline void* operator new(size_t size,const char* file,int line)
-	{return xtk::xtk_malloc(size);}
+	{return ::malloc(size);}
 
 	inline void operator delete( void* obj )
-	{xtk::xtk_free(obj);}
+	{::free(obj);}
 
 	inline void* operator new[](size_t size,const char* file,int line)
-	{return xtk::xtk_malloc(size);}
+	{return ::malloc(size);}
 
 	inline void operator delete[]( void* obj )
-	{xtk::xtk_free(obj);}
+	{::free(obj);}
 #endif
 
 

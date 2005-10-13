@@ -10,6 +10,7 @@ xtkbaseinclude_HEADERS = \
 	event.h \
 	exception.h \
 	file.h \
+	functor.h \
 	geometry.h \
 	interfaces.h \
 	logging.h \

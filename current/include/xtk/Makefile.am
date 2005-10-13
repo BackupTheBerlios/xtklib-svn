@@ -1,4 +1,4 @@
-SUBDIRS = base
+SUBDIRS = base widgets
 
 xtkincludedir=$(includedir)/xtk
 
