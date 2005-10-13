@@ -39,11 +39,30 @@ namespace xtk
 class xWidgetInternal;
 
 /**
-* Process the next message of the windowing system message or event queue;
-* Return false if a quit message was received or if your
-* program is a console application.
-*/
-XTKAPI bool xtkProcessNextUIMessage();
+ * Process the next message of the windowing system message or event queue.
+ * The function blocks until a new event are received.
+ * Return false if a quit message was received.
+ */
+XTKAPI bool xtkProcessNextUIEvent();
+
+/**
+ *
+ */
+XTKAPI bool xtkUIEventPending();
+
+/**
+ *
+ */
+XTKAPI bool xtkProcessPendingUIEvent()
+{
+	while(xtkUIEventPending())
+	{
+		if(xtkProcessNextUIEvent() == false)
+			return false;
+	}
+	
+	return true;
+}
 
 /**
  * A widget is the base class for all Gui components.

@@ -36,26 +36,33 @@ xObject xWidgetInternal::s_guiMutex;
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-bool xtkProcessNextUIMessage()
+bool xtkProcessNextUIEvent()
 {
 	MSG message;
 
-	if(::PeekMessage(&message,NULL,0,0,PM_REMOVE) == 0)
+	if(::GetMessage(&message,NULL,0,0) != 0)
 	{
-		xThread::sleep(50);
-	}
-	else
-	{
-		if(message.message == WM_QUIT)
-			return false;
-
 		::TranslateMessage(&message) ;
 		::DispatchMessage(&message) ;
+		
+		return true;
 	}
-
-	return true;
+	else
+		return false;
 }
 
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+bool xtkUIEventPending()
+{
+	MSG message;
+
+	if(::PeekMessage(&message,NULL,0,0,PM_NOREMOVE) != 0)
+		return true;
+	
+	return false;
+}
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

@@ -1,0 +1,237 @@
+# Anjuta Version 1.2.4 
+Compatibility Level: 1 
+
+<PROJECT_DESCRIPTION_START>
+<PROJECT_DESCRIPTION_END>
+<CONFIG_PROGS_START>
+<CONFIG_PROGS_END>
+<CONFIG_LIBS_START>
+<CONFIG_LIBS_END>
+<CONFIG_HEADERS_START>
+<CONFIG_HEADERS_END>
+<CONFIG_CHARACTERISTICS_START>
+<CONFIG_CHARACTERISTICS_END>
+<CONFIG_LIB_FUNCS_START>
+<CONFIG_LIB_FUNCS_END>
+<CONFIG_ADDITIONAL_START>
+<CONFIG_ADDITIONAL_END>
+<CONFIG_FILES_START>
+<CONFIG_FILES_END>
+<MAKEFILE_AM_START>
+<MAKEFILE_AM_END>
+
+props.file.type=project
+
+anjuta.version=1.2.4
+anjuta.compatibility.level=1
+
+project.name=xtklib
+project.type=GENERIC
+project.target.type=EXECUTABLE
+project.version=0.1.0
+project.author=Mario Casciaro
+project.source.target=unknown
+project.has.gettext=0
+project.gui.command=
+project.programming.language=C++
+project.excluded.modules=intl
+
+project.config.extra.modules.before=
+project.config.extra.modules.after=
+project.config.blocked=1
+project.config.disable.overwriting=1 1 1 1 1 1 1 1 1 
+
+project.menu.entry=xtklib Version 0.1.0
+project.menu.group=Application
+project.menu.comment=xtklib Version 0.1.0
+project.menu.icon=
+project.menu.need.terminal=0
+
+project.configure.options=
+anjuta.program.arguments=
+preferences.build.option.jobs=0
+preferences.build.option.silent=0
+preferences.build.option.autosave=0
+preferences.make=make
+preferences.build.option.keep.going=1
+preferences.build.option.warn.undef=0
+preferences.autoformat.custom.style= -i8 -sc -bli0 -bl0 -cbi0 -ss
+preferences.indent.opening=0
+preferences.autoformat.disable=1
+preferences.indent.automatic=1
+preferences.use.tabs=1
+preferences.indent.size=4
+preferences.tabsize=4
+preferences.indent.closing=0
+
+module.include.name=.
+module.include.type=
+module.include.files=\
+	src/widgets/msw/font_msw.h\
+	src/widgets/msw/window_msw.h\
+	src/widgets/msw/panel_msw.h\
+	src/widgets/msw/button_msw.h\
+	src/widgets/msw/label_msw.h\
+	src/widgets/msw/frame_msw.h\
+	src/widgets/msw/container_msw.h\
+	src/widgets/msw/widget_msw.h\
+	src/widgets/msw/widgets_msw_private.h\
+	src/widgets/widgets_private.h\
+	src/widgets/widgeteventgenerator_internal.h\
+	include/xtk/base/datastructures.h\
+	include/xtk/base/utilities.h\
+	include/xtk/base/color.h\
+	include/xtk/base/application.h\
+	include/xtk/base/net.h\
+	include/xtk/base/stacktrace.h\
+	include/xtk/base/interfaces.h\
+	include/xtk/base/geometry.h\
+	include/xtk/base/charset.h\
+	include/xtk/base/logging.h\
+	include/xtk/base/event.h\
+	include/xtk/base/file.h\
+	include/xtk/base/smartptr.h\
+	include/xtk/base/random.h\
+	include/xtk/base/zlibstream.h\
+	include/xtk/base/typewrappers.h\
+	include/xtk/base/math.h\
+	include/xtk/base/functor.h\
+	include/xtk/base/system.h\
+	include/xtk/base/time.h\
+	include/xtk/base/process.h\
+	include/xtk/base/object.h\
+	include/xtk/base/charstream.h\
+	include/xtk/base/preferences.h\
+	include/xtk/base/thread.h\
+	include/xtk/base/exception.h\
+	include/xtk/base/array.h\
+	include/xtk/base/stream.h\
+	include/xtk/base/string.h\
+	include/xtk/base/testing.h\
+	include/xtk/base/memory.h\
+	include/xtk/xtk.h\
+	include/xtk/setup.h\
+	include/xtk/widgets.h\
+	include/xtk/globals.h\
+	include/xtk/widgets/label.h\
+	include/xtk/widgets/widgeteventhandler.h\
+	include/xtk/widgets/widgeteventgenerator.h\
+	include/xtk/widgets/font.h\
+	include/xtk/widgets/frame.h\
+	include/xtk/widgets/widget.h\
+	include/xtk/widgets/window.h\
+	include/xtk/widgets/panel.h\
+	include/xtk/widgets/widgetevent.h\
+	include/xtk/widgets/button.h\
+	include/xtk/widgets/layout.h\
+	include/xtk/widgets/container.h
+
+module.source.name=.
+module.source.type=
+module.source.files=\
+	src/base/zlibstream.cpp\
+	src/base/testing.cpp\
+	src/base/application.cpp\
+	src/base/color.cpp\
+	src/base/random.cpp\
+	src/base/memory.cpp\
+	src/base/inetaddress.cpp\
+	src/base/datastream.cpp\
+	src/base/exception.cpp\
+	src/base/charset.cpp\
+	src/base/process.cpp\
+	src/base/threadgroup.cpp\
+	src/base/system.cpp\
+	src/base/file.cpp\
+	src/base/string.cpp\
+	src/base/object.cpp\
+	src/base/hashmap.cpp\
+	src/base/typewrappers.cpp\
+	src/base/bufferedcharstream.cpp\
+	src/base/socket.cpp\
+	src/base/utilities.cpp\
+	src/base/stream.cpp\
+	src/base/serversocket.cpp\
+	src/base/messagestream.cpp\
+	src/base/linkedlist.cpp\
+	src/base/avlmap.cpp\
+	src/base/bytearraystream.cpp\
+	src/base/triggerableevent.cpp\
+	src/base/arraylist.cpp\
+	src/base/preferences.cpp\
+	src/base/time.cpp\
+	src/base/stacktrace.cpp\
+	src/base/charstream.cpp\
+	src/base/bufferedstream.cpp\
+	src/base/thread.cpp\
+	src/base/logging.cpp\
+	src/widgets/msw/container_msw.cpp\
+	src/widgets/msw/panel_msw.cpp\
+	src/widgets/msw/widget_msw.cpp\
+	src/widgets/msw/font_msw.cpp\
+	src/widgets/msw/window_msw.cpp\
+	src/widgets/msw/button_msw.cpp\
+	src/widgets/msw/label_msw.cpp\
+	src/widgets/msw/frame_msw.cpp\
+	src/widgets/frame.cpp\
+	src/widgets/widgetevent.cpp\
+	src/widgets/widget.cpp\
+	src/widgets/label.cpp\
+	src/widgets/font.cpp\
+	src/widgets/panel.cpp\
+	src/widgets/button.cpp\
+	src/widgets/container.cpp\
+	src/widgets/widgeteventgenerator_internal.cpp\
+	src/widgets/layout.cpp\
+	src/widgets/window.cpp\
+	tests/widgetstest.cpp\
+	tests/loggingtest.cpp\
+	tests/test.cpp\
+	tests/processtest.cpp\
+	tests/datetest.cpp\
+	tests/filetest.cpp\
+	tests/preferencestest.cpp\
+	tests/stringTest.cpp\
+	tests/threadtest.cpp\
+	tests/zstreamtest.cpp
+
+module.pixmap.name=.
+module.pixmap.type=
+module.pixmap.files=
+
+module.data.name=.
+module.data.type=
+module.data.files=
+
+module.help.name=.
+module.help.type=
+module.help.files=
+
+module.doc.name=.
+module.doc.type=
+module.doc.files=\
+	README\
+	AUTHORS\
+	INSTALL\
+	ChangeLog
+
+module.po.files=
+
+compiler.options.supports=
+compiler.options.include.paths=\
+	.\
+	..
+compiler.options.library.paths=
+compiler.options.libraries=
+compiler.options.libraries.selected=
+compiler.options.defines=\
+	HAVE_CONFIG_H
+compiler.options.defines.selected=
+compiler.options.warning.buttons=0 0 1 1 0 1 0 0 0 0 0 0 0 1 0 0 
+compiler.options.optimize.buttons=0 0 1 0 
+compiler.options.other.buttons=1 0 
+compiler.options.other.c.flags=
+compiler.options.other.l.flags=
+compiler.options.other.l.libs=
+
+project.src.paths=
