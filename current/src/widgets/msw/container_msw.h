@@ -34,7 +34,7 @@ namespace xtk
 
 /**
  *
-*/
+ */
 class XTKAPI xContainerInternal : public xWidgetInternal
 {
 protected:

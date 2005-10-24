@@ -35,32 +35,16 @@ private:
 		frame->setDefaultCloseAction(xWindow::XTK_EXIT_ON_CLOSE);
 		frame->setVisible(true);
 		
-		frame->addMousePressedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::mousePressed));
-		frame->addMouseReleasedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::mouseReleased));
-		frame->addMouseDoubleClickedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::mouseDblClicked));
+		xButton* butt1 = new xButton(frame,_T("Button1"));
+		frame->getLayout().setConstraints(*butt1,new xBoxConstraint(0,true,true,1));
+		butt1->addActionPerformedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::actionPerformed));
+		xButton* butt2 = new xButton(frame,_T("Button2"));
 		
-		xPanel* panel1 = new xPanel(frame,xPanel::BORDER_TITLED,_T("Panel1"));
-		xPanel* panel2 = new xPanel(frame,xPanel::BORDER_TITLED,_T("Panel2"));
-		
-		frame->getLayout().setConstraints(*panel1,new xBoxConstraint(1,1,xBoxConstraint::FILL_BOTH));
-		frame->getLayout().setConstraints(*panel2,new xBoxConstraint(2,1,xBoxConstraint::FILL_BOTH));
-
-		xButton* butt = new xButton(panel1,_T("|"));
-		butt->addActionPerformedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::actionPerformed));
-		xButton* butt2 = new xButton(panel1,_T("13"),103,0);
-		xButton* butt3 = new xButton(panel1,_T("aaaaaa"),103,0);
-		
-		xLabel* label1 = new xLabel(panel2,_T("Label1"));
-		xLabel* label2 = new xLabel(panel2,_T("Label2"));
-
-		frame->setSize(500,500);
-		frame->doLayout();
-		
-		while(xtkProcessNextUIMessage()){}
+		xtkUIEventLoop();
 	}
 
 public:
-	xWidgetsTest() : xTest("Widgets Test"){}
+	xWidgetsTest() : xTest(_T("Widgets Test")){}
 	
 	virtual void actionPerformed(xWidgetEvent& e)
 	{

@@ -41,24 +41,26 @@ class xContainerInternal;
  */
 class XTKAPI xContainer : public xWidget
 {
+friend class xWidget;
+	
 private:
 	xContainerInternal* m_internal;
 	
 protected:
 	xContainer(xWidget* parent,xLayoutManager* layout,xContainerInternal* i);
 	
-public:
-	virtual ~xContainer();
-	
 	/**
-	* Removes the specified component from this container.
-	*/
+	 * Removes the specified component from this container.
+	 */
 	virtual void removeChild(xWidget& comp);
 
 	/**
-	* Removes the specified component from this container.
-	*/
+	 * Removes the specified component from this container.
+	 */
 	virtual void addChild(xWidget* comp);
+
+public:
+	virtual ~xContainer();
 	
 	/**
 	 * Gets the number of components in this panel.

@@ -45,7 +45,7 @@ public:
 	/**
 	* Initializes all xtklib facilities
 	*/
-	static void initialize();
+	static void initialize(int* argc,char*** argv);
 
 	/**
 	* Finalizes all xtklib facilities

@@ -23,223 +23,78 @@
 
 #ifdef XTK_USE_WIDGETS
 
+//select include file
+#ifdef XTK_GUI_MSW
+	#include "msw/layout_msw.h"
+#elif defined(XTK_GUI_GTK2)
+	#include "gtk2/layout_gtk2.h"
+#endif
+
 namespace xtk
 {
 
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-class xBoxConstraintComparator : public xComparator<xLayoutManager::xComponentWithConstraint*>
-{
-public:
-	virtual ~xBoxConstraintComparator(){}
-
-	virtual int compare(xLayoutManager::xComponentWithConstraint* o1,xLayoutManager::xComponentWithConstraint* o2)
-	{
-		xBoxConstraint* c1 = dynamic_cast<xBoxConstraint*>(o1->m_constraint);
-		xBoxConstraint* c2 = dynamic_cast<xBoxConstraint*>(o2->m_constraint);
-		
-		if(c1->m_place < c2->m_place)
-			return -1;
-		if(c1->m_place > c2->m_place)
-			return 1;
-			
-		return 0;
-	}
-};
+xConstraint::~xConstraint()
+{delete m_internal;}
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xBoxLayout::doLayout(xDimension& parentClientAreaSize)
-{
-	if(m_components.size() == 0)
-		return;
-		
-	if(m_orientation == X_AXIS)
-	{
-		xArray<xComponentWithConstraint*> components = m_components.toArray().castTo<xComponentWithConstraint*>();
-		
-		//calculate total weight
-		int totWeight = 0;
-		for(int i = 0; i < components.size();i++)
-			totWeight += (dynamic_cast<xBoxConstraint*>(components[i]->m_constraint))->m_weight;
-			
-		//calculate the size to give to 1 weight
-		int weightSize = parentClientAreaSize.getWidth() / totWeight;
-		
-		//sort array by place
-		xBoxConstraintComparator comp;
-		components.sort(comp);
-		
-		int assignedWeight = 0;
-		//now for every component we set position and size
-		for(int i = 0; i < components.size();i++)
-		{
-			int x,y,width,height;
-			x=y=width=height = 0;
-			xBoxConstraint* cnstr = dynamic_cast<xBoxConstraint*>(components[i]->m_constraint);
-			
-			switch(cnstr->m_fill)
-			{
-			case xBoxConstraint::FILL_HORIZONTAL:
-				width = cnstr->m_weight * weightSize;
-				height = components[i]->m_component->getHeight();
-				break;
-			case xBoxConstraint::FILL_VERTICAL:
-				width = components[i]->m_component->getWidth();
-				height = parentClientAreaSize.getHeight();
-				break;
-			case xBoxConstraint::FILL_BOTH:
-				width = cnstr->m_weight * weightSize;
-				height = parentClientAreaSize.getHeight();
-				break;
-			default:
-			case xBoxConstraint::FILL_NONE:
-				width = components[i]->m_component->getWidth();
-				height = components[i]->m_component->getHeight();
-				break;
-			}
-				
-			switch(cnstr->m_anchor)
-			{
-			case xBoxConstraint::ANCHOR_EAST:
-				y = (int)(parentClientAreaSize.getHeight() / 2) - (int)(height / 2);
-				x = (assignedWeight * weightSize) + (cnstr->m_weight * weightSize) - width;
-				break;
-			case xBoxConstraint::ANCHOR_NORTH:
-				y = 0;
-				x = (assignedWeight * weightSize) + ((cnstr->m_weight * weightSize) / 2) - (width / 2);
-				break;
-			case xBoxConstraint::ANCHOR_NORTHEAST:
-				y = 0;
-				x = (assignedWeight * weightSize) + (cnstr->m_weight * weightSize) - width;
-				break;
-			case xBoxConstraint::ANCHOR_NORTHWEST:
-				y = 0;
-				x = 0;
-				break;
-			case xBoxConstraint::ANCHOR_SOUTH:
-				y = parentClientAreaSize.getHeight() - height;
-				x = (assignedWeight * weightSize) + ((cnstr->m_weight * weightSize) / 2) - (width / 2);
-				break;
-			case xBoxConstraint::ANCHOR_SOUTHEAST:
-				y = parentClientAreaSize.getHeight() - height;
-				x = (assignedWeight * weightSize) + (cnstr->m_weight * weightSize) - width;
-				break;
-			case xBoxConstraint::ANCHOR_SOUTHWEST:
-				y = parentClientAreaSize.getHeight() - height;
-				x = 0;
-				break;		
-			case xBoxConstraint::ANCHOR_WEST:
-				y = (int)(parentClientAreaSize.getHeight() / 2) - (int)(height / 2);
-				x = 0;
-				break;		
-			case xBoxConstraint::ANCHOR_CENTER:
-				y = (int)(parentClientAreaSize.getHeight() / 2) - (int)(height / 2);
-				x = (assignedWeight * weightSize) + ((cnstr->m_weight * weightSize) / 2) - (width / 2);
-				break;
-			}
-			
-			assignedWeight += cnstr->m_weight;
-			components[i]->m_component->setBounds(x,y,width,height);
-		}
-	}
-	else //Y_AXIS
-	{
-		xArray<xComponentWithConstraint*> components = m_components.toArray().castTo<xComponentWithConstraint*>();
 
-		//calculate total weight
-		int totWeight = 0;
-		for(int i = 0; i < components.size();i++)
-			totWeight += dynamic_cast<xBoxConstraint*>(components[i]->m_constraint)->m_weight;
+void xLayoutManager::addComponents(xArray<YOUROWNERSHIP xWidget*> components)
+{m_internal->addComponents(components);}
 
-		//calculate the size to give to 1 weight
-		int weightSize = parentClientAreaSize.getHeight() / totWeight;
-
-		//sort array by place
-		xBoxConstraintComparator comp;
-		components.sort(comp);
-
-		int assignedWeight = 0;
-		//now for every component we set position and size
-		for(int i = 0; i < components.size();i++)
-		{
-			int x,y,width,height;
-			x=y=width=height = 0;
-			xBoxConstraint* cnstr = dynamic_cast<xBoxConstraint*>(components[i]->m_constraint);
-
-			switch(cnstr->m_fill)
-			{
-			case xBoxConstraint::FILL_HORIZONTAL:
-				width = parentClientAreaSize.getWidth();
-				height = components[i]->m_component->getHeight();
-				break;
-			case xBoxConstraint::FILL_VERTICAL:
-				width = components[i]->m_component->getWidth();
-				height = cnstr->m_weight * weightSize;
-				break;
-			case xBoxConstraint::FILL_BOTH:
-				width = parentClientAreaSize.getWidth();
-				height = cnstr->m_weight * weightSize;
-				break;
-			default:
-			case xBoxConstraint::FILL_NONE:
-				width = components[i]->m_component->getWidth();
-				height = components[i]->m_component->getHeight();
-				break;
-			}
-
-			switch(cnstr->m_anchor)
-			{
-			case xBoxConstraint::ANCHOR_EAST:
-				y = (assignedWeight * weightSize) + ((cnstr->m_weight * weightSize) / 2) - (height / 2);
-				x = parentClientAreaSize.getWidth() - width;
-				break;
-			case xBoxConstraint::ANCHOR_NORTH:
-				y = 0;
-				x = (int)(parentClientAreaSize.getWidth() / 2) - (int)(width / 2);
-				break;
-			case xBoxConstraint::ANCHOR_NORTHEAST:
-				y = 0;
-				x = parentClientAreaSize.getWidth() - width;
-				break;
-			case xBoxConstraint::ANCHOR_NORTHWEST:
-				y = 0;
-				x = 0;
-				break;
-			case xBoxConstraint::ANCHOR_SOUTH:
-				y = (assignedWeight * weightSize) + (cnstr->m_weight * weightSize) - height;
-				x = (int)(parentClientAreaSize.getWidth() / 2) - (int)(width / 2);
-				break;
-			case xBoxConstraint::ANCHOR_SOUTHEAST:
-				y = (assignedWeight * weightSize) + (cnstr->m_weight * weightSize) - height;
-				x = parentClientAreaSize.getWidth() - width;
-				break;
-			case xBoxConstraint::ANCHOR_SOUTHWEST:
-				y = (assignedWeight * weightSize) + (cnstr->m_weight * weightSize) - height;
-				x = 0;
-				break;		
-			case xBoxConstraint::ANCHOR_WEST:
-				y = (assignedWeight * weightSize) + ((cnstr->m_weight * weightSize) / 2) - (height / 2);
-				x = 0;
-				break;		
-			case xBoxConstraint::ANCHOR_CENTER:
-				y = (assignedWeight * weightSize) + ((cnstr->m_weight * weightSize) / 2) - (height / 2);
-				x = (int)(parentClientAreaSize.getWidth() / 2) - (int)(width / 2);
-				break;
-			}
-			
-			assignedWeight += cnstr->m_weight;
-			components[i]->m_component->setBounds(x,y,width,height);
-		}
-	}
+xLayoutManager::~xLayoutManager()
+{delete m_internal;}
 	
+void xLayoutManager::setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr)
+{
+	if(cnstr == NULL)
+		m_internal->setConstraints(c,this->defaultConstraintFactory());
+	else
+		m_internal->setConstraints(c,cnstr);
 }
 
+void xLayoutManager::addComponent(YOUROWNERSHIP xWidget* c,MYOWNERSHIP xConstraint* cnstr)
+{
+	if(cnstr == NULL)
+		m_internal->addComponent(c,this->defaultConstraintFactory());
+	else
+		m_internal->addComponent(c,cnstr);
+}
+
+void xLayoutManager::removeComponent(xWidget& c)
+{m_internal->removeComponent(c);}
+	
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
+xBoxConstraint::xBoxConstraint(int place,bool expand,bool fill,int padding)
+: xConstraint(new xBoxConstraintInternal(place,expand,fill,padding))
+{}
+
+xBoxConstraintInternal* xBoxConstraint::getInternal()
+{return static_cast<xBoxConstraintInternal*>(xConstraint::getInternal());}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+xBoxLayoutInternal* xBoxLayout::getInternal()
+{return static_cast<xBoxLayoutInternal*>(xLayoutManager::getInternal());}
+
+xBoxLayout::xBoxLayout(xBoxLayout::BoxOrientation orientation,bool homogeneous)
+: xLayoutManager(new xBoxLayoutInternal(orientation,homogeneous,this))
+{}
+	
+void xBoxLayout::setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr)
+{
+	xBoxConstraint* boxc = dynamic_cast<xBoxConstraint*>(cnstr);
+	assert(boxc != NULL);
+	if(boxc != NULL)
+		xLayoutManager::setConstraints(c,cnstr);
+}
+
+xConstraint* xBoxLayout::defaultConstraintFactory()
+{return new xBoxConstraint(0,false,false,0);}
 
 
 }//namespace

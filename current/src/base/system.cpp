@@ -124,10 +124,10 @@ void xSystem::xSTDWriter::write(xString s) throw(xIOException)
 	
 	#ifndef XTK_UNICODE
 		if(puts(s.c_str()) == EOF)
-			throw xIOException(_T("Error writing to stdout"));
+			throw xIOException(_T("Error writing to stdout"),getSysErrorCode());
 	#else
 		if(fputws(s.c_str(),stdout) == (int)WEOF)
-			throw xIOException(_T("Error writing to stdout"));
+			throw xIOException(_T("Error writing to stdout"),getSysErrorCode());
 	#endif
 	
 	synchronizeEnd();

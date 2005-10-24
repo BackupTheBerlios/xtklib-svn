@@ -83,9 +83,11 @@ public:
 	 */
 	xString(const xchar* format);
 	
-	#ifdef XTK_UNICODE
-		xString(const char* cstr,xCharset::Charset charset);
-	#endif
+	/**
+	 *
+	 */
+	xString(const char* cstr,xCharset::Charset charset);
+
 	
 	/**
 	 * Create a string by copying at numCopy characters from a given 
@@ -122,7 +124,7 @@ public:
 	 * Returns multibyte representation of the string encoded 
 	 * in the system default charset
 	 */
-	const char* mb_str();
+	const char* mb_str(xCharset::Charset charset = xCharset::CS_UTF8);
 
 	#if !defined(XTK_OS_WINDOWS) || !defined(XTK_UNICODE)
 		const char* fn_str(){return mb_str();}

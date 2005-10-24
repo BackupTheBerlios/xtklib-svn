@@ -147,7 +147,9 @@ namespace xtk
 
 #ifdef XTK_OS_WINDOWS
 	#define XTK_GUI_MSW
-#endif
+#else
+	#define XTK_GUI_GTK2
+#endif 
 
 
 //###################################################

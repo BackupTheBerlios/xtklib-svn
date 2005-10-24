@@ -41,6 +41,7 @@ protected:
 	virtual void processEvent(xWidgetEvent& ev) = 0;
 	virtual void addEventHandler(MYOWNERSHIP xWidgetEventHandlerBase* evh,xWidgetEventID evmask) = 0;
 	virtual void removeEventHandler(xWidgetEventHandlerBase& evh,xWidgetEventID evmask) = 0;
+	
 	xWidgetEventGenerator(){}
 public:
 	virtual ~xWidgetEventGenerator(){}

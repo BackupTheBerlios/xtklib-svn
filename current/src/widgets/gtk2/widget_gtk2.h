@@ -37,18 +37,11 @@ namespace xtk
 class XTKAPI xWidgetInternal : public virtual xObject,public xWidgetEventGeneratorInternal
 {
 private:
-	static xObject	s_guiMutex;
 	xWidget*		m_parent;
-	
-	GtkWidget*	m_gtkWidget;
 
 protected:
-	xWidget* m_external;
-
-	/**
-	 * 
-	 */
-	static xObject& getSyncObj(){return s_guiMutex;}
+	GtkWidget*		m_gtkWidget;
+	xWidget* 		m_external;
 	
 	/**
 	 * 
@@ -57,70 +50,38 @@ protected:
 	{m_gtkWidget = gtkWidget;}
 	
 	xWidgetInternal(xWidget* parent,xWidget* external);
+	
+	/**
+	 * Do all necessary initializations
+	 */
+	virtual void gtkWidgetCreated();
+	
 public:
 	virtual ~xWidgetInternal();
 	
 	xWidget* getExternal()
 	{return m_external;}
 	
+	xWidget* getParent()
+	{return m_parent;}
+	
 	GtkWidget* getGtkWidget()
 	{return m_gtkWidget;}
 	
-	virtual bool contains(int x, int y)
-	{	
-		return 
-			(x >= getX() && x <= getX()+getWidth()) &&
-			(y >= getY() && y <= getY()+getHeight());
-	}
-	
 	virtual void doLayout()
 	{}
-
-	virtual NODELETE xWidget* getParent()
-	{return m_parent;}
-	
-	virtual void setBounds(xRectangle& r)
-	{setBounds(r.getX(),r.getY(),r.getWidth(),r.getHeight());}
-	
-	//! @todo to implement (GTK2)
-	virtual xColor* getBackground();
-	virtual xRectangle* getBounds();
-	//! @todo to implement (GTK2)
-	virtual MYOWNERSHIP xWidget* getComponentAt(int x, int y);
-	virtual xFont* getFont();
-	virtual xFontMetrics* getFontMetrics();
-	//! @todo to implement (GTK2)
-	virtual xColor* getForeground();
-	virtual int getHeight();
-	//! @todo to implement (GTK2)
-	virtual bool getIgnoreRepaint();
-	virtual xPoint* getLocation();
-	virtual xPoint* getLocationOnScreen();
-	virtual xDimension* getSize();
-	virtual int getWidth();
-	virtual int getX();
-	virtual int getY();
-	virtual void invalidate();
+		
+	virtual void getPreferredSize(OUT xDimension& dim);
 	virtual bool isEnabled();
 	virtual bool isFocusable();
 	virtual bool isFocusOwner();
-	virtual bool isShowing();
-	//! @todo to implement (GTK2)
-	virtual bool isValid();
-	//! @todo to implement (GTK2)
 	virtual bool isVisible();
 	virtual void requestFocus();
-	//! @todo to implement (GTK2)
-	virtual void setBackground(xColor& c);
-	virtual void setBounds(int x, int y, int width, int height);
 	virtual void setEnabled(bool b);
-	virtual void setFont(xFont& f);
-	//! @todo to implement (GTK2)
-	virtual void setForeground(xColor& c);
-	virtual void setLocation(int x, int y);
-	virtual void setSize(int width, int height);
-	virtual void setVisible(boolean b);
-	virtual void validate();
+	virtual void setPreferredSize(int width, int height);
+	virtual void setVisible(bool b);
+	
+	virtual void onDestroy(GtkWidget* widget);
 };
 
 }//namespace

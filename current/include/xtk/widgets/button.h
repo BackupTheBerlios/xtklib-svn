@@ -23,7 +23,6 @@
 #define XTK_BUTTON_H
 
 #include "../globals.h"
-#include "widgeteventgenerator.h"
 #include "widget.h"
 
 #ifdef XTK_USE_WIDGETS
@@ -35,18 +34,16 @@ class xButtonInternal;
 /**
  * Defines the prototype for the various implementation of class xButton.
  */
-class XTKAPI xButton : public xWidget,public xActionEventGenerator,public xFocusEventGenerator
+class XTKAPI xButton : public xWidget,public xActionEventGenerator
 {
 private:
 	xButtonInternal* m_internal;
 	
 protected:
-	xButton(xWidget* parent,xString label,int x,int y,int width,int height,xButtonInternal* i);
+	xButton(xWidget* parent,xString label,xButtonInternal* i);
 	
 public:
-	xButton(xWidget* parent,xString label = _T(""),int x = XTK_DEFAULT_WIDGET_POSITION,
-		int y = XTK_DEFAULT_WIDGET_POSITION,int width = XTK_DEFAULT_WIDGET_SIZE,
-		int height = XTK_DEFAULT_WIDGET_SIZE);
+	xButton(xWidget* parent,xString label = _T(""));
 		
 	virtual ~xButton();
 	
@@ -60,6 +57,7 @@ public:
 	 */
 	virtual void setLabel(xString label);
 };
+
 
 }//namespace
 

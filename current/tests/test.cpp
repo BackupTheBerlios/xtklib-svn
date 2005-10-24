@@ -26,7 +26,7 @@ using namespace xtk;
 
 #include <stdio.h>
 
-#include "stringTest.cpp"
+//#include "stringTest.cpp"
 //#include "dateTest.cpp"
 //#include "loggingtest.cpp"
 //#include "nettest.cpp"

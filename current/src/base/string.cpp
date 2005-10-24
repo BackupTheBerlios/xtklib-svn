@@ -198,22 +198,36 @@ xString::xString(const xchar* str)
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-#ifdef XTK_UNICODE
+
 xString::xString(const char* cstr,xCharset::Charset charset)
 {
-	//init with blank string
-	m_data = &g_emptyString;
-	m_data->attach();
-
 	#ifdef XTK_UNICODE
+		//init with blank string
+		m_data = &g_emptyString;
+		m_data->attach();
+	
 		mb_data = NULL;
 		m_isMbUpdated = false;
+		
+		
+		xCharsetDecoder dec(charset);
+		dec.decode(*this,(const xbyte*) cstr,(int) strlen(cstr));
+	#else
+		if(cstr == NULL)
+		throw xNullPointerException();
+		
+		m_data = new xStringData();
+		m_data->attach();
+		
+		m_data->len = xstrlen(cstr);
+	
+		allocateNeededBuffer(m_data->len);
+	
+		memcpy(m_data->data,cstr, m_data->len * sizeof(xchar));
+		m_data->data[m_data->len] = _T('\0');
 	#endif
-
-	xCharsetDecoder dec(charset);
-	dec.decode(*this,(const xbyte*) cstr,(int) strlen(cstr));
 }
-#endif
+
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -359,7 +373,7 @@ const xchar* xString::c_str()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-const char* xString::mb_str()
+const char* xString::mb_str(xCharset::Charset charset)
 {
 	#ifdef XTK_UNICODE
 		if(isEmpty())
@@ -370,7 +384,7 @@ const char* xString::mb_str()
 		
 		if(!m_isMbUpdated)
 		{
-			xCharsetEncoder enc(xCharset::CS_SYSTEM);
+			xCharsetEncoder enc(charset);
 			enc.encode(*mb_data,*this);
 			mb_data->resize(mb_data->size() + 1);
 			(*mb_data)[mb_data->size() - 1] = '\0';

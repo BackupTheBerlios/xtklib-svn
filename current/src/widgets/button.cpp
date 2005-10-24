@@ -33,14 +33,14 @@
 namespace xtk
 {
 
-xButton::xButton(xWidget* parent,xString label,int x,int y,int width,int height,xButtonInternal* i)
+xButton::xButton(xWidget* parent,xString label,xButtonInternal* i)
 : xWidget(parent,i)
 {
 	m_internal = static_cast<xButtonInternal*>(getInternal());
 }
 
-xButton::xButton(xWidget* parent,xString label,int x,int y,int width,int height)
-: xWidget(parent,new xButtonInternal(parent,label,x,y,width,height,this))
+xButton::xButton(xWidget* parent,xString label)
+: xWidget(parent,new xButtonInternal(parent,label,this))
 {
 	m_internal = static_cast<xButtonInternal*>(getInternal());
 }

@@ -20,6 +20,7 @@
 */
 
 #include "../../include/xtk/widgets/widget.h"
+#include "../../include/xtk/widgets/container.h"
 
 #ifdef XTK_USE_WIDGETS
 
@@ -37,7 +38,15 @@ namespace xtk
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
 xWidget::xWidget(xWidget* parent,xWidgetInternal* i)
-{m_internal = i;}
+{
+	m_internal = i;
+	if(parent != NULL)
+	{
+		xContainer* c = dynamic_cast<xContainer*>(parent);
+		if(c != NULL)
+			c->addChild(this);
+	}
+}
 	
 void xWidget::processEvent(xWidgetEvent& ev)
 {m_internal->processEvent(ev);}
@@ -50,60 +59,15 @@ void xWidget::removeEventHandler(xWidgetEventHandlerBase& evh,xWidgetEventID evm
 
 xWidget::~xWidget()
 {delete m_internal;}
-
-bool xWidget::contains(int x, int y)
-{return m_internal->contains(x,y);}
 	
 void xWidget::doLayout()
 {m_internal->doLayout();}
 	
-xColor* xWidget::getBackground()
-{return m_internal->getBackground();}
-	
-xRectangle* xWidget::getBounds()
-{return m_internal->getBounds();}
-	
-MYOWNERSHIP xWidget* xWidget::getComponentAt(int x, int y)
-{return m_internal->getComponentAt(x,y);}
-	
-xFont* xWidget::getFont()
-{return m_internal->getFont();}
-	
-xFontMetrics* xWidget::getFontMetrics()
-{return m_internal->getFontMetrics();}
-	
-xColor* xWidget::getForeground()
-{return m_internal->getForeground();}
-	
-int xWidget::getHeight()
-{return m_internal->getHeight();}
-	
-bool xWidget::getIgnoreRepaint()
-{return m_internal->getIgnoreRepaint();}
-		
-xPoint* xWidget::getLocation()
-{return m_internal->getLocation();}
-	
-xPoint* xWidget::getLocationOnScreen()
-{return m_internal->getLocationOnScreen();}
-	
 MYOWNERSHIP xWidget* xWidget::getParent()
 {return m_internal->getParent();}
 		
-xDimension* xWidget::getSize()
-{return m_internal->getSize();}
-		
-int xWidget::getWidth()
-{return m_internal->getWidth();}
-	
-int xWidget::getX()
-{return m_internal->getX();}
-	
-int xWidget::getY()
-{return m_internal->getY();}
-		
-void xWidget::invalidate()
-{m_internal->invalidate();}
+void xWidget::getPreferredSize(xDimension& dim)
+{m_internal->getPreferredSize(dim);}
 		
 bool xWidget::isEnabled()
 {return m_internal->isEnabled();}
@@ -113,12 +77,6 @@ bool xWidget::isFocusable()
 	
 bool xWidget::isFocusOwner()
 {return m_internal->isFocusOwner();}
-		
-bool xWidget::isShowing()
-{return m_internal->isShowing();}
-	
-bool xWidget::isValid()
-{return m_internal->isValid();}
 	
 bool xWidget::isVisible()
 {return m_internal->isVisible();}
@@ -126,36 +84,14 @@ bool xWidget::isVisible()
 void xWidget::requestFocus()
 {m_internal->requestFocus();}
 		
-void xWidget::setBackground(xColor& c)
-{m_internal->setBackground(c);}
-	
-void xWidget::setBounds(int x, int y, int width, int height)
-{m_internal->setBounds(x,y,width,height);}
-	
-void xWidget::setBounds(xRectangle& r)
-{m_internal->setBounds(r);}
-		
 void xWidget::setEnabled(bool b)
 {m_internal->setEnabled(b);}
-		
-void xWidget::setFont(xFont& f)
-{m_internal->setFont(f);}
-	
-void xWidget::setForeground(xColor& c)
-{m_internal->setForeground(c);}
-	
-void xWidget::setLocation(int x, int y)
-{m_internal->setLocation(x,y);}
 
-void xWidget::setSize(int width, int height)
-{m_internal->setSize(width,height);}
+void xWidget::setPreferredSize(int width, int height)
+{m_internal->setPreferredSize(width,height);}
 	
-void xWidget::setVisible(boolean b)
+void xWidget::setVisible(bool b)
 {m_internal->setVisible(b);}
-		
-void xWidget::validate()
-{m_internal->validate();}
-
 
 }//namespace
 

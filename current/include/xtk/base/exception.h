@@ -43,6 +43,16 @@ class xWriter;
 	typedef int sys_error_code_t;
 #endif
 
+
+inline sys_error_code_t getSysErrorCode()
+{
+	#ifdef XTK_OS_WINDOWS
+		return GetLastError();
+	#elif defined(XTK_OS_UNIX)
+		return errno;
+	#endif
+}
+
 /**
  * @brief The superclass for all exceptions in xtklib
  */

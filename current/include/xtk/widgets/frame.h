@@ -41,17 +41,11 @@ private:
 	xFrameInternal* m_internal;
 	
 protected:
-	xFrame(xWidget* parent,xString title,int x,
-		int y ,
-		int width ,int height,
-		xLayoutManager* layout,
-		xFrameInternal* i);
+	xFrame(xWidget* parent,xString title,xLayoutManager* layout,xFrameInternal* i);
 	
 public:
-	xFrame(xWidget* parent,xString title,int x = XTK_DEFAULT_WIDGET_POSITION,
-		int y = XTK_DEFAULT_WIDGET_POSITION,
-		int width = XTK_DEFAULT_WIDGET_SIZE,int height = XTK_DEFAULT_WIDGET_SIZE,
-		xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS));
+	xFrame(xWidget* parent,xString title,
+		xLayoutManager* layout = new xBoxLayout(xBoxLayout::BOX_ORIENTATION_X_AXIS,true));
 		
 	virtual ~xFrame();
 

@@ -29,109 +29,74 @@
 namespace xtk
 {
 
+class xConstraintInternal;
+class xLayoutManagerInternal;
+class xBoxConstraintInternal;
+class xBoxLayoutInternal;
+	
 /**
  * Tag class for all layout constraints class
  */
 class XTKAPI xConstraint : public virtual xObject
 {
+private:
+	xConstraintInternal* m_internal;
+
+protected:
+	xConstraint(xConstraintInternal* i)
+	{m_internal = i;}
+
 public:
-	virtual ~xConstraint(){}
+	virtual ~xConstraint();
+	
+	xConstraintInternal* getInternal()
+	{return m_internal;}
 };
 
 
 
 /**
-* Defines the interface for classes that know how to lay out xContainers.
-*/
+ * Defines the interface for classes that know how to lay out xContainers.
+ */
 class XTKAPI xLayoutManager : public virtual xObject
 {
-friend class xBoxConstraintComparator;
+friend class xContainerInternal;
+private:
+	xLayoutManagerInternal* m_internal;
+
 protected:
-
-	class xComponentWithConstraint : public virtual xObject
-	{
-	public:
-		xWidget*		m_component;
-		xConstraint*	m_constraint;
-		
-		xComponentWithConstraint(xWidget* component,xConstraint* constraint)
-		{
-			m_component = component;
-			m_constraint = constraint;
-		}
-		
-		virtual ~xComponentWithConstraint()
-		{
-			if(m_constraint != NULL)
-				delete m_constraint;
-		}
-		
-		virtual bool equals(xComponentWithConstraint& cc)
-		{
-			return m_component->equals(*(cc.m_component));
-		}
-		
-		virtual bool equals(xObject& o)
-		{
-			xComponentWithConstraint* cc = dynamic_cast<xComponentWithConstraint*>(&o);
-			if(cc == NULL)
-				return false;
-				
-			return equals(*cc);
-		}
-	};
-
-	xArrayList		m_components;
-	
-	void doSetConstraints(xWidget& c,xConstraint* co)
-	{
-		xComponentWithConstraint cc(&c,NULL);
-		xObject& o = m_components.getByObject(cc);
-		if(o.isNull())
-			return;
-		xComponentWithConstraint* cc2 = dynamic_cast<xComponentWithConstraint*>(&o);
-		if(cc2->m_constraint != NULL)
-			delete cc2->m_constraint;
-		cc2->m_constraint = co;
-	}
-	
-	xLayoutManager()
-	{m_components.giveOwnership();}
-public:
-	virtual ~xLayoutManager(){}
+	xLayoutManager(xLayoutManagerInternal* i)
+	{m_internal = i;}
 	
 	/**
-	 * Sets the constraints for the specified component in this layout to the default
-	 * constraint of this layout.
+	 *
 	 */
-	virtual void setConstraints(xWidget& c) = 0;
+	virtual void addComponent(YOUROWNERSHIP xWidget* c,MYOWNERSHIP xConstraint* cnstr = NULL);
+	
+	/**
+	 *
+	 */
+	virtual void addComponents(xArray<YOUROWNERSHIP xWidget*> components);
+	
+	/**
+	 *
+	 */
+	virtual void removeComponent(xWidget& c);
+public:
+	virtual ~xLayoutManager();
 	
 	/**
 	* Sets the constraints for the specified component in this layout.
 	*/
-	virtual void setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr) = 0;
+	virtual void setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr = NULL) = 0;
+	
+	xLayoutManagerInternal* getInternal()
+	{return m_internal;}
 	
 	/**
-	 * Execute the layout of the components
+	 *
 	 */
-	virtual void doLayout(xDimension& parentClientAreaSize) = 0;
-	
-	void addComponents(xArray<YOUROWNERSHIP xWidget*> components)
-	{
-		for(int i = 0;i < components.size();i++)
-			addComponent(components[i]);
-	}
-	void addComponent(YOUROWNERSHIP xWidget* c)
-	{
-		m_components.add(new xComponentWithConstraint(c,NULL));
-		setConstraints(*c);
-	}
-	
-	void removeComponent(xWidget& c)
-	{
-		xComponentWithConstraint cc(&c,NULL);
-		m_components.removeObject(cc);
-	}
+	virtual xConstraint* defaultConstraintFactory() = 0;
 };
 
 
@@ -142,45 +107,21 @@ public:
  */
 class XTKAPI xBoxConstraint : public xConstraint
 {
-friend class xBoxLayout;
-friend class xBoxConstraintComparator;
 public:
-	enum Fill
-	{
-		FILL_VERTICAL,
-		FILL_HORIZONTAL,
-		FILL_BOTH,
-		FILL_NONE
-	};
 	
-	enum Anchor
-	{
-		ANCHOR_NORTH,
-		ANCHOR_SOUTH,
-		ANCHOR_EAST,
-		ANCHOR_WEST,
-		ANCHOR_CENTER,
-		ANCHOR_NORTHWEST,
-		ANCHOR_NORTHEAST,
-		ANCHOR_SOUTHWEST,
-		ANCHOR_SOUTHEAST,
-	};
-private:
-	int		m_place;
-	int		m_weight;
-	Fill	m_fill;
-	Anchor	m_anchor;
+	/**
+	 * @param expand TRUE if the child is to be given extra space allocated 
+     * to box.
+	 * @param fill TRUE if space given to child by the expand option is actually
+	 * allocated to child
+	 * @param padding extra space in pixels to put between this child and its neighbor
+	 */
+	xBoxConstraint(int place,bool expand,bool fill,int padding);
 	
-public:
-	xBoxConstraint(int place = 1,int weight = 1,Fill fill = FILL_NONE,Anchor anchor = ANCHOR_CENTER)
-	{
-		m_place = place;
-		m_fill = fill;
-		m_anchor = anchor;
-		weight >= 1 ? m_weight = weight : m_weight = 1;
-	}
-	
-	virtual ~xBoxConstraint(){}
+	virtual ~xBoxConstraint()
+	{}
+		
+	xBoxConstraintInternal* getInternal();
 };
 
 
@@ -195,31 +136,24 @@ class XTKAPI xBoxLayout : public xLayoutManager
 public:
 	enum BoxOrientation
 	{
-		Y_AXIS,
-		X_AXIS
+		BOX_ORIENTATION_Y_AXIS,
+		BOX_ORIENTATION_X_AXIS
 	};
-	
-private:
-	BoxOrientation	m_orientation;
 
-public:
-	xBoxLayout(xBoxLayout::BoxOrientation orientation){m_orientation = orientation;}
-	virtual ~xBoxLayout(){}
+	xBoxLayout(xBoxLayout::BoxOrientation orientation,bool homogeneous);
+
+	virtual ~xBoxLayout()
+	{}
 	
-	virtual void setConstraints(xWidget& c)
-	{doSetConstraints(c,new xBoxConstraint());}
-	
-	virtual void setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr)
-	{
-		xBoxConstraint* boxc = dynamic_cast<xBoxConstraint*>(cnstr);
-		if(boxc == NULL)
-			throw xClassCastException();
-			
-		doSetConstraints(c,cnstr);
-	}
-	
-	virtual void doLayout(xDimension& parentClientAreaSize);
+	virtual void setConstraints(xWidget& c,
+		MYOWNERSHIP xConstraint* cnstr = NULL);
+		
+	virtual xConstraint* defaultConstraintFactory();
+		
+	xBoxLayoutInternal* getInternal();
 };
+
+
 	
 }//namespace
 

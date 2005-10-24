@@ -23,7 +23,10 @@
 #include "../../include/xtk/base/thread.h"
 #include "../../include/xtk/base/net.h"
 
-
+#if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_GTK2)
+	#include "../../include/xtk/widgets/widget.h"
+#endif
+	
 namespace xtk
 {
 
@@ -34,10 +37,14 @@ namespace xtk
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xApplication::initialize()
+void xApplication::initialize(int* argc,char*** argv)
 {
 	#ifdef XTK_USE_MULTITHREAD
 		xThread::initialize();
+	#endif
+	
+	#if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_GTK2)
+		xtkWidgetsInitialize(argc,argv);
 	#endif
 	
 	xSocket::initialize();
@@ -76,7 +83,7 @@ void xApplication::finalize()
 
 int main(int argc,char** argv)
 {
-	xtk::xApplication::initialize();
+	xtk::xApplication::initialize(&argc,&argv);
 	xtk::xStartMemoryTracking();
 	xtk::xApplication::entryPoint();
 	xtk::xDumpMemoryLeaks();

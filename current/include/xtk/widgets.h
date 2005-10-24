@@ -32,7 +32,5 @@
 #include "widgets/widgetevent.h"
 #include "widgets/widgeteventhandler.h"
 #include "widgets/button.h"
-#include "widgets/panel.h"
-#include "widgets/label.h"
 
 #endif //XTK_WIDGETS_H

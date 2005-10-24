@@ -33,19 +33,14 @@
 namespace xtk
 {
 
-xFrame::xFrame(xWidget* parent,xString title,int x,int y,
-			   int width,int height,
-			   xLayoutManager* layout,
-			   xFrameInternal* i)
+xFrame::xFrame(xWidget* parent,xString title,xLayoutManager* layout,xFrameInternal* i)
 :xWindow(parent,layout,i)
 {
 	m_internal = static_cast<xFrameInternal*>(getInternal());
 }
 
-xFrame::xFrame(xWidget* parent,xString title,int x,int y,
-			   int width,int height,
-			   xLayoutManager* layout)
-:xWindow(parent,layout,new xFrameInternal(parent,title,x,y,width,height,layout,this))
+xFrame::xFrame(xWidget* parent,xString title,xLayoutManager* layout)
+:xWindow(parent,layout,new xFrameInternal(parent,title,layout,this))
 {
 	m_internal = static_cast<xFrameInternal*>(getInternal());
 }

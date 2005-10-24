@@ -34,7 +34,7 @@ namespace xtk
 {
 	
 /**
-* @brief Class used to measure the performance of your code.
+* Class used to measure the performance of your code.
 *
 * To use properly this class, you should call startSession() on the beginning of 
 * the code you would like to test, and call endSession() at the end. To have a more
@@ -79,18 +79,19 @@ public:
 
 
 /**
- * This class define the interface for the test logger.
+ * This class defines the interface for the test logger.
  */
 class XTKAPI xTestLogger
 {
 public:
-	virtual void logTestStart(const char* name) = 0;
-	virtual void logTestRun(int testNumber,const char* description) = 0;
+	virtual void logTestStart(xString name) = 0;
+	virtual void logTestRun(int testNumber,xString description) = 0;
 	virtual void logTestOK() = 0;
-	virtual void logTestFail(const char* error = NULL) = 0;
+	virtual void logTestFail() = 0;
+	virtual void logTestFail(xString error) = 0;
 	virtual void logTestFail(xException& ex) = 0;
-	virtual void logTest(const char* format,va_list ap) = 0;
-	virtual void logProfileStart(int testNumber,const char* description) = 0;
+	virtual void logTest(xString name) = 0;
+	virtual void logProfileStart(int testNumber,xString description) = 0;
 	virtual void logProfileEnd(long result) = 0;
 };
 
@@ -101,56 +102,57 @@ public:
 class XTKAPI xStandardTestLogger : public xTestLogger
 {
 public:
-	virtual void logTestStart(const char* name)
+	virtual void logTestStart(xString name)
 	{
-		printf("\n\n----- Starting test suite: %s -----\n\n",name);
+		xSystem::getStdout().write(xString::getFormat(_T("\n\n----- Starting test suite: %s -----\n\n"),name.c_str()));
 	}
 
-	virtual void logTestRun(int testNumber,const char* description)
+	virtual void logTestRun(int testNumber,xString description)
 	{
-		if(description != NULL)
-			printf("%d)Running test [%s]...",testNumber,description);
+		if(!description.isEmpty())
+			xSystem::getStdout().write(xString::getFormat(_T("%d)Running test [%s]..."),testNumber,description.c_str()));
 		else
-			printf("%d)Running test [NO DESCRIPTION]...",testNumber);
+			xSystem::getStdout().write(xString::getFormat(_T("%d)Running test [NO DESCRIPTION]..."),testNumber));
 	}
 	
 	virtual void logTestOK()
 	{
-		printf(" ...OK\n");
+		xSystem::getStdout().write(xString::getFormat(_T(" ...OK\n")));
 	}
 	
-	virtual void logTestFail(const char* error = NULL)
+	virtual void logTestFail()
 	{
-		if(error != NULL)
-			printf(" ...Failed: %s\n",error);
-		else
-			printf(" ...Failed\n");
+		xSystem::getStdout().write(_T(" ...Failed\n"));
+	}
+	
+	virtual void logTestFail(xString error)
+	{
+		xSystem::getStdout().write(xString::getFormat(_T(" ...Failed: %s\n"),error.c_str()));
 	}
 
 	virtual void logTestFail(xException& ex)
 	{
-		printf(" ...Failed: Uncached exception %s,%s\nStack trace:\n",ex.getType().mb_str(),ex.getDescription().mb_str());
+		xSystem::getStdout().write(xString::getFormat(_T(" ...Failed: Uncached exception %s,%s\nStack trace:\n"),
+			ex.getType().c_str(),ex.getDescription().c_str()));
 		ex.printStackTrace(xSystem::getStdout());
 	}
 	
-	virtual void logTest(const char* format,va_list ap)
+	virtual void logTest(xString name)
 	{
-		printf(" {");
-		vprintf(format,ap);
-		printf("}");
+		xSystem::getStdout().write(xString::getFormat(_T(" {%s}"),name.c_str()));
 	}
 	
-	virtual void logProfileStart(int testNumber,const char* description)
+	virtual void logProfileStart(int testNumber,xString description)
 	{
-		if(description != NULL)
-			printf("%d)Starting profile [%s]...",testNumber,description);
+		if(!description.isEmpty())
+			xSystem::getStdout().write(xString::getFormat(_T("%d)Starting profile [%s]..."),testNumber,description.c_str()));
 		else
-			printf("%d)Starting profile [NO DESCRIPTION]...",testNumber);
+			xSystem::getStdout().write(xString::getFormat(_T("%d)Starting profile [NO DESCRIPTION]..."),testNumber));
 	}
 	
 	virtual void logProfileEnd(long result)
 	{
-		printf(" ...Result: %li\n",result);
+		xSystem::getStdout().write(xString::getFormat(_T(" ...Result: %li\n"),result));
 	}
 };
 
@@ -164,7 +166,7 @@ class XTKAPI xTest : public virtual xObject
 protected:
 	int m_testNumber;
 	xTestLogger* m_logger;
-	const char* m_name;
+	xString m_name;
 	
 	enum TestResult
 	{
@@ -181,7 +183,7 @@ protected:
 	/**
 	 * Ensure that two xObjects are equals.
 	 */
-	void ensureObjectEquals(xObject& o1,xObject& o2,const char* description = NULL)
+	void ensureObjectEquals(xObject& o1,xObject& o2,xString description = _T(""))
 	{
 		m_logger->logTestRun(m_testNumber++,description);
 		if(!o1.equals(o2))
@@ -194,7 +196,7 @@ protected:
 	 * Ensure that two specified values are equals
 	 */
 	template<class Value>
-	void ensureValueEquals(Value& v1,Value& v2,const char* description = NULL)
+	void ensureValueEquals(Value& v1,Value& v2,xString description = _T(""))
 	{
 		m_logger->logTestRun(m_testNumber++,description);
 		if(v1 != v2)
@@ -206,7 +208,7 @@ protected:
 	/**
 	 * Ensure that the given expression it's true.
 	 */
-	void ensureTrue(bool value,const char* description = NULL)
+	void ensureTrue(bool value,xString description = _T(""))
 	{
 		m_logger->logTestRun(m_testNumber++,description);
 		if(!value)
@@ -245,18 +247,15 @@ protected:
 	/**
 	 * Log additional informations about the last started test
 	 */
-	void testLog(const char* format,...)
+	void testLog(xString name)
 	{
-		va_list ap;
-		va_start(ap, format);
-		m_logger->logTest(format,ap);
-		va_end(ap);
+		m_logger->logTest(name);
 	}
 	
 	/**
 	 * Indicate the starting of a test
 	 */
-	void testManualStart(const char* description)
+	void testManualStart(xString description)
 	{
 		m_logger->logTestRun(m_testNumber++,description);
 	}
@@ -281,7 +280,7 @@ public:
 	 * Default constructor. You must provide the name of the test and optionally
 	 * the class used to log the informations about the tests.
 	 */
-	xTest(const char* name,xTestLogger* logger = NULL)
+	xTest(xString name,xTestLogger* logger = NULL)
 	{
 		if(logger == NULL)
 			m_logger = new xStandardTestLogger();
