@@ -93,6 +93,14 @@ void xBoxLayoutInternal::removeComponent(xWidget& c)
 	gtk_container_remove(GTK_CONTAINER(getGtkWidget()),c.getInternal()->getGtkWidget());	
 }
 
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xBoxLayoutInternal::setPlace(xWidget& c,int place)
+{
+	 gtk_box_reorder_child(GTK_BOX(getGtkWidget()),c.getInternal()->getGtkWidget(),place);
+}
+
 
 }//namespace
 

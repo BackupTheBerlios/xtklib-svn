@@ -60,6 +60,8 @@ public:
 	*/
 	virtual void setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr) = 0;
 	
+	virtual void setPlace(xWidget& c,int place) = 0;
+	
 	/**
 	 *
 	 */
@@ -92,6 +94,7 @@ public:
 	virtual void setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr);
 	virtual void addComponent(YOUROWNERSHIP xWidget* c,MYOWNERSHIP xConstraint* cnstr);
 	virtual void addComponents(xArray<YOUROWNERSHIP xWidget*> components);
+	virtual void setPlace(xWidget& c,int place);
 	virtual void removeComponent(xWidget& c);
 };
 
