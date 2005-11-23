@@ -48,20 +48,22 @@ public:
 	virtual xLayoutManager& getLayout()
 	{return *m_layout;}
 	
-	virtual void setLayout(MYOWNERSHIP xLayoutManager* mgr)
-	{
-		assert(mgr != NULL);
-		mgr->addComponents(getComponents());
-		delete m_layout;
-		m_layout = mgr;
-	}
+	virtual void setLayout(MYOWNERSHIP xLayoutManager* mgr);
 	
-	virtual void doLayout();
 	virtual int getComponentCount(){return m_components.size();}
 	virtual xArray<MYOWNERSHIP xWidget*> getComponents();
 	virtual bool isAnchestorOf(xWidget& c);
+	
 	virtual void removeChild(xWidget& comp);
 	virtual void addChild(xWidget* comp);
+	
+	//-------INIT-------------------------------------------------------------//
+	//-------MSW SPECIFIC-----------------------------------------------------//
+	//------------------------------------------------------------------------//
+	virtual void doLayout();
+	//------------------------------------------------------------------------//
+	//-------MSW SPECIFIC-----------------------------------------------------//
+	//-------END--------------------------------------------------------------//
 };
 
 

@@ -23,6 +23,7 @@
 
 #include "../include/xtk/xtk.h"
 #include "../include/xtk/widgets.h"
+#include "../include/xtk/widgets/widgetevent.h"
 using namespace xtk;
 
 class xWidgetsTest : public xTest
@@ -31,43 +32,27 @@ private:
 	virtual void doTest()
 	{
 		xFrame* frame = new xFrame(NULL,_T("Frame title"));
-		//frame->setLayout(new xBoxLayout(xBoxLayout::Y_AXIS));
+		//frame->setLayout(new xBoxLayout(xBoxLayout::BOX_ORIENTATION_X_AXIS,true));
 		frame->setDefaultCloseAction(xWindow::XTK_EXIT_ON_CLOSE);
 		frame->setVisible(true);
 		
 		xButton* butt1 = new xButton(frame,_T("Button1"));
-		frame->getLayout().setConstraints(*butt1,new xBoxConstraint(0,true,true,1));
+		frame->getLayout().setConstraints(*butt1,new xBoxConstraint(true,false,1));
 		butt1->addActionPerformedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::actionPerformed));
 		xButton* butt2 = new xButton(frame,_T("Button2"));
+		frame->getLayout().setConstraints(*butt2,new xBoxConstraint(true,false,1));
 		
 		xtkUIEventLoop();
 	}
 
 public:
-	xWidgetsTest() : xTest(_T("Widgets Test")){}
+	xWidgetsTest() 
+	: xTest(_T("Widgets Test"))
+	{}
 	
-	virtual void actionPerformed(xWidgetEvent& e)
+	virtual void actionPerformed(xtk::xWidgetEvent& e)
 	{
 		xSystem::getStdout().write(_T("Button 1 activated\n"));
 	}
 	
-	virtual void mousePressed(xWidgetEvent& ev)
-	{
-		xSystem::getStdout().write(_T("Mouse button pressed\n"));
-	}
-	
-	virtual void mouseReleased(xWidgetEvent& ev)
-	{
-		xSystem::getStdout().write(_T("Mouse button released\n"));
-	}
-	
-	virtual void mouseDblClicked(xWidgetEvent& ev)
-	{
-		xSystem::getStdout().write(_T("Mouse double clicked\n"));
-	}
-	
-	virtual void focusGained(xFocusEvent& e)
-	{
-		xSystem::getStdout().write(_T("Button focus gained\n"));
-	}
 };

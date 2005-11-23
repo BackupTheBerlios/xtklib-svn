@@ -34,20 +34,13 @@ extern LRESULT CALLBACK xWidgetWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xButtonInternal::xButtonInternal(xWidget* parent,xString label,int x,int y,int width,int height,xButton* external)
+xButtonInternal::xButtonInternal(xWidget* parent,xString label,xButton* external)
 	: xWidgetInternal(parent,external)
 {
-	if(x == xWidget::XTK_DEFAULT_WIDGET_POSITION)
-	
-		x = 0;
-	if(y == xWidget::XTK_DEFAULT_WIDGET_POSITION)
-		y = 0;
-	if(height == xWidget::XTK_DEFAULT_WIDGET_SIZE)
-		height = 30;
-
 	HWND hwnd = ::CreateWindow(_T("button"),label.c_str(),
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON | BS_TEXT,
-		x,y,width,height,parent->getInternal()->getHWND(),NULL,xApplication::getHinstance(),NULL);
+		CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,
+		parent->getInternal()->getHWND(),NULL,xApplication::getHinstance(),NULL);
 	
 	assert(hwnd != NULL);
 
@@ -64,14 +57,33 @@ xButtonInternal::xButtonInternal(xWidget* parent,xString label,int x,int y,int w
 	setFont(*fn);
 	delete fn;
 	
-	//if was default size update to best fit width
-	if(width == xWidget::XTK_DEFAULT_WIDGET_SIZE)
-	{
-		xFontMetrics* fm = getFontMetrics();
-		int wid = fm->stringWidth(label);
-		setSize(wid + 10,height);
-		delete fm;
-	}
+	negotiateSize();
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xButtonInternal::negotiateSize()
+{
+	xDimension preferredSize;
+	getPreferredSize(preferredSize);
+	
+	xDimension dim;
+	xFontMetrics* fm = getFontMetrics();
+	
+	if(preferredSize.getHeight() < 0)
+		dim.setHeight(fm->getHeight());
+	else
+		dim.setHeight(preferredSize.getHeight());
+		
+	if(preferredSize.getWidth() < 0)
+		dim.setWidth(fm->stringWidth(getLabel()) + 10);
+	else
+		dim.setWidth(preferredSize.getWidth());
+	
+	delete fm;
+	
+	setSize(dim.getWidth(),dim.getHeight());
 }
 
 //##############################################################################

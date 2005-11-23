@@ -39,18 +39,13 @@ class xBoxLayoutInternal;
  */
 class XTKAPI xConstraint : public virtual xObject
 {
-private:
-	xConstraintInternal* m_internal;
-
 protected:
-	xConstraint(xConstraintInternal* i)
-	{m_internal = i;}
+	xConstraint()
+	{}
 
 public:
-	virtual ~xConstraint();
-	
-	xConstraintInternal* getInternal()
-	{return m_internal;}
+	virtual ~xConstraint()
+	{}
 };
 
 
@@ -88,7 +83,8 @@ public:
 	/**
 	* Sets the constraints for the specified component in this layout.
 	*/
-	virtual void setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr = NULL) = 0;
+	virtual void setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr = NULL);
+	virtual void setPlace(xWidget& c,int place);
 	
 	xLayoutManagerInternal* getInternal()
 	{return m_internal;}
@@ -107,6 +103,11 @@ public:
  */
 class XTKAPI xBoxConstraint : public xConstraint
 {
+private:
+	bool 	m_expand;
+	bool	m_fill;
+	int		m_padding;
+	
 public:
 	
 	/**
@@ -116,12 +117,20 @@ public:
 	 * allocated to child
 	 * @param padding extra space in pixels to put between this child and its neighbor
 	 */
-	xBoxConstraint(int place,bool expand,bool fill,int padding);
+	xBoxConstraint(bool expand,bool fill,int padding)
+	{m_expand = expand;m_fill = fill;m_padding = padding;}
 	
 	virtual ~xBoxConstraint()
 	{}
-		
-	xBoxConstraintInternal* getInternal();
+	
+	bool getExpand()
+	{return m_expand;}
+
+	bool getFill()
+	{return m_fill;}
+
+	int getPadding()
+	{return m_padding;}
 };
 
 
@@ -144,9 +153,6 @@ public:
 
 	virtual ~xBoxLayout()
 	{}
-	
-	virtual void setConstraints(xWidget& c,
-		MYOWNERSHIP xConstraint* cnstr = NULL);
 		
 	virtual xConstraint* defaultConstraintFactory();
 		

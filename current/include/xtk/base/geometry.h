@@ -116,13 +116,26 @@ private:
 	int		m_width;
 
 public:
-	xDimension(){set(0,0);}
-	xDimension(int width,int height){set(width,height);}
+	xDimension()
+	{set(0,0);}
+	
+	xDimension(int width,int height)
+	{set(width,height);}
 
 	virtual ~xDimension(){}
 
-	int getHeight(){return m_height;}
-	int getWidth(){return m_width;}
+	int getHeight()
+	{return m_height;}
+	
+	int getWidth()
+	{return m_width;}
+	
+	void setHeight(int height)
+	{m_height = height;}
+	
+	void setWidth(int width)
+	{m_width = width;}
+	
 	void set(int width,int height)
 	{
 		m_height = height;

@@ -47,12 +47,14 @@ protected:
 	virtual LRESULT onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	
 public:
-	xButtonInternal(xWidget* parent,xString label,int x,int y,int width,int height,xButton* external);
+	xButtonInternal(xWidget* parent,xString label,xButton* external);
 		
 	virtual ~xButtonInternal();
 	
 	virtual xString getLabel();
 	virtual void setLabel(xString label);
+	
+	virtual void negotiateSize();
 };
 
 

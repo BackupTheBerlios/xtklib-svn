@@ -52,9 +52,9 @@ void xBoxLayoutInternal::setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnst
 	
 	gtk_box_set_child_packing(GTK_BOX(getGtkWidget()),
 							c.getInternal()->getGtkWidget(),
-							box->getInternal()->getExpand(),
-							box->getInternal()->getFill(),
-							box->getInternal()->getPadding(),
+							box->getExpand(),
+							box->getFill(),
+							box->getPadding(),
 							GTK_PACK_START
 							);
 	delete cnstr;
@@ -69,9 +69,9 @@ void xBoxLayoutInternal::addComponent(YOUROWNERSHIP xWidget* c,MYOWNERSHIP xCons
 	assert(box != NULL);
 	gtk_box_pack_start(GTK_BOX(getGtkWidget()),
 						c->getInternal()->getGtkWidget(),
-						box->getInternal()->getExpand(),
-						box->getInternal()->getFill(),
-						box->getInternal()->getPadding()
+						box->getExpand(),
+						box->getFill(),
+						box->getPadding()
 						);
 	delete cnstr;
 }

@@ -72,7 +72,7 @@ void xApplication::finalize()
 	int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
 	{
 		xtk::xApplication::setHinstance(hInstance);
-		xtk::xApplication::initialize();
+		xtk::xApplication::initialize(NULL,NULL);
 		xtk::xStartMemoryTracking();
 		xtk::xApplication::entryPoint();
 		xtk::xDumpMemoryLeaks();

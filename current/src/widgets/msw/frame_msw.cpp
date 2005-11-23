@@ -34,8 +34,7 @@ extern LRESULT CALLBACK xWidgetWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xFrameInternal::xFrameInternal(xWidget* parent,xString title,int x,int y,int width,int height, 
-	xLayoutManager* layout,xFrame* external)
+xFrameInternal::xFrameInternal(xWidget* parent,xString title,xLayoutManager* layout,xFrame* external)
 : xWindowInternal(parent,layout,external),m_title(title)
 {	
 	WNDCLASS wclass;
@@ -54,8 +53,8 @@ xFrameInternal::xFrameInternal(xWidget* parent,xString title,int x,int y,int wid
 		::RegisterClass(&wclass);
 	}
 	
-	HWND hwnd = ::CreateWindow(XTK_MSW_FRAME_CLASS_NAME,title.c_str(),WS_OVERLAPPEDWINDOW,x,y,width,height,
-		NULL,NULL,xApplication::getHinstance(),NULL);
+	HWND hwnd = ::CreateWindow(XTK_MSW_FRAME_CLASS_NAME,title.c_str(),WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,
+		CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,NULL,NULL,xApplication::getHinstance(),NULL);
 	
 	//set the user data of the window to the current window object
 	::SetWindowLongPtr(hwnd,GWL_USERDATA,(LONG_PTR)(xWidgetInternal*)this);
@@ -84,6 +83,23 @@ void xFrameInternal::setTitle(xString title)
 		getHWND(),			// handle of window or control
 		title.c_str() 		// address of string
 		);
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xFrameInternal::negoziateSize()
+{
+	int height = 200;
+	int width = 200;
+	xDimension preferredSize;
+	getPreferredSize(preferredSize);
+	if(preferredSize.getWidth() != -1)
+		width = preferredSize.getWidth();
+	if(preferredSize.getHeight() != -1)
+		height = preferredSize.getHeight();
+		
+	setSize(width,height);
 }
 
 

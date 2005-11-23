@@ -32,20 +32,6 @@
 namespace xtk
 {
 
-/**
- *
- */	
-class XTKAPI xConstraintInternal : public virtual xObject
-{
-protected:
-	xConstraintInternal()
-	{}
-
-public:
-	virtual ~xConstraintInternal()
-	{}
-};
-
 
 /**
  * Defines the interface for classes that know how to lay out xContainers.
@@ -88,38 +74,6 @@ public:
 	 *
 	 */
 	virtual void removeComponent(xWidget& c) = 0;
-};
-
-
-/**
- * The constraint for xBoxLayout
- */
-class XTKAPI xBoxConstraintInternal : public xConstraintInternal
-{
-private:
-	int 	m_place;
-	bool 	m_expand;
-	bool	m_fill;
-	int		m_padding;
-
-public:
-	xBoxConstraintInternal(int place,bool expand,bool fill,int padding)
-	{m_place = place;m_expand = expand;m_fill = fill;m_padding = padding;}
-	
-	virtual ~xBoxConstraintInternal()
-	{}
-		
-	int getPlace()
-	{return m_place;}
-	
-	bool getExpand()
-	{return m_expand;}
-	
-	bool getFill()
-	{return m_fill;}
-	
-	int getPadding()
-	{return m_padding;}
 };
 
 

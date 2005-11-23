@@ -33,9 +33,6 @@
 namespace xtk
 {
 
-xConstraint::~xConstraint()
-{delete m_internal;}
-
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
@@ -54,6 +51,12 @@ void xLayoutManager::setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr)
 		m_internal->setConstraints(c,cnstr);
 }
 
+void xLayoutManager::setPlace(xWidget& c,int place)
+{
+	m_internal->setPlace(c,place);
+}
+
+
 void xLayoutManager::addComponent(YOUROWNERSHIP xWidget* c,MYOWNERSHIP xConstraint* cnstr)
 {
 	if(cnstr == NULL)
@@ -64,16 +67,6 @@ void xLayoutManager::addComponent(YOUROWNERSHIP xWidget* c,MYOWNERSHIP xConstrai
 
 void xLayoutManager::removeComponent(xWidget& c)
 {m_internal->removeComponent(c);}
-	
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-xBoxConstraint::xBoxConstraint(int place,bool expand,bool fill,int padding)
-: xConstraint(new xBoxConstraintInternal(place,expand,fill,padding))
-{}
-
-xBoxConstraintInternal* xBoxConstraint::getInternal()
-{return static_cast<xBoxConstraintInternal*>(xConstraint::getInternal());}
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -84,17 +77,9 @@ xBoxLayoutInternal* xBoxLayout::getInternal()
 xBoxLayout::xBoxLayout(xBoxLayout::BoxOrientation orientation,bool homogeneous)
 : xLayoutManager(new xBoxLayoutInternal(orientation,homogeneous,this))
 {}
-	
-void xBoxLayout::setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr)
-{
-	xBoxConstraint* boxc = dynamic_cast<xBoxConstraint*>(cnstr);
-	assert(boxc != NULL);
-	if(boxc != NULL)
-		xLayoutManager::setConstraints(c,cnstr);
-}
 
 xConstraint* xBoxLayout::defaultConstraintFactory()
-{return new xBoxConstraint(0,false,false,0);}
+{return new xBoxConstraint(false,false,0);}
 
 
 }//namespace

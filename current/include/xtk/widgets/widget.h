@@ -82,7 +82,7 @@ public:
 	virtual ~xWidget();
 	
 	/**
-	 * Prompts the layout manager to explicilty lay out this component.
+	 * Prompts the layout manager to explicitly lay out this component.
 	 */
 	virtual void doLayout();
 	

@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;__WINDOWS__;__DEBUG__;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;__WINDOWS__;__DEBUG__;__WIDGETS__"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -112,13 +112,7 @@
 				RelativePath=".\src\widgets\frame.cpp">
 			</File>
 			<File
-				RelativePath=".\src\widgets\label.cpp">
-			</File>
-			<File
 				RelativePath=".\src\widgets\layout.cpp">
-			</File>
-			<File
-				RelativePath=".\src\widgets\panel.cpp">
 			</File>
 			<File
 				RelativePath=".\src\widgets\widget.cpp">
@@ -166,13 +160,13 @@
 					RelativePath=".\src\widgets\msw\frame_msw.h">
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\label_msw.cpp">
-				</File>
-				<File
 					RelativePath=".\src\widgets\msw\label_msw.h">
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\panel_msw.cpp">
+					RelativePath=".\src\widgets\msw\layout_msw.cpp">
+				</File>
+				<File
+					RelativePath=".\src\widgets\msw\layout_msw.h">
 				</File>
 				<File
 					RelativePath=".\src\widgets\msw\panel_msw.h">

@@ -31,45 +31,49 @@
 namespace xtk
 {
 
-xObject xWidgetInternal::s_guiMutex;
-
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-bool xtkProcessNextUIEvent()
+XTKAPI void xtkUIEventLoop()
 {
 	MSG message;
-
-	if(::GetMessage(&message,NULL,0,0) != 0)
+	while(::GetMessage(&message,NULL,0,0) != 0)
 	{
 		::TranslateMessage(&message) ;
 		::DispatchMessage(&message) ;
-		
-		return true;
 	}
-	else
-		return false;
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-bool xtkUIEventPending()
+XTKAPI void xtkExitUIEventLoop()
+{
+	::PostQuitMessage(1);
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+XTKAPI void xtkWidgetsInitialize(int* argc,char*** argv)
+{}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+XTKAPI void xtkProcessPendingUIEvent()
 {
 	MSG message;
 
-	if(::PeekMessage(&message,NULL,0,0,PM_NOREMOVE) != 0)
-		return true;
-	
-	return false;
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xtkWidgetsInitialize(int* argc,char*** argv)
-{
-	 //do nothing
+	while(::PeekMessage(&message,NULL,0,0,PM_NOREMOVE) != 0)
+	{
+		if(::GetMessage(&message,NULL,0,0) == 0);
+		{
+			xtkExitUIEventLoop();
+		}
+		::TranslateMessage(&message);
+		::DispatchMessage(&message);
+	}
 }
 
 //##############################################################################
@@ -80,12 +84,7 @@ xWidgetInternal::xWidgetInternal(xWidget* parent,xWidget* external)
 	m_parent = parent;
 	m_hWidget = NULL;
 	m_external = external;
-	if(parent != NULL)
-	{
-		xContainer* c = dynamic_cast<xContainer*>(parent);
-		if(c != NULL)
-			c->addChild(external);
-	}
+	m_preferredSize.set(-1,-1);
 }
 
 //##############################################################################
@@ -99,28 +98,11 @@ xWidgetInternal::~xWidgetInternal()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xColor* xWidgetInternal::getBackground()
-{
-	throw xNotImplementedException();
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-xRectangle* xWidgetInternal::getBounds()
+void xWidgetInternal::getBounds(OUT xRectangle& bounds)
 {
 	RECT rect;
 	::GetClientRect(getHWND(),&rect);
-
-	return new xRectangle(rect.left,rect.top,rect.right - rect.left,rect.bottom - rect.top);
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-NODELETE xWidget* xWidgetInternal::getComponentAt(int x, int y)
-{
-	throw xNotImplementedException();
+	bounds.set(rect.left,rect.top,rect.right - rect.left,rect.bottom - rect.top);
 }
 
 //##############################################################################
@@ -135,36 +117,12 @@ xFont* xWidgetInternal::getFont()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xFontMetrics* xWidgetInternal::getFontMetrics()
-{
-	return new xFontMetrics(new xFontMetricsInternal(getHWND()));
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-xColor* xWidgetInternal::getForeground()
-{
-	throw xNotImplementedException();
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
 int xWidgetInternal::getHeight()
 {
 	RECT rect;
 	::GetClientRect(getHWND(),&rect);
 
 	return rect.bottom - rect.top;
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-bool xWidgetInternal::getIgnoreRepaint()
-{
-	throw xNotImplementedException();
 }
 
 //##############################################################################
@@ -187,7 +145,7 @@ xPoint* xWidgetInternal::getLocationOnScreen()
 		return getLocation();
 	else
 	{
-		smartPtr<xPoint> parent_loc = getParent()->getLocation();
+		smartPtr<xPoint> parent_loc = getParent()->getInternal()->getLocation();
 		smartPtr<xPoint> my_loc = getLocation();
 
 		return new xPoint(parent_loc->getX() + my_loc->getX(),parent_loc->getY() + my_loc->getY());
@@ -197,12 +155,12 @@ xPoint* xWidgetInternal::getLocationOnScreen()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xDimension* xWidgetInternal::getSize()
+void xWidgetInternal::getSize(OUT xDimension& dim)
 {
 	RECT rect;
 	::GetClientRect(getHWND(),&rect);
 
-	return new xDimension(rect.right - rect.left,rect.bottom - rect.top);
+	dim.set(rect.right - rect.left,rect.bottom - rect.top);
 }
 
 //##############################################################################
@@ -236,172 +194,6 @@ int xWidgetInternal::getY()
 	::GetClientRect(getHWND(),&rect);
 
 	return rect.top;
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidgetInternal::invalidate()
-{
-	::InvalidateRect(
-		getHWND(),	// handle of window with changed update region  
-		NULL,		// address of rectangle coordinates,NULL for all client rect
-		TRUE	// erase-background flag 
-		);
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-bool xWidgetInternal::isEnabled()
-{
-	return ::IsWindowEnabled(getHWND()) == TRUE;
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-bool xWidgetInternal::isFocusable()
-{
-	return false;
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-bool xWidgetInternal::isFocusOwner()
-{
-	 HWND hWnd = ::GetFocus();
-	 assert(hWnd != NULL);
-	 return hWnd == getHWND();
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-bool xWidgetInternal::isShowing()
-{
-	return ::IsWindowVisible(getHWND()) == TRUE;
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-bool xWidgetInternal::isValid()
-{
-	throw xNotImplementedException();
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-bool xWidgetInternal::isVisible()
-{
-	throw xNotImplementedException();
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidgetInternal::requestFocus()
-{
-	HWND hWnd = ::SetFocus(getHWND());
-	assert(hWnd != NULL);
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidgetInternal::setBackground(xColor& c)
-{
-	throw xNotImplementedException();
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidgetInternal::setBounds(int x, int y, int width, int height)
-{
-	::MoveWindow(getHWND(),x,y,width,height,true);
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidgetInternal::setEnabled(bool b)
-{
-	::EnableWindow(getHWND(),b);
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidgetInternal::setFont(xFont& f)
-{
-	::SendMessage((HWND) getHWND(),(UINT) WM_SETFONT,(WPARAM) f.getInternal()->getHFONT(),(LPARAM) TRUE);
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidgetInternal::setForeground(xColor& c)
-{
-	throw xNotImplementedException();
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidgetInternal::setLocation(int x, int y)
-{
-	::SetWindowPos(
-		getHWND(),					// handle of window
-		NULL,						// placement-order handle (ignored)
-		x,							// horizontal position
-		y,							// vertical position
-		0,							// width (ignored)
-		0,							// height (ignored)
-		SWP_NOZORDER | SWP_NOSIZE | SWP_NOACTIVATE // window-positioning flags
-		);
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidgetInternal::setSize(int width, int height)
-{
-	::SetWindowPos(
-		getHWND(),					// handle of window
-		NULL,						// placement-order handle (ignored)
-		0,							// horizontal position (ignored)
-		0,							// vertical position (ignored)
-		width,						// width 
-		height,						// height 
-		SWP_NOZORDER | SWP_NOMOVE | SWP_NOACTIVATE 	// window-positioning flags
-		);
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidgetInternal::setVisible(boolean b)
-{
-	if(b)
-	{
-		::ShowWindow(getHWND(),SW_SHOW);
-	}
-	else
-	{
-		::ShowWindow(getHWND(),SW_HIDE);
-	}
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xWidgetInternal::validate()
-{
-	::ValidateRect(getHWND(),NULL);
 }
 
 //##############################################################################
@@ -608,7 +400,7 @@ LRESULT xWidgetInternal::windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARA
 
 	switch(uMsg)
 	{
-	//Mouse events-------------------------------
+		//Mouse events-------------------------------
 	case WM_LBUTTONDOWN:
 		return onLButtonPressed(hwnd,uMsg,wParam,lParam);
 	case WM_MBUTTONDOWN:
@@ -627,15 +419,15 @@ LRESULT xWidgetInternal::windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARA
 		return onMButtonDBLClicked(hwnd,uMsg,wParam,lParam);
 	case WM_RBUTTONDBLCLK:
 		return onRButtonDBLClicked(hwnd,uMsg,wParam,lParam);
-	//Focus events-------------------------------
+		//Focus events-------------------------------
 	case WM_SETFOCUS:
 		return onSetFocus(hwnd,uMsg,wParam,lParam);
 	case WM_KILLFOCUS:
 		return onKillFocus(hwnd,uMsg,wParam,lParam);
-	//Size and Move-------------------------------
+		//Size and Move-------------------------------
 	case WM_SIZE:
 		return onSize(hwnd,uMsg,wParam,lParam);
-	//Other events-------------------------------
+		//Other events-------------------------------
 	case WM_COMMAND:
 		return onCommand(hwnd,uMsg,wParam,lParam);
 	case WM_NCDESTROY:
@@ -661,7 +453,6 @@ LRESULT CALLBACK xWidgetWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM
 	else
 		return ::DefWindowProc(hwnd,uMsg,wParam,lParam);
 }
-
 
 }//namespace
 

@@ -41,15 +41,23 @@ private:
 	bool		m_resizable;
 	
 public:
-	xFrameInternal(xWidget* parent,xString title,int x,int y,int width,int height,xLayoutManager* layout,xFrame* external);
+	xFrameInternal(xWidget* parent,xString title,xLayoutManager* layout,xFrame* external);
 	
 	virtual ~xFrameInternal();
 
 
-	virtual xString getTitle(){return m_title;}
-	virtual bool isResizable(){return m_resizable;}
-	virtual void setResizable(bool resizable){m_resizable = resizable;}
+	virtual xString getTitle()
+	{return m_title;}
+	
+	virtual bool isResizable()
+	
+	{return m_resizable;}
+	virtual void setResizable(bool resizable)
+	{m_resizable = resizable;}
+	
 	virtual void setTitle(xString title);
+	
+	virtual void negoziateSize();
 };
 
 

@@ -22,6 +22,7 @@
 
 #include "../../../include/xtk/widgets/container.h"
 #include "container_msw.h"
+#include "layout_msw.h"
 #include "../../../include/xtk/base/smartptr.h"
 
 #if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
@@ -36,7 +37,7 @@ xContainerInternal::xContainerInternal(xWidget* parent, xLayoutManager* layout,x
 	: xWidgetInternal(parent,external)
 {
 	m_layout = layout;
-	//m_components.rescindOwnership();
+	m_components.rescindOwnership();
 }
 
 //##############################################################################
@@ -50,15 +51,28 @@ xContainerInternal::~xContainerInternal()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
+void xContainerInternal::setLayout(MYOWNERSHIP xLayoutManager* mgr)
+{
+	assert(mgr != NULL);
+	mgr->addComponents(getComponents());
+	delete m_layout;
+	m_layout = mgr;
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
 void xContainerInternal::doLayout()
 {
 	//first our layout
-	xDimension* dim = getSize();
-	getLayout().doLayout(*dim);
-	delete dim;
+	xDimension dim;
+	getSize(dim);
+	getLayout().getInternal()->setClientSize(dim);
+	getLayout().getInternal()->doLayout();
 	
 	//then childs
 	//automatically called for every child when resized
+	
 	/*
 	smartPtr<xIterator> iter = m_components.iterator();
 	while(iter->hasNext())
