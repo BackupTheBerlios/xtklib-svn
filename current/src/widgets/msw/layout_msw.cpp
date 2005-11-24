@@ -177,13 +177,15 @@ void xBoxLayoutInternal::doLayout()
 					if(boxcnstr->getExpand())
 					{
 						if(nExpandedChildren == 1)
-							childWidth += width;
+							childWidth = width;
 						else
-							childWidth += extra;
+							childWidth = extra;
 
 						nExpandedChildren -= 1;
 						width -= extra;
 					}
+					else
+						width -= childWidth;
 				}
 
 				if(boxcnstr->getFill())
