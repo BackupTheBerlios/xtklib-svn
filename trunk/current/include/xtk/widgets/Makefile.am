@@ -1,0 +1,15 @@
+
+xtkbaseincludedir=$(includedir)/xtk/widgets
+
+
+xtkbaseinclude_HEADERS = \
+	button.h \
+	container.h \
+	font.h \
+	frame.h \
+	layout.h \
+	widget.h \
+	widgetevent.h \
+	widgeteventgenerator.h \
+	widgeteventhandler.h \
+	window.h

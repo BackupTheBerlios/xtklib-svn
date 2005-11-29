@@ -1,0 +1,12 @@
+Windows instructions:
+
+Preparing the environment:
+1)Set the environment variable XTKLIB with the path to the root directory of xtklib.
+Note: in the paths you must use the forward-slashes (/) instead of windows back-slashes(\).
+
+Linux instructions:
+
+In a command shell execute:
+./configure
+make
+make install
