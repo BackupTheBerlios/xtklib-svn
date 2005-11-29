@@ -82,7 +82,7 @@
 //*/
 
 //Enable zlib support
-//* <- Add/remove one '/' to/from the beginning of line to comment/uncomment the block
+/* <- Add/remove one '/' to/from the beginning of line to comment/uncomment the block
 #ifndef XTK_USE_ZLIB
 	#define XTK_USE_ZLIB
 #endif

@@ -257,14 +257,21 @@ class XTKAPI xInputStreamReader : public xReader,public xOwnership
 {
 protected:
 	xInputStream&		m_in;
-	xCharsetDecoder		m_dec;
+	
+	#ifdef XTK_USE_UNICODE
+		xCharsetDecoder		m_dec;
+	#endif
 
 private:
 	int		m_eofTestByte;
 	bool	m_isEofTestByteValid;
 	
 public:
-	xInputStreamReader(xInputStream* in,xCharset::Charset charset) : m_in(*in),m_dec(charset)
+	#ifdef XTK_USE_UNICODE
+		xInputStreamReader(xInputStream* in,xCharset::Charset charset) : m_in(*in),m_dec(charset)
+	#else
+		xInputStreamReader(xInputStream* in,xCharset::Charset charset) : m_in(*in)
+	#endif
 	{
 		m_isEofTestByteValid = false;
 	}
@@ -291,10 +298,16 @@ class XTKAPI xOutputStreamWriter : public xWriter,public xOwnership
 {
 protected:
 	xOutputStream&		m_out;
-	xCharsetEncoder		m_enc;
+	#ifdef XTK_USE_UNICODE
+		xCharsetEncoder		m_enc;
+	#endif
 	
 public:
-	xOutputStreamWriter(xOutputStream* out,xCharset::Charset charset) : m_out(*out),m_enc(charset)
+	#ifdef XTK_USE_UNICODE
+		xOutputStreamWriter(xOutputStream* out,xCharset::Charset charset) : m_out(*out),m_enc(charset)
+	#else
+		xOutputStreamWriter(xOutputStream* out,xCharset::Charset charset) : m_out(*out)
+	#endif
 	{}
 	
 	virtual ~xOutputStreamWriter()

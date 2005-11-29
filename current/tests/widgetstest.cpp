@@ -37,10 +37,10 @@ private:
 		frame->setVisible(true);
 		
 		xButton* butt1 = new xButton(frame,_T("Button1"));
-		frame->getLayout().setConstraints(*butt1,new xBoxConstraint(false,false,1));
+		frame->getLayout().setConstraints(*butt1,new xBoxConstraint(true,true,5));
 		butt1->addActionPerformedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::actionPerformed));
 		xButton* butt2 = new xButton(frame,_T("Button2"));
-		frame->getLayout().setConstraints(*butt2,new xBoxConstraint(true,false,1));
+		frame->getLayout().setConstraints(*butt2,new xBoxConstraint(true,true,5));
 		
 		xtkUIEventLoop();
 	}

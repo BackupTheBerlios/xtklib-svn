@@ -172,7 +172,7 @@ void xBoxLayoutInternal::doLayout()
 					//reset the size
 					cmpWithCnstr->m_component->getInternal()->negotiateSize();
 					cmpWithCnstr->m_component->getInternal()->getSize(dim);
-					childWidth = dim.getWidth();
+					childWidth = dim.getWidth() + boxcnstr->getPadding() * 2;
 
 					if(boxcnstr->getExpand())
 					{
@@ -190,7 +190,7 @@ void xBoxLayoutInternal::doLayout()
 
 				if(boxcnstr->getFill())
 				{
-					child_width = MAX(1, childWidth);
+					child_width = MAX(1, childWidth - boxcnstr->getPadding() * 2);
 					child_x = x;
 				}
 				else
