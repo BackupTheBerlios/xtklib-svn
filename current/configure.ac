@@ -1,6 +1,6 @@
 AC_INIT([xtklib],[0.1.0],[xshadow@email.it])
+AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([-Wall foreign])
-AC_CANONICAL_HOST
 AM_MAINTAINER_MODE
 AC_PREFIX_DEFAULT(/usr)
 
@@ -15,8 +15,8 @@ AC_PROG_RANLIB
 dnl ==========================================================================
 dnl	== Checking for dependencies
 dnl ==========================================================================
-PKG_CHECK_MODULES(WIDGETSDEPS, gtk+-2.0 >= 2.2 glib-2.0 >= 2.2)
-AC_SUBST(WIDGETSDEPS_CFLAGS)
+dnl PKG_CHECK_MODULES(WIDGETSDEPS, gtk+-2.0 >= 2.2 glib-2.0 >= 2.2)
+dnl AC_SUBST(WIDGETSDEPS_CFLAGS)
 
 dnl ==========================================================================
 
@@ -35,14 +35,29 @@ AC_TYPE_SIGNAL
 dnl ==========================================================================
 
 dnl Choose system target
-case $host in
-  *-*-mingw32* | *-*-windows*)
-    CXXFLAGS="$CXXFLAGS -D__WINDOWS__"
-    ;;
-  *-*-linux*)
-    CXXFLAGS="$CXXFLAGS -D__UNIX__"
-    ;;
+case "${target_os}" in
+"")
+	SYS=unknown
+	;;
+*darwin*)
+	SYS=unknown
+	;;
+*openbsd*) 
+	SYS=unknown
+	;;
+*linux*) 
+	SYS=unix
+	CXXFLAGS="$CXXFLAGS -D__UNIX__"
+	;;
+*cygwin* | *mingw32*)
+	SYS=win
+	CXXFLAGS="$CXXFLAGS -D__WINDOWS__"
+	;;
+*solaris*)
+	SYS=unknown
 esac
+
+
 
 dnl Removing -fomit since it disable stacktracing
 CFLAGS="`echo $CFLAGS | sed "s/-fomit-frame-pointer//g"`"
@@ -74,8 +89,15 @@ esac
 
 
 case "$USE_WIDGETS" in
-yes)	CXXFLAGS="$CXXFLAGS -D__WIDGETS__" ;;
-*)		CXXFLAGS="$CXXFLAGS" ;;
+yes)	CXXFLAGS="$CXXFLAGS -D__WIDGETS__" 
+		if test "$SYS" == "unix"; then
+			dnl	== Checking for dependencies
+			PKG_CHECK_MODULES(WIDGETSDEPS, gtk+-2.0 >= 2.2 glib-2.0 >= 2.2)
+			AC_SUBST(WIDGETSDEPS_CFLAGS)
+		fi
+		;;
+*)		CXXFLAGS="$CXXFLAGS" 
+		;;
 esac
 AM_CONDITIONAL(USE_WIDGETS,test x$USE_WIDGETS=xyes)
 
@@ -101,7 +123,7 @@ AC_OUTPUT
 dnl ==========================================================================
 
 echo
-echo "  Configured xtklib for '${host}'."
+echo "  Configured xtklib for '${target_os}'."
 echo
 echo "  xtklib enabled options:"
 echo 
