@@ -1,0 +1,99 @@
+This is "CrossPlatform Toolkit Library" a.k.a. xtklib. This set of APIs aims to 
+give you a simple yet powerful programming toolkit for cross-platform 
+development. The similarity with the Java library reduce the learning curve for
+ people that already know this language.
+
+XTKLIB uses a set of programming convensions that help reducing errors and 
+increase source legibility.
+
+
+RETURN VALUE AND FUNCTION ARGUMENTS CONVENSIONS
+-----------------------------------------------------------------------------------
+How many times when you have looked at a function prototype you asked to yourself:
+ Must I deallocate the buffer/object returned by this function? Many times the 
+response lies in the fucntion documentation, but in xtklib you can get the response 
+just looking at function prototype.For example if you see a function like this
+	xObject* createObject();
+xtklib impose that objects returned by pointer must be deleted by the caller.
+On the other side, objects returned by reference of by value doesn't need to be 
+deleted.
+This convension regard also function arguments, for example, look at a function
+	xArrayList::add(xObject* o);
+An object pointer in function arguments means that such object must be available to 
+the function underlying object (in this case an xArrayList object) for all the life 
+of this object, or until this object loose the "ownership" on the passed object.
+Generally this means that the object o must be allocated dinamically in memory 
+with operator new. Look at xOwnership convension for more informations about this.
+Sometimes in xtklib you can encounter a function prototype in witch the return value 
+is a pointer but preceeded by the keyword NODELETE, like the word say, this is an 
+exception to the convension and means that the object must not be deleted even if 
+it is a pointer.Now follows a table with all convensions used in return values and 
+argument passing.
+
++---------------------------+----------------------------+--------------------------+
+| Passing type              | Return value               | Funcion Argument         |
++---------------------------+----------------------------+--------------------------+
++---------------------------+----------------------------+--------------------------+
+| Pointer (eg. xObject*)    | Must delete after use      |Object should be allocated|
+|                           |                            |in heap and available     |
+|                           |                            |for all life of function  |
+|                           |                            |underlying object         |
++---------------------------+----------------------------+--------------------------+
+| Reference (eg. xObject&)  | Must NOT delete            |Object must be available  |
+|                           |                            |until function returns    |
++---------------------------+----------------------------+--------------------------+
+| Value (eg. xObject)       | No restrictions            |No restrictions           |
++---------------------------+----------------------------+--------------------------+
+
+
+
+CONVENSIONS REGARDING xOwnership ABSTRACT CLASS
+-----------------------------------------------------------------------------------
+Many times in xtklib you can encounter class that inherits from the xOwnership 
+abstract class. This adds to the child class a key meaning: every object passed by 
+pointer to any function (constructor included) of that class are under its 
+ownership (by default) and will be deleted on object destruction or when the object
+ loose a reference to it. You can change this behaviour by calling the 
+rescindOwnership() method. Ny doing this you will get the ownership of the object 
+and are your resposability to delete it when not needed.
+
+RELATIONS BETWEEN XTKLIB AND JAVA
+-----------------------------------------------------------------------------------
+If you take a look at xtklib organization you'll find a similarity with java 
+library. In fact many class follow in naming and behaviour their java equivalents.
+ Pay attention: this must not be interpreted like an attempt to create a java-like 
+C++ library, many class in xtklib have no java equivalents or have different 
+behaviours. xtklib is not Java and C++ is not Java ,remember. However xtklib 
+development will follow rowgly the Java class structure becouse it is clean,easy,
+and well designed. Java developers will find in xtklib a valid solution for 
+approatching to C++ world.
+
+
+
+RELATIONS BETWEEN XTKLIB AND JAVA
+-----------------------------------------------------------------------------------
+If you take a look at xtklib organization you'll find a similarity with java 
+library. In fact many class follow in naming and behaviour their java equivalents. 
+Pay attention: this must not be interpreted like an attempt to create a java-like 
+C++ library, many class in xtklib have no java equivalents or have different 
+behaviours. xtklib is not Java and C++ is not Java ,remember. However xtklib 
+development will follow roughly the Java class structure becouse it is clean,easy,
+and well designed. Java developers will find in xtklib a valid solution for 
+approatching to C++ world.
+
+
+HELP WANTED
+-----------------------------------------------------------------------------------
+xtklib is for now a one-man project, for this you should not expect to find this 
+complete or bug-free. Many things are left to be done, so help will be appreciated.
+ If you want to collaborate in this project like Documentation writer,Developer,
+Tester,platform maintainer you can write to my email address. If you want to be 
+a developer take a look at TODOs, choose a task , and send me the "solution", if 
+you are able to do this so you are ready to join the project.
+
+														
+														
+														
+														01.09.2005
+														Mario Casciaro (a.k.a X§hadow)
+														xshadow@email.it

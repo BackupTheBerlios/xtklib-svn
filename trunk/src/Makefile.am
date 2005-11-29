@@ -1,0 +1,5 @@
+if USE_WIDGETS
+WIDGETS_DIR=widgets
+endif
+
+SUBDIRS = base $(WIDGETS_DIR)
