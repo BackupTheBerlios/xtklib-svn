@@ -74,12 +74,12 @@ void xLayoutManager::removeComponent(xWidget& c)
 xBoxLayoutInternal* xBoxLayout::getInternal()
 {return static_cast<xBoxLayoutInternal*>(xLayoutManager::getInternal());}
 
-xBoxLayout::xBoxLayout(xBoxLayout::BoxOrientation orientation,bool homogeneous)
-: xLayoutManager(new xBoxLayoutInternal(orientation,homogeneous,this))
+xBoxLayout::xBoxLayout(xBoxLayout::BoxOrientation orientation,bool homogeneous,int padding)
+: xLayoutManager(new xBoxLayoutInternal(orientation,homogeneous,padding,this))
 {}
 
 xConstraint* xBoxLayout::defaultConstraintFactory()
-{return new xBoxConstraint(false,false,0);}
+{return new xBoxConstraint(false,false);}
 
 
 }//namespace

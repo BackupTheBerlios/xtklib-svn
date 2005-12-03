@@ -85,8 +85,11 @@ public:
  */
 class XTKAPI xBoxLayoutInternal : public xLayoutManagerInternal
 {
+private:
+	int m_padding;
+	
 public:
-	xBoxLayoutInternal(xBoxLayout::BoxOrientation orientation,bool homogeneous,xBoxLayout* external);
+	xBoxLayoutInternal(xBoxLayout::BoxOrientation orientation,bool homogeneous,int padding,xBoxLayout* external);
 
 	virtual ~xBoxLayoutInternal()
 	{}
@@ -96,6 +99,9 @@ public:
 	virtual void addComponents(xArray<YOUROWNERSHIP xWidget*> components);
 	virtual void setPlace(xWidget& c,int place);
 	virtual void removeComponent(xWidget& c);
+	
+	int getPadding()
+	{return m_padding;}
 };
 
 

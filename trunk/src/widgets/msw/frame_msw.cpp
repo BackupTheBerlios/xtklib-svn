@@ -88,7 +88,7 @@ void xFrameInternal::setTitle(xString title)
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xFrameInternal::negoziateSize()
+void xFrameInternal::negotiateSize()
 {
 	int height = 200;
 	int width = 200;

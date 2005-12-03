@@ -73,11 +73,12 @@ void xLayoutManagerInternal::setConstraints(xWidget& c,MYOWNERSHIP xConstraint* 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xBoxLayoutInternal::xBoxLayoutInternal(xBoxLayout::BoxOrientation orientation,bool homogeneous,xBoxLayout* external)
+xBoxLayoutInternal::xBoxLayoutInternal(xBoxLayout::BoxOrientation orientation,bool homogeneous,int padding,xBoxLayout* external)
 : xLayoutManagerInternal(external)
 {
 	m_homogeneous = homogeneous;
 	m_orientation = orientation;
+	m_padding = padding;
 }
 
 //##############################################################################
@@ -103,13 +104,8 @@ void xBoxLayoutInternal::addComponent(YOUROWNERSHIP xWidget* c,MYOWNERSHIP xCons
 //##############################################################################
 void xBoxLayoutInternal::doLayout()
 {
-	//case xBoxLayout::BOX_ORIENTATION_X_AXIS
 	int nVisibleChildren = 0;
 	int nExpandedChildren = 0;
-	int childWidth = 0;
-	int width = 0;
-	int extra = 0;
-	int x = 0;
 	
 	//calculate the number of visible and expanded widgets
 	xIterator* iter = m_components.iterator();
@@ -125,91 +121,194 @@ void xBoxLayoutInternal::doLayout()
 	}
 	delete iter;
 	
-	if(nVisibleChildren > 0)
+	//case xBoxLayout::BOX_ORIENTATION_X_AXIS
+	if(m_orientation == xBoxLayout::BOX_ORIENTATION_X_AXIS)
 	{
-		if(m_homogeneous)
-		{
-			width = m_clientSize.getWidth();
-			extra = (int)(width / nVisibleChildren);
-		}
-		else if(nExpandedChildren > 0)
-		{
-			width = m_clientSize.getWidth();
-			extra = (int)(width / nExpandedChildren);
-		}
-		else
-		{
-			width = 0;
-			extra = 0;
-		}
+		int childWidth = 0;
+		int width = 0;
+		int extra = 0;
+		int x = 0;
 		
-		int child_y = 0;
-		int child_x = 0;
-		int child_width = 0;
-		int child_height = MAX(1, m_clientSize.getHeight());
-		
-		iter = m_components.iterator();
-		while(iter->hasNext())
+		if(nVisibleChildren > 0)
 		{
-			xComponentWithConstraint* cmpWithCnstr = static_cast<xComponentWithConstraint*>(&(iter->next()));
-			xBoxConstraint* boxcnstr = static_cast<xBoxConstraint*>(cmpWithCnstr->m_constraint);
-			
-			if(cmpWithCnstr->m_component->isVisible())
+			if(m_homogeneous)
 			{
-				if(m_homogeneous)
+				width = m_clientSize.getWidth();
+				extra = (int)(width / nVisibleChildren);
+			}
+			else if(nExpandedChildren > 0)
+			{
+				width = m_clientSize.getWidth();
+				extra = (int)(width / nExpandedChildren);
+			}
+			else
+			{
+				width = 0;
+				extra = 0;
+			}
+			
+			int child_y = 0;
+			int child_x = 0;
+			int child_width = 0;
+			int child_height = MAX(1, m_clientSize.getHeight());
+			
+			iter = m_components.iterator();
+			while(iter->hasNext())
+			{
+				xComponentWithConstraint* cmpWithCnstr = static_cast<xComponentWithConstraint*>(&(iter->next()));
+				xBoxConstraint* boxcnstr = static_cast<xBoxConstraint*>(cmpWithCnstr->m_constraint);
+				
+				if(cmpWithCnstr->m_component->isVisible())
 				{
-					if(nVisibleChildren == 1)
-						childWidth = width;
-					else
-						childWidth = extra;
-
-					nVisibleChildren -= 1;
-					width -= extra;
-				}
-				else
-				{
-					xDimension dim;
-					//reset the size
-					cmpWithCnstr->m_component->getInternal()->negotiateSize();
-					cmpWithCnstr->m_component->getInternal()->getSize(dim);
-					childWidth = dim.getWidth() + boxcnstr->getPadding() * 2;
-
-					if(boxcnstr->getExpand())
+					if(m_homogeneous)
 					{
-						if(nExpandedChildren == 1)
+						if(nVisibleChildren == 1)
 							childWidth = width;
 						else
 							childWidth = extra;
 
-						nExpandedChildren -= 1;
+						nVisibleChildren -= 1;
 						width -= extra;
 					}
 					else
-						width -= childWidth;
+					{
+						xDimension dim;
+						//reset the size
+						cmpWithCnstr->m_component->getInternal()->negotiateSize();
+						cmpWithCnstr->m_component->getInternal()->getSize(dim);
+						childWidth = dim.getWidth() + getPadding() * 2;
+
+						if(boxcnstr->getExpand())
+						{
+							if(nExpandedChildren == 1)
+								childWidth = width;
+							else
+								childWidth = extra;
+
+							nExpandedChildren -= 1;
+							width -= extra;
+						}
+						else
+							width -= childWidth;
+					}
+
+					if(boxcnstr->getFill())
+					{
+						child_width = MAX(1, childWidth - getPadding() * 2);
+						child_x = x + getPadding();
+					}
+					else
+					{
+						xDimension dim;
+						//reset the size
+						cmpWithCnstr->m_component->getInternal()->negotiateSize();
+						cmpWithCnstr->m_component->getInternal()->getSize(dim);
+
+						child_width = dim.getWidth();
+						child_x = x + (childWidth - dim.getWidth()) / 2;
+					}
+
+					cmpWithCnstr->m_component->getInternal()->setBounds(child_x,child_y,child_width,child_height);
+
+					x += childWidth;
 				}
-
-				if(boxcnstr->getFill())
-				{
-					child_width = MAX(1, childWidth - boxcnstr->getPadding() * 2);
-					child_x = x;
-				}
-				else
-				{
-					xDimension dim;
-					//reset the size
-					cmpWithCnstr->m_component->getInternal()->negotiateSize();
-					cmpWithCnstr->m_component->getInternal()->getSize(dim);
-
-					child_width = dim.getWidth();
-					child_x = x + (childWidth - dim.getWidth()) / 2;
-				}
-
-				cmpWithCnstr->m_component->getInternal()->setBounds(child_x,child_y,child_width,child_height);
-
-				x += childWidth;
 			}
+			delete iter;
 		}
-		delete iter;
+	}
+	else //BOX_ORIENTATION_Y_AXIS
+	{
+		int childHeight = 0;
+		int height = 0;
+		int extra = 0;
+		int y = 0;
+
+		if(nVisibleChildren > 0)
+		{
+			if(m_homogeneous)
+			{
+				height = m_clientSize.getHeight();
+				extra = (int)(height / nVisibleChildren);
+			}
+			else if(nExpandedChildren > 0)
+			{
+				height = m_clientSize.getHeight();
+				extra = (int)(height / nExpandedChildren);
+			}
+			else
+			{
+				height = 0;
+				extra = 0;
+			}
+
+			int child_y = 0;
+			int child_x = 0;
+			int child_width = MAX(1, m_clientSize.getWidth());
+			int child_height = 0;
+
+			iter = m_components.iterator();
+			while(iter->hasNext())
+			{
+				xComponentWithConstraint* cmpWithCnstr = static_cast<xComponentWithConstraint*>(&(iter->next()));
+				xBoxConstraint* boxcnstr = static_cast<xBoxConstraint*>(cmpWithCnstr->m_constraint);
+
+				if(cmpWithCnstr->m_component->isVisible())
+				{
+					if(m_homogeneous)
+					{
+						if(nVisibleChildren == 1)
+							childHeight = height;
+						else
+							childHeight = extra;
+
+						nVisibleChildren -= 1;
+						height -= extra;
+					}
+					else
+					{
+						xDimension dim;
+						//reset the size
+						cmpWithCnstr->m_component->getInternal()->negotiateSize();
+						cmpWithCnstr->m_component->getInternal()->getSize(dim);
+						childHeight = dim.getHeight() + getPadding() * 2;
+
+						if(boxcnstr->getExpand())
+						{
+							if(nExpandedChildren == 1)
+								childHeight = height;
+							else
+								childHeight = extra;
+
+							nExpandedChildren -= 1;
+							height -= extra;
+						}
+						else
+							height -= childHeight;
+					}
+
+					if(boxcnstr->getFill())
+					{
+						child_height = MAX(1, childHeight - getPadding() * 2);
+						child_y = y + getPadding();
+					}
+					else
+					{
+						xDimension dim;
+						//reset the size
+						cmpWithCnstr->m_component->getInternal()->negotiateSize();
+						cmpWithCnstr->m_component->getInternal()->getSize(dim);
+
+						child_height = dim.getHeight();
+						child_y = y + (childHeight - dim.getHeight()) / 2;
+					}
+
+					cmpWithCnstr->m_component->getInternal()->setBounds(child_x,child_y,child_width,child_height);
+
+					y += childHeight;
+				}
+			}
+			delete iter;
+		}
 	}
 }
 

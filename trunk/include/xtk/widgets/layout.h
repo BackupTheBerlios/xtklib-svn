@@ -106,7 +106,6 @@ class XTKAPI xBoxConstraint : public xConstraint
 private:
 	bool 	m_expand;
 	bool	m_fill;
-	int		m_padding;
 	
 public:
 	
@@ -115,10 +114,9 @@ public:
      * to box.
 	 * @param fill TRUE if space given to child by the expand option is actually
 	 * allocated to child
-	 * @param padding extra space in pixels to put between this child and its neighbor
 	 */
-	xBoxConstraint(bool expand,bool fill,int padding)
-	{m_expand = expand;m_fill = fill;m_padding = padding;}
+	xBoxConstraint(bool expand,bool fill)
+	{m_expand = expand;m_fill = fill;}
 	
 	virtual ~xBoxConstraint()
 	{}
@@ -128,9 +126,6 @@ public:
 
 	bool getFill()
 	{return m_fill;}
-
-	int getPadding()
-	{return m_padding;}
 };
 
 
@@ -149,7 +144,7 @@ public:
 		BOX_ORIENTATION_X_AXIS
 	};
 
-	xBoxLayout(xBoxLayout::BoxOrientation orientation,bool homogeneous);
+	xBoxLayout(xBoxLayout::BoxOrientation orientation,bool homogeneous,int padding);
 
 	virtual ~xBoxLayout()
 	{}

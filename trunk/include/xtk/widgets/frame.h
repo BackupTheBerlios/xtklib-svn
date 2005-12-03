@@ -45,7 +45,7 @@ protected:
 	
 public:
 	xFrame(xWidget* parent,xString title,
-		xLayoutManager* layout = new xBoxLayout(xBoxLayout::BOX_ORIENTATION_X_AXIS,false));
+		xLayoutManager* layout = new xBoxLayout(xBoxLayout::BOX_ORIENTATION_X_AXIS,false,1));
 		
 	virtual ~xFrame();
 

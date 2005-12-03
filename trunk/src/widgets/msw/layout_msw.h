@@ -73,7 +73,6 @@ protected:
 
 	xArrayList		m_components;
 	xLayoutManager* m_external;
-	int				m_nextPlace;
 	xDimension		m_clientSize;
 	
 	xLayoutManagerInternal(xLayoutManager* external)
@@ -81,7 +80,6 @@ protected:
 		m_external = external;
 		m_components.giveOwnership();
 		m_clientSize.set(-1,-1);
-		m_nextPlace = 0;
 	}
 
 public:
@@ -144,15 +142,19 @@ class XTKAPI xBoxLayoutInternal : public xLayoutManagerInternal
 private:
 	bool						m_homogeneous;
 	xBoxLayout::BoxOrientation	m_orientation;
+	int							m_padding;
 	
 public:
-	xBoxLayoutInternal(xBoxLayout::BoxOrientation orientation,bool homogeneous,xBoxLayout* external);
+	xBoxLayoutInternal(xBoxLayout::BoxOrientation orientation,bool homogeneous,int padding,xBoxLayout* external);
 
 	virtual ~xBoxLayoutInternal()
 	{}
 
 	virtual void setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnstr);
 	virtual void addComponent(YOUROWNERSHIP xWidget* c,MYOWNERSHIP xConstraint* cnstr);
+	
+	int getPadding()
+	{return m_padding;}
 	
 	//-------INIT-------------------------------------------------------------//
 	//-------MSW SPECIFIC-----------------------------------------------------//

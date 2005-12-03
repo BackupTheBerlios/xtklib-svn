@@ -1,12 +1,47 @@
-Windows instructions:
+By now those xtklib works with thos systems:
 
-Preparing the environment:
-1)Set the environment variable XTKLIB with the path to the root directory of xtklib.
-Note: in the paths you must use the forward-slashes (/) instead of windows back-slashes(\).
+    * Linux/Unix with gcc
+    * Windows with VC++ or mingw32
 
-Linux instructions:
+Linux/Unix with gcc instructions
+The simplest way to compile and install this package is:
 
-In a command shell execute:
-./configure
-make
-make install
+   1. `cd'' to the directory containing the package''s source code and type `./configure'' to configure the package for your system.
+   2. Type `make'' to compile the package.
+   3. Type `make install'' as root, to install the programs and any data files and documentation.
+   4. You can remove the program binaries and object files from the source code directory by typing `make clean''. To also remove the files that `configure'' created type `make distclean''.
+
+You can turn on/off some features during configure operation, those are the most important arguments you can append to ''./configure'' command:
+
+    * --enable-debug: to compile the library in debug mode.
+    * --enable-widgets: to enable the compilation of ''widgets'' module (note that this module is yet in pre-alfa state).
+
+After compile and install, you can link you programs against xtklib base module and optionally against widgets module,by using the pkg-config tool. For example you can run the command:
+
+g++ example.cpp -o example `pkg-config --cflags --libs xtkbase-0.1.0`
+
+to compile and link against xtklib base module version 0.1.0.
+
+
+Windows and VC++ instructions
+
+XTKLib source package comes with VC++ 7.1 solution file (xtklib.sln) included. To compile, open this project file with VC++ and build the entire solution. Compiled modules are available in the lib directory under your xtklib source directory.
+To use xtklib in your project you must:
+
+   1. [Project properties -> C/C++ -> General -> Additional include directories] Include the path to xtklib include directory
+   2. [Project properties -> C/C++ -> Preprocessor -> Preprocessor definitions] Append the definitions:
+          * __WINDOWS__ : obligatory
+          * __WIDGETS__ : if you want to use widgets module
+   3. [Project properties -> C/C++ -> Code generation -> Runtime library] and select:
+          * Multi-threaded Debug DLL : if you are in Debug configuration
+          * Multi-threaded DLL : if you are in Release configuration
+   4. [Project properties -> C/C++ -> Language -> Enable Runt-Time type info] Set to Yes.
+   5. [Project properties -> Linker -> General -> Additional Library Directories] Add the path to the compiled xtklib modules.
+   6. [Project properties -> Linker -> Input -> Additional Dependencies] Add the name of library modules you precedently have compiled (xtklibbase(d).lib and/or xtklibwidgets(d).lib).
+
+Now you are ready to compile your project against xtklib.
+
+
+Windows and Mingw32 instructions
+
+[Coming Soon...]

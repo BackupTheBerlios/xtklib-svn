@@ -32,15 +32,15 @@ private:
 	virtual void doTest()
 	{
 		xFrame* frame = new xFrame(NULL,_T("Frame title"));
-		//frame->setLayout(new xBoxLayout(xBoxLayout::BOX_ORIENTATION_X_AXIS,true));
+		frame->setLayout(new xBoxLayout(xBoxLayout::BOX_ORIENTATION_Y_AXIS,true,1));
 		frame->setDefaultCloseAction(xWindow::XTK_EXIT_ON_CLOSE);
 		frame->setVisible(true);
 		
 		xButton* butt1 = new xButton(frame,_T("Button1"));
-		frame->getLayout().setConstraints(*butt1,new xBoxConstraint(true,true,5));
+		frame->getLayout().setConstraints(*butt1,new xBoxConstraint(true,true));
 		butt1->addActionPerformedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::actionPerformed));
 		xButton* butt2 = new xButton(frame,_T("Button2"));
-		frame->getLayout().setConstraints(*butt2,new xBoxConstraint(true,true,5));
+		frame->getLayout().setConstraints(*butt2,new xBoxConstraint(true,true));
 		
 		xtkUIEventLoop();
 	}
@@ -54,5 +54,4 @@ public:
 	{
 		xSystem::getStdout().write(_T("Button 1 activated\n"));
 	}
-	
 };

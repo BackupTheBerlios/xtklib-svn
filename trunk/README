@@ -69,22 +69,9 @@ and well designed. Java developers will find in xtklib a valid solution for
 approatching to C++ world.
 
 
-
-RELATIONS BETWEEN XTKLIB AND JAVA
------------------------------------------------------------------------------------
-If you take a look at xtklib organization you'll find a similarity with java 
-library. In fact many class follow in naming and behaviour their java equivalents. 
-Pay attention: this must not be interpreted like an attempt to create a java-like 
-C++ library, many class in xtklib have no java equivalents or have different 
-behaviours. xtklib is not Java and C++ is not Java ,remember. However xtklib 
-development will follow roughly the Java class structure becouse it is clean,easy,
-and well designed. Java developers will find in xtklib a valid solution for 
-approatching to C++ world.
-
-
 HELP WANTED
 -----------------------------------------------------------------------------------
-xtklib is for now a one-man project, for this you should not expect to find this 
+xtklib is by now a one-man project, for this you should not expect to find this 
 complete or bug-free. Many things are left to be done, so help will be appreciated.
  If you want to collaborate in this project like Documentation writer,Developer,
 Tester,platform maintainer you can write to my email address. If you want to be 

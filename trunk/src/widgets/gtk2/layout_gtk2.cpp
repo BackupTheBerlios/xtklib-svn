@@ -31,9 +31,10 @@ namespace xtk
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xBoxLayoutInternal::xBoxLayoutInternal(xBoxLayout::BoxOrientation orientation,bool homogeneous,xBoxLayout* external)
+xBoxLayoutInternal::xBoxLayoutInternal(xBoxLayout::BoxOrientation orientation,bool homogeneous,int padding,xBoxLayout* external)
 : xLayoutManagerInternal(external)
 {
+	m_padding = padding;
 	if(orientation == xBoxLayout::BOX_ORIENTATION_X_AXIS)
 		m_gtkWidget = gtk_hbox_new(homogeneous,0);
 	else if(orientation == xBoxLayout::BOX_ORIENTATION_Y_AXIS)
@@ -54,7 +55,7 @@ void xBoxLayoutInternal::setConstraints(xWidget& c,MYOWNERSHIP xConstraint* cnst
 							c.getInternal()->getGtkWidget(),
 							box->getExpand(),
 							box->getFill(),
-							box->getPadding(),
+							getPadding(),
 							GTK_PACK_START
 							);
 	delete cnstr;
@@ -71,7 +72,7 @@ void xBoxLayoutInternal::addComponent(YOUROWNERSHIP xWidget* c,MYOWNERSHIP xCons
 						c->getInternal()->getGtkWidget(),
 						box->getExpand(),
 						box->getFill(),
-						box->getPadding()
+						getPadding()
 						);
 	delete cnstr;
 }

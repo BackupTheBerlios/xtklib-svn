@@ -57,7 +57,7 @@ public:
 	
 	virtual void setTitle(xString title);
 	
-	virtual void negoziateSize();
+	virtual void negotiateSize();
 };
 
 
