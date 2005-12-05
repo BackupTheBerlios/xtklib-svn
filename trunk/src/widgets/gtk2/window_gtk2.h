@@ -51,6 +51,9 @@ public:
 	virtual ~xWindowInternal()
 	{}
 
+	virtual void setSize(int width,int height)
+	{gtk_window_resize(GTK_WINDOW(getGtkWidget()),width,height);}
+	
 	virtual void setDefaultCloseAction(xWindow::CloseAction caction)
 	{m_closeAction = caction;}
 

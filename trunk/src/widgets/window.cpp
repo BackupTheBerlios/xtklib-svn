@@ -43,6 +43,8 @@ xWindow::~xWindow()
 bool xWindow::isActive()
 {return m_internal->isActive();}
 
+void xWindow::setSize(int width,int height)
+{m_internal->setSize(width,height);}
 
 void xWindow::toBack()
 {m_internal->toBack();}

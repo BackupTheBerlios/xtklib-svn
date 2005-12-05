@@ -32,7 +32,8 @@ private:
 	virtual void doTest()
 	{
 		xFrame* frame = new xFrame(NULL,_T("Frame title"));
-		frame->setLayout(new xBoxLayout(xBoxLayout::BOX_ORIENTATION_Y_AXIS,true,1));
+		frame->setLayout(new xBoxLayout(xBoxLayout::BOX_ORIENTATION_Y_AXIS,true,3));
+		frame->setSize(200,200);
 		frame->setDefaultCloseAction(xWindow::XTK_EXIT_ON_CLOSE);
 		frame->setVisible(true);
 		
@@ -41,6 +42,8 @@ private:
 		butt1->addActionPerformedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::actionPerformed));
 		xButton* butt2 = new xButton(frame,_T("Button2"));
 		frame->getLayout().setConstraints(*butt2,new xBoxConstraint(true,true));
+		xButton* butt3 = new xButton(frame,_T("Button3"));
+		frame->getLayout().setConstraints(*butt3,new xBoxConstraint(true,true));
 		
 		xtkUIEventLoop();
 	}

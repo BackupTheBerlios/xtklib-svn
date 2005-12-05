@@ -55,7 +55,12 @@ public:
 	};
 	
 	virtual ~xWindow();
-
+	
+	/**
+	* Sets the size of the window.
+	*/
+	virtual void setSize(int width,int height);
+	
 	/**
 	 * Returns whether this Window is active.
 	 */
