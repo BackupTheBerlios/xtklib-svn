@@ -8,6 +8,7 @@ xtkbaseinclude_HEADERS = \
 	font.h \
 	frame.h \
 	layout.h \
+	panel.h \
 	widget.h \
 	widgetevent.h \
 	widgeteventgenerator.h \

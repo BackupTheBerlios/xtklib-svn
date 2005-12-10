@@ -67,9 +67,6 @@ public:
 	
 	GtkWidget* getGtkWidget()
 	{return m_gtkWidget;}
-	
-	virtual void doLayout()
-	{}
 		
 	virtual void getPreferredSize(OUT xDimension& dim);
 	virtual bool isEnabled();

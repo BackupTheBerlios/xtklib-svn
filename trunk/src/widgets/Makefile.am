@@ -16,6 +16,7 @@ libxtkwidgets_a_SOURCES = \
 	font.cpp \
 	frame.cpp \
 	layout.cpp \
+	panel.cpp \
 	widget.cpp \
 	widgetevent.cpp \
 	widgeteventgenerator_internal.cpp \
