@@ -68,6 +68,7 @@ am_libxtkwidgets_a_OBJECTS = libxtkwidgets_a-button.$(OBJEXT) \
 	libxtkwidgets_a-container.$(OBJEXT) \
 	libxtkwidgets_a-font.$(OBJEXT) libxtkwidgets_a-frame.$(OBJEXT) \
 	libxtkwidgets_a-layout.$(OBJEXT) \
+	libxtkwidgets_a-panel.$(OBJEXT) \
 	libxtkwidgets_a-widget.$(OBJEXT) \
 	libxtkwidgets_a-widgetevent.$(OBJEXT) \
 	libxtkwidgets_a-widgeteventgenerator_internal.$(OBJEXT) \
@@ -203,6 +204,7 @@ libxtkwidgets_a_SOURCES = \
 	font.cpp \
 	frame.cpp \
 	layout.cpp \
+	panel.cpp \
 	widget.cpp \
 	widgetevent.cpp \
 	widgeteventgenerator_internal.cpp \
@@ -286,6 +288,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-font.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-frame.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-layout.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-panel.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-widget.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-widgetevent.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-widgeteventgenerator_internal.Po@am__quote@
@@ -374,6 +377,20 @@ libxtkwidgets_a-layout.obj: layout.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='layout.cpp' object='libxtkwidgets_a-layout.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-layout.obj `if test -f 'layout.cpp'; then $(CYGPATH_W) 'layout.cpp'; else $(CYGPATH_W) '$(srcdir)/layout.cpp'; fi`
+
+libxtkwidgets_a-panel.o: panel.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-panel.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-panel.Tpo" -c -o libxtkwidgets_a-panel.o `test -f 'panel.cpp' || echo '$(srcdir)/'`panel.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-panel.Tpo" "$(DEPDIR)/libxtkwidgets_a-panel.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-panel.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='panel.cpp' object='libxtkwidgets_a-panel.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-panel.o `test -f 'panel.cpp' || echo '$(srcdir)/'`panel.cpp
+
+libxtkwidgets_a-panel.obj: panel.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-panel.obj -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-panel.Tpo" -c -o libxtkwidgets_a-panel.obj `if test -f 'panel.cpp'; then $(CYGPATH_W) 'panel.cpp'; else $(CYGPATH_W) '$(srcdir)/panel.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-panel.Tpo" "$(DEPDIR)/libxtkwidgets_a-panel.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-panel.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='panel.cpp' object='libxtkwidgets_a-panel.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-panel.obj `if test -f 'panel.cpp'; then $(CYGPATH_W) 'panel.cpp'; else $(CYGPATH_W) '$(srcdir)/panel.cpp'; fi`
 
 libxtkwidgets_a-widget.o: widget.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-widget.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-widget.Tpo" -c -o libxtkwidgets_a-widget.o `test -f 'widget.cpp' || echo '$(srcdir)/'`widget.cpp; \

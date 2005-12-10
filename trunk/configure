@@ -3934,52 +3934,37 @@ echo "${ECHO_T}no" >&6
 fi
 
 pkg_failed=no
-echo "$as_me:$LINENO: checking for WIDGETSDEPS_CFLAGS" >&5
-echo $ECHO_N "checking for WIDGETSDEPS_CFLAGS... $ECHO_C" >&6
-if test "${pkg_cv_WIDGETSDEPS_CFLAGS+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  if test "x$ac_cv_env_WIDGETSDEPS_CFLAGS_set" = "xset"; then
-	pkg_cv_WIDGETSDEPS_CFLAGS=$ac_cv_env_WIDGETSDEPS_CFLAGS_value
-elif test -n "$PKG_CONFIG"; then
-	if { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists \"gtk+-2.0 >= 2.2 glib-2.0 >= 2.2\" >/dev/null 2>&1") >&5
-  ($PKG_CONFIG --exists "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2" >/dev/null 2>&1) 2>&5
+echo "$as_me:$LINENO: checking for WIDGETSDEPS" >&5
+echo $ECHO_N "checking for WIDGETSDEPS... $ECHO_C" >&6
+
+if test -n "$PKG_CONFIG"; then
+        if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0 >= 2.2 glib-2.0 >= 2.2\"") >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2") 2>&5
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-		pkg_cv_WIDGETSDEPS_CFLAGS=`$PKG_CONFIG --cflags "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2" 2>/dev/null`
-	else
-		pkg_failed=yes
-	fi
+  pkg_cv_WIDGETSDEPS_CFLAGS=`$PKG_CONFIG --cflags "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
 else
 	pkg_failed=untried
 fi
-fi
-echo "$as_me:$LINENO: result: $pkg_cv_WIDGETSDEPS_CFLAGS" >&5
-echo "${ECHO_T}$pkg_cv_WIDGETSDEPS_CFLAGS" >&6
-echo "$as_me:$LINENO: checking for WIDGETSDEPS_LIBS" >&5
-echo $ECHO_N "checking for WIDGETSDEPS_LIBS... $ECHO_C" >&6
-if test "${pkg_cv_WIDGETSDEPS_LIBS+set}" = set; then
-  echo $ECHO_N "(cached) $ECHO_C" >&6
-else
-  if test "x$ac_cv_env_WIDGETSDEPS_LIBS_set" = "xset"; then
-	pkg_cv_WIDGETSDEPS_LIBS=$ac_cv_env_WIDGETSDEPS_LIBS_value
-elif test -n "$PKG_CONFIG"; then
-	if { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists \"gtk+-2.0 >= 2.2 glib-2.0 >= 2.2\" >/dev/null 2>&1") >&5
-  ($PKG_CONFIG --exists "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2" >/dev/null 2>&1) 2>&5
+if test -n "$PKG_CONFIG"; then
+        if test -n "$PKG_CONFIG" && \
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0 >= 2.2 glib-2.0 >= 2.2\"") >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2") 2>&5
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-		pkg_cv_WIDGETSDEPS_LIBS=`$PKG_CONFIG --libs "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2" 2>/dev/null`
-	else
-		pkg_failed=yes
-	fi
+  pkg_cv_WIDGETSDEPS_LIBS=`$PKG_CONFIG --libs "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
 else
 	pkg_failed=untried
 fi
-fi
-echo "$as_me:$LINENO: result: $pkg_cv_WIDGETSDEPS_LIBS" >&5
-echo "${ECHO_T}$pkg_cv_WIDGETSDEPS_LIBS" >&6
 
 if test $pkg_failed = yes; then
 	WIDGETSDEPS_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "gtk+-2.0 >= 2.2 glib-2.0 >= 2.2"`
@@ -4026,6 +4011,8 @@ See \`config.log' for more details." >&2;}
 else
 	WIDGETSDEPS_CFLAGS=$pkg_cv_WIDGETSDEPS_CFLAGS
 	WIDGETSDEPS_LIBS=$pkg_cv_WIDGETSDEPS_LIBS
+        echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6
 	:
 fi
 

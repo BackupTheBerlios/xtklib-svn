@@ -24,6 +24,7 @@
 
 #include "../../../include/xtk/widgets/panel.h"
 #include "container_gtk2.h"
+#include "layout_gtk2.h"
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_GTK2)
 #include <gtk/gtk.h>
@@ -53,7 +54,7 @@ public:
 		m_border = border;
 		if(border == xPanel::BORDER_TITLED)
 		{
-			m_gtkWidget = gtk_frame_new(label.mb_str(xCharset::UTF8));
+			m_gtkWidget = gtk_frame_new(label.mb_str(xCharset::CS_UTF8));
 			xContainerInternal::gtkWidgetCreated();
 			gtk_widget_show(getGtkWidget());
 		}
@@ -68,10 +69,15 @@ public:
 	{}
 
 	virtual xString getLabel()
-	{m_border != xPanel::BORDER_TITLED ? return xString() : return xString(gtk_frame_get_label(GTK_FRAME(getGtkWidget())),xCharset::UTF8);}
+	{
+		if(m_border != xPanel::BORDER_TITLED)
+			return xString();
+		else
+			return xString(gtk_frame_get_label(GTK_FRAME(getGtkWidget())),xCharset::CS_UTF8);
+	}
 	
 	virtual void setLabel(xString label)
-	{if(m_border == xPanel::BORDER_TITLED) gtk_frame_set_label(GTK_FRAME(getGtkWidget())),label.mb_str(xCharset::UTF8));}
+	{if(m_border == xPanel::BORDER_TITLED) gtk_frame_set_label(GTK_FRAME(getGtkWidget()),label.mb_str(xCharset::CS_UTF8));}
 	
 	/**
 	 *@todo TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 

@@ -81,11 +81,6 @@ protected:
 public:
 	virtual ~xWidget();
 	
-	/**
-	 * Prompts the layout manager to explicitly lay out this component.
-	 */
-	virtual void doLayout();
-	
 	xWidgetInternal* getInternal()
 	{return m_internal;}
 	

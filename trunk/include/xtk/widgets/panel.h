@@ -51,7 +51,7 @@ protected:
 	
 public:
 	
-	xPanel(xWidget* parent,xPanel::Border border,xLayoutManager* layout = new xBoxLayout(xBoxLayout::X_AXIS),xString label = _T(""));
+	xPanel(xWidget* parent,xPanel::Border border,xLayoutManager* layout = new xBoxLayout(xBoxLayout::BOX_ORIENTATION_X_AXIS,false,1),xString label = _T(""));
 	
 	virtual ~xPanel();
 
