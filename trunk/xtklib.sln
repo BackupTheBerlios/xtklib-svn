@@ -1,40 +1,39 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests.vcproj", "{44404527-1040-467B-86A1-9FB67E4B82A9}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual C++ Express 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xtklib", "xtklib.vcproj", "{BAFE0BAF-EE9E-44C6-A616-95BFC3EAD1EA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xtkwidgets", "xtkwidgets.vcproj", "{4B32C546-69D6-4969-83C2-896BEB469A2D}"
 	ProjectSection(ProjectDependencies) = postProject
-		{0A9E9C2F-9EC1-4504-9ACA-CB8B73828B98} = {0A9E9C2F-9EC1-4504-9ACA-CB8B73828B98}
-		{15D03873-8F5A-45D9-82A6-95A9192B2BCE} = {15D03873-8F5A-45D9-82A6-95A9192B2BCE}
+		{BAFE0BAF-EE9E-44C6-A616-95BFC3EAD1EA} = {BAFE0BAF-EE9E-44C6-A616-95BFC3EAD1EA}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xtklib", "xtklib.vcproj", "{15D03873-8F5A-45D9-82A6-95A9192B2BCE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests.vcproj", "{4B6309BB-62EC-4F34-B26A-B1CADE7004ED}"
 	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xtkwidgets", "xtkwidgets.vcproj", "{0A9E9C2F-9EC1-4504-9ACA-CB8B73828B98}"
-	ProjectSection(ProjectDependencies) = postProject
-		{15D03873-8F5A-45D9-82A6-95A9192B2BCE} = {15D03873-8F5A-45D9-82A6-95A9192B2BCE}
+		{4B32C546-69D6-4969-83C2-896BEB469A2D} = {4B32C546-69D6-4969-83C2-896BEB469A2D}
+		{BAFE0BAF-EE9E-44C6-A616-95BFC3EAD1EA} = {BAFE0BAF-EE9E-44C6-A616-95BFC3EAD1EA}
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(SolutionConfiguration) = preSolution
-		Debug = Debug
-		Release = Release
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
 	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{44404527-1040-467B-86A1-9FB67E4B82A9}.Debug.ActiveCfg = Debug|Win32
-		{44404527-1040-467B-86A1-9FB67E4B82A9}.Debug.Build.0 = Debug|Win32
-		{44404527-1040-467B-86A1-9FB67E4B82A9}.Release.ActiveCfg = Release|Win32
-		{44404527-1040-467B-86A1-9FB67E4B82A9}.Release.Build.0 = Release|Win32
-		{15D03873-8F5A-45D9-82A6-95A9192B2BCE}.Debug.ActiveCfg = Debug|Win32
-		{15D03873-8F5A-45D9-82A6-95A9192B2BCE}.Debug.Build.0 = Debug|Win32
-		{15D03873-8F5A-45D9-82A6-95A9192B2BCE}.Release.ActiveCfg = Release|Win32
-		{15D03873-8F5A-45D9-82A6-95A9192B2BCE}.Release.Build.0 = Release|Win32
-		{0A9E9C2F-9EC1-4504-9ACA-CB8B73828B98}.Debug.ActiveCfg = Debug|Win32
-		{0A9E9C2F-9EC1-4504-9ACA-CB8B73828B98}.Debug.Build.0 = Debug|Win32
-		{0A9E9C2F-9EC1-4504-9ACA-CB8B73828B98}.Release.ActiveCfg = Release|Win32
-		{0A9E9C2F-9EC1-4504-9ACA-CB8B73828B98}.Release.Build.0 = Release|Win32
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BAFE0BAF-EE9E-44C6-A616-95BFC3EAD1EA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BAFE0BAF-EE9E-44C6-A616-95BFC3EAD1EA}.Debug|Win32.Build.0 = Debug|Win32
+		{BAFE0BAF-EE9E-44C6-A616-95BFC3EAD1EA}.Release|Win32.ActiveCfg = Release|Win32
+		{BAFE0BAF-EE9E-44C6-A616-95BFC3EAD1EA}.Release|Win32.Build.0 = Release|Win32
+		{4B32C546-69D6-4969-83C2-896BEB469A2D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4B32C546-69D6-4969-83C2-896BEB469A2D}.Debug|Win32.Build.0 = Debug|Win32
+		{4B32C546-69D6-4969-83C2-896BEB469A2D}.Release|Win32.ActiveCfg = Release|Win32
+		{4B32C546-69D6-4969-83C2-896BEB469A2D}.Release|Win32.Build.0 = Release|Win32
+		{4B6309BB-62EC-4F34-B26A-B1CADE7004ED}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4B6309BB-62EC-4F34-B26A-B1CADE7004ED}.Debug|Win32.Build.0 = Debug|Win32
+		{4B6309BB-62EC-4F34-B26A-B1CADE7004ED}.Release|Win32.ActiveCfg = Release|Win32
+		{4B6309BB-62EC-4F34-B26A-B1CADE7004ED}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

@@ -25,8 +25,9 @@
 #include "../../../include/xtk/widgets/widget.h"
 #include "../widgeteventgenerator_internal.h"
 #include "font_msw.h"
+#include <assert.h>
 
-#if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
+#if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
 #include <Windows.h>
 
@@ -157,7 +158,7 @@ public:
 	{::InvalidateRect(getHWND(),NULL,TRUE);}
 	
 	virtual void setBounds(int x, int y, int width, int height)
-	{::MoveWindow(getHWND(),x,y,width,height,true);}
+	{::SetWindowPos(getHWND(),NULL,x,y,width,height,SWP_NOZORDER | SWP_NOACTIVATE);}
 	
 	virtual void setFont(xFont& f)
 	{::SendMessage((HWND) getHWND(),(UINT) WM_SETFONT,(WPARAM) f.getInternal()->getHFONT(),(LPARAM) TRUE);}
@@ -168,7 +169,10 @@ public:
 	virtual void setSize(int width, int height)
 	{::SetWindowPos(getHWND(),NULL,0,0,width,height,SWP_NOZORDER | SWP_NOMOVE | SWP_NOACTIVATE);}
 	
-	virtual void negotiateSize() = 0;
+	/**
+	 * Compute the optimum size of the widget.
+	 */
+	virtual void sizeRequest(xDimension& dim) = 0;
 	
 	virtual void validate()
 	{::ValidateRect(getHWND(),NULL);}

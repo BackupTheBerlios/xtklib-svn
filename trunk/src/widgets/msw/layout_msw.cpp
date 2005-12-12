@@ -102,6 +102,51 @@ void xBoxLayoutInternal::addComponent(YOUROWNERSHIP xWidget* c,MYOWNERSHIP xCons
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
+void xBoxLayoutInternal::sizeRequest(xDimension& dim)
+{
+	int width;
+	int nVisibleChildren = 0;
+
+	xIterator* iter = m_components.iterator();
+	while(iter->hasNext())
+	{
+		xComponentWithConstraint* cmpWithCnstr = static_cast<xComponentWithConstraint*>(&(iter->next()));
+
+		if(cmpWithCnstr->m_component->isVisible())
+		{
+			xDimension child_requisition;
+			cmpWithCnstr->m_component->getInternal()->sizeRequest(dim);
+
+			if(m_homogeneous)
+			{
+				width = child_requisition.getWidth() + m_padding * 2;
+				dim.setWidth(MAX(dim.getWidth(), width));
+			}
+			else
+			{
+				dim.setWidth(dim.getWidth() + child_requisition.getWidth() + m_padding * 2);
+			}
+
+			dim.setHeight(MAX(dim.getHeight(), child_requisition.getHeight()));
+	
+			nVisibleChildren++;
+		}
+    }
+	delete iter;
+
+	if (nVisibleChildren > 0)
+	{
+		if(m_homogeneous)
+			dim.setWidth(dim.getWidth() * nVisibleChildren);
+    }
+
+	dim.setWidth(dim.getWidth() + m_xoffset);
+	dim.setHeight(dim.getHeight() + m_yoffset);
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
 void xBoxLayoutInternal::doLayout()
 {
 	int nVisibleChildren = 0;
@@ -127,7 +172,7 @@ void xBoxLayoutInternal::doLayout()
 		int childWidth = 0;
 		int width = 0;
 		int extra = 0;
-		int x = 0;
+		int x = m_xoffset;
 		
 		if(nVisibleChildren > 0)
 		{
@@ -147,10 +192,10 @@ void xBoxLayoutInternal::doLayout()
 				extra = 0;
 			}
 			
-			int child_y = 0;
-			int child_x = 0;
+			int child_y = m_yoffset;
+			int child_x = m_xoffset;
 			int child_width = 0;
-			int child_height = MAX(1, m_clientSize.getHeight());
+ 			int child_height = MAX(1, m_clientSize.getHeight());
 			
 			iter = m_components.iterator();
 			while(iter->hasNext())
@@ -174,8 +219,7 @@ void xBoxLayoutInternal::doLayout()
 					{
 						xDimension dim;
 						//reset the size
-						cmpWithCnstr->m_component->getInternal()->negotiateSize();
-						cmpWithCnstr->m_component->getInternal()->getSize(dim);
+						cmpWithCnstr->m_component->getInternal()->sizeRequest(dim);
 						childWidth = dim.getWidth() + getPadding() * 2;
 
 						if(boxcnstr->getExpand())
@@ -201,8 +245,7 @@ void xBoxLayoutInternal::doLayout()
 					{
 						xDimension dim;
 						//reset the size
-						cmpWithCnstr->m_component->getInternal()->negotiateSize();
-						cmpWithCnstr->m_component->getInternal()->getSize(dim);
+						cmpWithCnstr->m_component->getInternal()->sizeRequest(dim);
 
 						child_width = dim.getWidth();
 						child_x = x + (childWidth - dim.getWidth()) / 2;
@@ -221,7 +264,7 @@ void xBoxLayoutInternal::doLayout()
 		int childHeight = 0;
 		int height = 0;
 		int extra = 0;
-		int y = 0;
+		int y = m_yoffset;
 
 		if(nVisibleChildren > 0)
 		{
@@ -241,8 +284,8 @@ void xBoxLayoutInternal::doLayout()
 				extra = 0;
 			}
 
-			int child_y = 0;
-			int child_x = 0;
+			int child_y = m_yoffset;
+			int child_x = m_xoffset;
 			int child_width = MAX(1, m_clientSize.getWidth());
 			int child_height = 0;
 
@@ -268,8 +311,7 @@ void xBoxLayoutInternal::doLayout()
 					{
 						xDimension dim;
 						//reset the size
-						cmpWithCnstr->m_component->getInternal()->negotiateSize();
-						cmpWithCnstr->m_component->getInternal()->getSize(dim);
+						cmpWithCnstr->m_component->getInternal()->sizeRequest(dim);
 						childHeight = dim.getHeight() + getPadding() * 2;
 
 						if(boxcnstr->getExpand())
@@ -295,8 +337,7 @@ void xBoxLayoutInternal::doLayout()
 					{
 						xDimension dim;
 						//reset the size
-						cmpWithCnstr->m_component->getInternal()->negotiateSize();
-						cmpWithCnstr->m_component->getInternal()->getSize(dim);
+						cmpWithCnstr->m_component->getInternal()->sizeRequest(dim);
 
 						child_height = dim.getHeight();
 						child_y = y + (childHeight - dim.getHeight()) / 2;

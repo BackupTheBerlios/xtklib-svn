@@ -1,95 +1,138 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="8,00"
 	Name="xtkwidgets"
-	ProjectGUID="{0A9E9C2F-9EC1-4504-9ACA-CB8B73828B98}"
-	Keyword="Win32Proj">
+	ProjectGUID="{4B32C546-69D6-4969-83C2-896BEB469A2D}"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="lib"
-			IntermediateDirectory="Debug"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			CharacterSet="2">
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;__WINDOWS__;__DEBUG__;__WIDGETS__"
-				MinimalRebuild="TRUE"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				BufferSecurityCheck="TRUE"
-				RuntimeTypeInfo="TRUE"
-				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/xtkwidgets.lib"/>
+				OutputFile="$(OutDir)/xtkwidgets.lib"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
-			ConfigurationType="4"
-			CharacterSet="2">
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
-				RuntimeLibrary="4"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/xtkwidgets.lib"/>
+				Name="VCResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCLinkerTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -97,145 +140,201 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
 			<File
-				RelativePath=".\src\widgets\button.cpp">
+				RelativePath=".\src\widgets\button.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\widgets\container.cpp">
+				RelativePath=".\src\widgets\container.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\widgets\font.cpp">
+				RelativePath=".\src\widgets\font.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\widgets\frame.cpp">
+				RelativePath=".\src\widgets\frame.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\widgets\layout.cpp">
+				RelativePath=".\src\widgets\layout.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\widgets\widget.cpp">
+				RelativePath=".\src\widgets\panel.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\widgets\widgetevent.cpp">
+				RelativePath=".\src\widgets\widget.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\widgets\widgeteventgenerator_internal.cpp">
+				RelativePath=".\src\widgets\widgetevent.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\widgets\widgeteventgenerator_internal.h">
+				RelativePath=".\src\widgets\widgeteventgenerator_internal.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\widgets\widgets_private.h">
+				RelativePath=".\src\widgets\widgeteventgenerator_internal.h"
+				>
 			</File>
 			<File
-				RelativePath=".\src\widgets\window.cpp">
+				RelativePath=".\src\widgets\widgets_private.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\widgets\window.cpp"
+				>
 			</File>
 			<Filter
 				Name="msw"
-				Filter="">
+				>
 				<File
-					RelativePath=".\src\widgets\msw\button_msw.cpp">
+					RelativePath=".\src\widgets\msw\button_msw.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\button_msw.h">
+					RelativePath=".\src\widgets\msw\button_msw.h"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\container_msw.cpp">
+					RelativePath=".\src\widgets\msw\container_msw.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\container_msw.h">
+					RelativePath=".\src\widgets\msw\container_msw.h"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\font_msw.cpp">
+					RelativePath=".\src\widgets\msw\font_msw.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\font_msw.h">
+					RelativePath=".\src\widgets\msw\font_msw.h"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\frame_msw.cpp">
+					RelativePath=".\src\widgets\msw\frame_msw.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\frame_msw.h">
+					RelativePath=".\src\widgets\msw\frame_msw.h"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\label_msw.h">
+					RelativePath=".\src\widgets\msw\label_msw.h"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\layout_msw.cpp">
+					RelativePath=".\src\widgets\msw\layout_msw.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\layout_msw.h">
+					RelativePath=".\src\widgets\msw\layout_msw.h"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\panel_msw.h">
+					RelativePath=".\src\widgets\msw\panel_msw.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\widget_msw.cpp">
+					RelativePath=".\src\widgets\msw\panel_msw.h"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\widget_msw.h">
+					RelativePath=".\src\widgets\msw\widget_msw.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\widgets_msw_private.h">
+					RelativePath=".\src\widgets\msw\widget_msw.h"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\window_msw.cpp">
+					RelativePath=".\src\widgets\msw\widgets_msw_private.h"
+					>
 				</File>
 				<File
-					RelativePath=".\src\widgets\msw\window_msw.h">
+					RelativePath=".\src\widgets\msw\window_msw.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\widgets\msw\window_msw.h"
+					>
 				</File>
 			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
 			<File
-				RelativePath=".\include\xtk\widgets\button.h">
+				RelativePath=".\include\xtk\widgets\button.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets\container.h">
+				RelativePath=".\include\xtk\widgets\container.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets\font.h">
+				RelativePath=".\include\xtk\widgets\font.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets\frame.h">
+				RelativePath=".\include\xtk\widgets\frame.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets\label.h">
+				RelativePath=".\include\xtk\globals.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets\layout.h">
+				RelativePath=".\include\xtk\widgets\layout.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets\panel.h">
+				RelativePath=".\include\xtk\widgets\panel.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets\widget.h">
+				RelativePath=".\include\xtk\setup.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets\widgetevent.h">
+				RelativePath=".\include\xtk\widgets\widget.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets\widgeteventgenerator.h">
+				RelativePath=".\include\xtk\widgets\widgetevent.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets\widgeteventhandler.h">
+				RelativePath=".\include\xtk\widgets\widgeteventgenerator.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets.h">
+				RelativePath=".\include\xtk\widgets\widgeteventhandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\widgets\window.h">
+				RelativePath=".\include\xtk\widgets.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\xtk\widgets\window.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
 		</Filter>
 	</Files>
 	<Globals>

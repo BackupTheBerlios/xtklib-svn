@@ -54,7 +54,7 @@ public:
 	virtual xString getLabel();
 	virtual void setLabel(xString label);
 	
-	virtual void negotiateSize();
+	virtual void sizeRequest(xDimension& dim);
 };
 
 

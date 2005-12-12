@@ -57,22 +57,23 @@ xButtonInternal::xButtonInternal(xWidget* parent,xString label,xButton* external
 	setFont(*fn);
 	delete fn;
 	
-	negotiateSize();
+	xDimension dim;
+	sizeRequest(dim);
+	setSize(dim.getWidth(),dim.getHeight());
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xButtonInternal::negotiateSize()
+void xButtonInternal::sizeRequest(xDimension& dim)
 {
 	xDimension preferredSize;
 	getPreferredSize(preferredSize);
 	
-	xDimension dim;
 	xFontMetrics* fm = getFontMetrics();
 	
 	if(preferredSize.getHeight() < 0)
-		dim.setHeight(fm->getHeight());
+		dim.setHeight(fm->getHeight() + 10);
 	else
 		dim.setHeight(preferredSize.getHeight());
 		
@@ -82,8 +83,6 @@ void xButtonInternal::negotiateSize()
 		dim.setWidth(preferredSize.getWidth());
 	
 	delete fm;
-	
-	setSize(dim.getWidth(),dim.getHeight());
 }
 
 //##############################################################################

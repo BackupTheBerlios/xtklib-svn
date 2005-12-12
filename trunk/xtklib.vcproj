@@ -1,96 +1,139 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="8,00"
 	Name="xtklib"
-	ProjectGUID="{15D03873-8F5A-45D9-82A6-95A9192B2BCE}"
-	Keyword="Win32Proj">
+	ProjectGUID="{BAFE0BAF-EE9E-44C6-A616-95BFC3EAD1EA}"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="lib"
-			IntermediateDirectory="Intermediate"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			CharacterSet="2">
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(ZLIB)&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;__WINDOWS__;__DEBUG__"
-				MinimalRebuild="TRUE"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				BufferSecurityCheck="TRUE"
-				RuntimeTypeInfo="TRUE"
-				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/xtklibd.lib"/>
+				OutputFile="$(OutDir)/xtklibd.lib"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="lib"
-			IntermediateDirectory="Intermediate"
-			ConfigurationType="4"
-			CharacterSet="2">
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
-				RuntimeLibrary="4"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/xslib.lib"/>
+				Name="VCResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCLinkerTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -98,226 +141,302 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
 			<File
-				RelativePath=".\src\base\application.cpp">
+				RelativePath=".\src\base\application.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\arraylist.cpp">
+				RelativePath=".\src\base\arraylist.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\avlmap.cpp">
+				RelativePath=".\src\base\avlmap.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\bufferedcharstream.cpp">
+				RelativePath=".\src\base\bufferedcharstream.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\bufferedstream.cpp">
+				RelativePath=".\src\base\bufferedstream.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\bytearraystream.cpp">
+				RelativePath=".\src\base\bytearraystream.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\charset.cpp">
+				RelativePath=".\src\base\charset.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\charstream.cpp">
+				RelativePath=".\src\base\charstream.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\color.cpp">
+				RelativePath=".\src\base\color.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\datastream.cpp">
+				RelativePath=".\src\base\datastream.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\exception.cpp">
+				RelativePath=".\src\base\exception.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\file.cpp">
+				RelativePath=".\src\base\file.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\hashmap.cpp">
+				RelativePath=".\src\base\hashmap.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\inetaddress.cpp">
+				RelativePath=".\src\base\inetaddress.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\linkedlist.cpp">
+				RelativePath=".\src\base\linkedlist.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\memory.cpp">
+				RelativePath=".\src\base\logging.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\messagestream.cpp">
+				RelativePath=".\src\base\memory.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\object.cpp">
+				RelativePath=".\src\base\messagestream.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\preferences.cpp">
+				RelativePath=".\src\base\object.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\random.cpp">
+				RelativePath=".\src\base\preferences.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\serversocket.cpp">
+				RelativePath=".\src\base\process.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\socket.cpp">
+				RelativePath=".\src\base\random.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\stacktrace.cpp">
+				RelativePath=".\src\base\serversocket.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\stream.cpp">
+				RelativePath=".\src\base\socket.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\string.cpp">
+				RelativePath=".\src\base\stacktrace.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\system.cpp">
+				RelativePath=".\src\base\stream.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\testing.cpp">
+				RelativePath=".\src\base\string.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\thread.cpp">
+				RelativePath=".\src\base\system.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\threadgroup.cpp">
+				RelativePath=".\src\base\testing.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\time.cpp">
+				RelativePath=".\src\base\thread.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\triggerableevent.cpp">
+				RelativePath=".\src\base\threadgroup.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\typewrappers.cpp">
+				RelativePath=".\src\base\time.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\utilities.cpp">
+				RelativePath=".\src\base\triggerableevent.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\src\base\zlibstream.cpp">
+				RelativePath=".\src\base\typewrappers.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\base\utilities.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\base\zlibstream.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
 			<File
-				RelativePath=".\include\xtk\base\application.h">
+				RelativePath=".\include\xtk\base\application.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\array.h">
+				RelativePath=".\include\xtk\base\array.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\charset.h">
+				RelativePath=".\include\xtk\base\charset.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\charstream.h">
+				RelativePath=".\include\xtk\base\charstream.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\color.h">
+				RelativePath=".\include\xtk\base\color.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\datastructures.h">
+				RelativePath=".\include\xtk\base\datastructures.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\event.h">
+				RelativePath=".\include\xtk\base\event.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\exception.h">
+				RelativePath=".\include\xtk\base\exception.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\file.h">
+				RelativePath=".\include\xtk\base\file.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\functor.h">
+				RelativePath=".\include\xtk\base\functor.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\geometry.h">
+				RelativePath=".\include\xtk\base\geometry.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\globals.h">
+				RelativePath=".\include\xtk\globals.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\interfaces.h">
+				RelativePath=".\include\xtk\base\interfaces.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\logging.h">
+				RelativePath=".\include\xtk\base\logging.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\math.h">
+				RelativePath=".\include\xtk\base\math.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\memory.h">
+				RelativePath=".\include\xtk\base\memory.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\net.h">
+				RelativePath=".\include\xtk\base\net.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\object.h">
+				RelativePath=".\include\xtk\base\object.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\preferences.h">
+				RelativePath=".\include\xtk\base\preferences.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\process.h">
+				RelativePath=".\include\xtk\base\process.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\random.h">
+				RelativePath=".\include\xtk\base\random.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\setup.h">
+				RelativePath=".\include\xtk\setup.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\smartptr.h">
+				RelativePath=".\include\xtk\base\smartptr.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\stacktrace.h">
+				RelativePath=".\include\xtk\base\stacktrace.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\stream.h">
+				RelativePath=".\include\xtk\base\stream.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\string.h">
+				RelativePath=".\include\xtk\base\string.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\system.h">
+				RelativePath=".\include\xtk\base\system.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\testing.h">
+				RelativePath=".\include\xtk\base\testing.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\thread.h">
+				RelativePath=".\include\xtk\base\thread.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\time.h">
+				RelativePath=".\include\xtk\base\time.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\typewrappers.h">
+				RelativePath=".\include\xtk\base\typewrappers.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\utilities.h">
+				RelativePath=".\include\xtk\base\utilities.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\xtk.h">
+				RelativePath=".\include\xtk\xtk.h"
+				>
 			</File>
 			<File
-				RelativePath=".\include\xtk\base\zlibstream.h">
+				RelativePath=".\include\xtk\base\zlibstream.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
 		</Filter>
-		<File
-			RelativePath=".\Todo">
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

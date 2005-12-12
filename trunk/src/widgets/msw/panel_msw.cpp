@@ -22,6 +22,7 @@
 #include "../../../include/xtk/base/application.h"
 #include "panel_msw.h"
 #include "widgets_msw_private.h"
+#include "layout_msw.h"
 
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
@@ -36,24 +37,17 @@ extern LRESULT CALLBACK xWidgetWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xPanelInternal::xPanelInternal(xWidget* parent,xPanel::Border border,xString label,xLayoutManager* layout,
-	int x,int y,int width,int height,xPanel* external)
+xPanelInternal::xPanelInternal(xWidget* parent,xPanel::Border border,xLayoutManager* layout,xString label,xPanel* external)
 : xContainerInternal(parent,layout, external)
 {
-	if(x == xWidget::XTK_DEFAULT_WIDGET_POSITION)
-		x = 0;
-	if(y == xWidget::XTK_DEFAULT_WIDGET_POSITION)
-		y = 0;
-	if(height == xWidget::XTK_DEFAULT_WIDGET_SIZE)
-		height = 30;
-
 	m_border = border;
 	HWND hwnd;
 	if(m_border == xPanel::BORDER_TITLED)
 	{
 		hwnd = ::CreateWindow(_T("button"),label.c_str(),
-			WS_CHILD | WS_VISIBLE | BS_GROUPBOX /*| BS_TEXT*/,
-			x,y,width,height,parent->getInternal()->getHWND(),NULL,xApplication::getHinstance(),NULL);
+			WS_CHILD | WS_VISIBLE | BS_GROUPBOX | BS_TEXT,
+			CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,
+			parent->getInternal()->getHWND(),NULL,xApplication::getHinstance(),NULL);
 		
 		assert(hwnd != NULL);
 
@@ -82,7 +76,7 @@ xPanelInternal::xPanelInternal(xWidget* parent,xPanel::Border border,xString lab
 		}
 
 		hwnd = ::CreateWindow(XTK_MSW_PANEL_NOBORDER_CLASS_NAME,label.c_str(),WS_CHILD | WS_VISIBLE,
-			x,y,width,height,
+			CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,
 			parent->getInternal()->getHWND(),NULL,xApplication::getHinstance(),NULL);
 			
 		assert(hwnd != NULL);
@@ -100,6 +94,10 @@ xPanelInternal::xPanelInternal(xWidget* parent,xPanel::Border border,xString lab
 	xFont* fn = xFont::getSystemFont(xFont::XTK_GUI_FONT);	
 	setFont(*fn);
 	delete fn;
+
+	xDimension dim;
+	sizeRequest(dim);
+	setSize(dim.getWidth(),dim.getHeight());
 }
 
 //##############################################################################
@@ -135,6 +133,23 @@ void xPanelInternal::setLabel(xString label)
 LRESULT xPanelInternal::onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
 	return ::CallWindowProc(m_baseWndProc,hwnd,uMsg,wParam,lParam);
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xPanelInternal::doLayout()
+{
+	if(m_border == xPanel::BORDER_TITLED)
+	{
+		xDimension dim;
+		getSize(dim);
+		dim.set(dim.getWidth() - 8,dim.getHeight() - 20);
+		getLayout().getInternal()->setClientSize(dim,4,15);
+		getLayout().getInternal()->doLayout();
+	}
+	else
+		xContainerInternal::doLayout();
 }
 
 

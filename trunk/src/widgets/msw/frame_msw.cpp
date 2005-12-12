@@ -63,6 +63,10 @@ xFrameInternal::xFrameInternal(xWidget* parent,xString title,xLayoutManager* lay
 	setHWND(hwnd);
 	 
 	m_resizable = true;
+
+	xDimension dim;
+	sizeRequest(dim);
+	setSize(dim.getWidth(),dim.getHeight());
 }
 
 //##############################################################################
@@ -83,23 +87,6 @@ void xFrameInternal::setTitle(xString title)
 		getHWND(),			// handle of window or control
 		title.c_str() 		// address of string
 		);
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xFrameInternal::negotiateSize()
-{
-	int height = 200;
-	int width = 200;
-	xDimension preferredSize;
-	getPreferredSize(preferredSize);
-	if(preferredSize.getWidth() != -1)
-		width = preferredSize.getWidth();
-	if(preferredSize.getHeight() != -1)
-		height = preferredSize.getHeight();
-		
-	setSize(width,height);
 }
 
 

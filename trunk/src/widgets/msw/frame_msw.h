@@ -50,14 +50,12 @@ public:
 	{return m_title;}
 	
 	virtual bool isResizable()
-	
 	{return m_resizable;}
+
 	virtual void setResizable(bool resizable)
 	{m_resizable = resizable;}
 	
 	virtual void setTitle(xString title);
-	
-	virtual void negotiateSize();
 };
 
 

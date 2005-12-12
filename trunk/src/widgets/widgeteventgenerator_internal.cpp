@@ -20,6 +20,7 @@
 */
 
 #include "widgeteventgenerator_internal.h"
+#include <assert.h>
 
 #if defined(XTK_USE_WIDGETS)
 

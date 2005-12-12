@@ -33,13 +33,13 @@ private:
 	{
 		xFrame* frame = new xFrame(NULL,_T("Frame title"));
 		frame->setLayout(new xBoxLayout(xBoxLayout::BOX_ORIENTATION_Y_AXIS,true,3));
-		frame->setSize(200,200);
+		
 		frame->setDefaultCloseAction(xWindow::XTK_EXIT_ON_CLOSE);
 		frame->setVisible(true);
 		
-		xPanel* panel1 = new xPanel(frame,xPanel::BORDER_TITLED,new xBoxLayout(xBoxLayout::BOX_ORIENTATION_X_AXIS,true,1),_T("Titled panel"));
+		xPanel* panel1 = new xPanel(frame,xPanel::BORDER_TITLED,new xBoxLayout(xBoxLayout::BOX_ORIENTATION_X_AXIS,true,3),_T("Titled panel"));
 		frame->getLayout().setConstraints(*panel1,new xBoxConstraint(true,true));
-		
+
 		xButton* butt1 = new xButton(panel1,_T("Button1"));
 		panel1->getLayout().setConstraints(*butt1,new xBoxConstraint(true,true));
 		butt1->addActionPerformedHandler(new xWidgetEventHandler<xWidgetsTest>(this,&xWidgetsTest::actionPerformed));
@@ -48,11 +48,13 @@ private:
 		panel1->getLayout().setConstraints(*butt2,new xBoxConstraint(true,true));
 		
 		xButton* butt3 = new xButton(frame,_T("Button3"));
-		frame->getLayout().setConstraints(*butt3,new xBoxConstraint(true,true));
+		//frame->getLayout().setConstraints(*butt3,new xBoxConstraint(true,true));
 		
 		xButton* butt4 = new xButton(frame,_T("Button4"));
-		frame->getLayout().setConstraints(*butt4,new xBoxConstraint(true,true));
+		//frame->getLayout().setConstraints(*butt4,new xBoxConstraint(true,true));
 		
+		frame->setSize(200,200);
+
 		xtkUIEventLoop();
 	}
 

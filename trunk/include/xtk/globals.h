@@ -207,7 +207,7 @@ namespace xtk
 	#define NDEBUG
 #endif
 
-#include <assert.h>
+//#include <assert.h>
 //#include "memory.h"
 
 

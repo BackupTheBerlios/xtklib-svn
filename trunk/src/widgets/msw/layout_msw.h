@@ -74,12 +74,16 @@ protected:
 	xArrayList		m_components;
 	xLayoutManager* m_external;
 	xDimension		m_clientSize;
+	int				m_xoffset;
+	int				m_yoffset;
 	
 	xLayoutManagerInternal(xLayoutManager* external)
 	{
 		m_external = external;
 		m_components.giveOwnership();
 		m_clientSize.set(-1,-1);
+		m_xoffset = 0;
+		m_yoffset = 0;
 	}
 
 public:
@@ -123,10 +127,16 @@ public:
 	//-------INIT-------------------------------------------------------------//
 	//-------MSW SPECIFIC-----------------------------------------------------//
 	//------------------------------------------------------------------------//
-	virtual void setClientSize(xDimension& clientSize)
-	{m_clientSize.set(clientSize.getWidth(),clientSize.getHeight());}
+	virtual void setClientSize(xDimension& clientSize,int xoffset,int yoffset)
+	{
+		m_clientSize.set(clientSize.getWidth(),clientSize.getHeight());
+		m_xoffset = xoffset;
+		m_yoffset = yoffset;
+	}
 	
 	virtual void doLayout() = 0;
+
+	virtual void sizeRequest(xDimension& dim) = 0;
 	//------------------------------------------------------------------------//
 	//-------MSW SPECIFIC-----------------------------------------------------//
 	//-------END--------------------------------------------------------------//
@@ -160,6 +170,7 @@ public:
 	//-------MSW SPECIFIC-----------------------------------------------------//
 	//------------------------------------------------------------------------//
 	virtual void doLayout();
+	virtual void sizeRequest(xDimension& dim);
 	//------------------------------------------------------------------------//
 	//-------MSW SPECIFIC-----------------------------------------------------//
 	//-------END--------------------------------------------------------------//

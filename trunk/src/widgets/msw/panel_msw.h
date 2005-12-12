@@ -45,14 +45,24 @@ protected:
 	virtual LRESULT onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 
 public:
-	xPanelInternal(xWidget* parent,xPanel::Border border,xString label,xLayoutManager* layout,
-		int x,int y,int width,
-		int height,xPanel* external);
+	xPanelInternal(xWidget* parent,xPanel::Border border,xLayoutManager* layout,xString label,xPanel* external);
 
 	virtual ~xPanelInternal();
 
 	virtual xString getLabel();
 	virtual void setLabel(xString label);
+
+	//-------INIT-------------------------------------------------------------//
+	//-------MSW SPECIFIC-----------------------------------------------------//
+	//------------------------------------------------------------------------//
+
+	/**
+	 * @todo resolve the workaround about offsets set statically
+	 */
+	virtual void doLayout();
+	//------------------------------------------------------------------------//
+	//-------MSW SPECIFIC-----------------------------------------------------//
+	//-------END--------------------------------------------------------------//
 };
 
 

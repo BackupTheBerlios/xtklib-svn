@@ -51,6 +51,14 @@ xContainerInternal::~xContainerInternal()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
+void xContainerInternal::sizeRequest(xDimension& dim)
+{
+	m_layout->getInternal()->sizeRequest(dim);
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
 void xContainerInternal::setLayout(MYOWNERSHIP xLayoutManager* mgr)
 {
 	assert(mgr != NULL);
@@ -67,7 +75,7 @@ void xContainerInternal::doLayout()
 	//first our layout
 	xDimension dim;
 	getSize(dim);
-	getLayout().getInternal()->setClientSize(dim);
+	getLayout().getInternal()->setClientSize(dim,0,0);
 	getLayout().getInternal()->doLayout();
 	
 	//then childs
