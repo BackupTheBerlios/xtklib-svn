@@ -32,7 +32,7 @@ private:
 	virtual void doTest()
 	{
 		xFrame* frame = new xFrame(NULL,_T("Frame title"));
-		frame->setLayout(new xBoxLayout(xBoxLayout::BOX_ORIENTATION_Y_AXIS,true,3));
+		frame->setLayout(new xBoxLayout(xBoxLayout::BOX_ORIENTATION_X_AXIS,true,3));
 		
 		frame->setDefaultCloseAction(xWindow::XTK_EXIT_ON_CLOSE);
 		frame->setVisible(true);
@@ -47,11 +47,11 @@ private:
 		xButton* butt2 = new xButton(panel1,_T("Button2"));
 		panel1->getLayout().setConstraints(*butt2,new xBoxConstraint(true,true));
 		
-		xButton* butt3 = new xButton(frame,_T("Button3"));
-		//frame->getLayout().setConstraints(*butt3,new xBoxConstraint(true,true));
+		xLabel* lab1 = new xLabel(frame,_T("Label1asdfasdfasdfqwecdls,ol232311"));
+		frame->getLayout().setConstraints(*lab1,new xBoxConstraint(true,true));
 		
 		xButton* butt4 = new xButton(frame,_T("Button4"));
-		//frame->getLayout().setConstraints(*butt4,new xBoxConstraint(true,true));
+		frame->getLayout().setConstraints(*butt4,new xBoxConstraint(true,true));
 		
 		frame->setSize(200,200);
 

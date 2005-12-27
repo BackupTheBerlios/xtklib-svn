@@ -9,5 +9,6 @@ xtkincludedir=$(includedir)/xtk
 xtkinclude_HEADERS = \
 	globals.h \
 	setup.h \
+	version.h \
 	widgets.h \
 	xtk.h

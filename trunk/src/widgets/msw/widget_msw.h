@@ -66,6 +66,9 @@ protected:
 	virtual LRESULT onSetFocus(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	virtual LRESULT onKillFocus(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	virtual LRESULT onSize(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onPaint(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onSetFont(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onGetFont(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	virtual LRESULT onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	
 	void setHWND(HWND hWnd)

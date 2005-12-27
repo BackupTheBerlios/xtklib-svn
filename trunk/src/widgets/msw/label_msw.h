@@ -24,6 +24,7 @@
 
 
 #include "../../../include/xtk/widgets/label.h"
+#include "../../../include/xtk/base/smartptr.h"
 #include "widget_msw.h"
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
@@ -40,18 +41,28 @@ namespace xtk
 class XTKAPI xLabelInternal : public xWidgetInternal
 {
 private:
-	WNDPROC m_baseWndProc;
+	WNDPROC				m_baseWndProc;
+	smartPtr<xFont>		m_font;
+	xString				m_text;
 
 protected:
 	virtual LRESULT onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onPaint(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onSetFont(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+	virtual LRESULT onGetFont(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
 
 public:
-	xLabelInternal(xWidget* parent,xString text,int x,int y,int width,int height,xLabel* external);
+	xLabelInternal(xWidget* parent,xString text,xLabel* external);
 
 	virtual ~xLabelInternal();
 
-	virtual xString getText();
-	virtual void setText(xString label);
+	virtual xString getText()
+	{return m_text;}
+
+	virtual void setText(xString label)
+	{m_text = label;}
+
+	virtual void sizeRequest(xDimension& dim);
 };
 
 

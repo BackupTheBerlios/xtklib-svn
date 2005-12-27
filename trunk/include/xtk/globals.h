@@ -23,13 +23,13 @@
 #define XTK_GLOBALS_H
 
 #include "setup.h"
+#include "version.h"
 
 /**
 * Xlib namespace
 */
 namespace xtk
 {
-
 //###################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # #
 //###################################################
@@ -297,5 +297,19 @@ namespace xtk
 	#define MIN(x,y) ((x) < (y) ? (x) : (y))
 #endif
 
+//###################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # #
+//###################################################
+
+//workaround for VC++ intellisense to work, enable only in windows debug
+//* <- Add/remove one '/' to/from the beginning of line to comment/uncomment the block
+#ifndef XTK_USE_WIDGETS
+	#define XTK_USE_WIDGETS
+#endif
+
+#ifndef XTK_GUI_MSW
+	#define XTK_GUI_MSW
+#endif
+//*/
 
 #endif //XTK_GLOBALS_H

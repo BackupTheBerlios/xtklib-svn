@@ -15,6 +15,7 @@ libxtkwidgets_a_SOURCES = \
 	container.cpp \
 	font.cpp \
 	frame.cpp \
+	label.cpp \
 	layout.cpp \
 	panel.cpp \
 	widget.cpp \

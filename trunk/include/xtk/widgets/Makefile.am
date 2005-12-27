@@ -7,6 +7,7 @@ xtkbaseinclude_HEADERS = \
 	container.h \
 	font.h \
 	frame.h \
+	label.h \
 	layout.h \
 	panel.h \
 	widget.h \

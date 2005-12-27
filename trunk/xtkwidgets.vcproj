@@ -160,6 +160,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\widgets\label.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\widgets\layout.cpp"
 				>
 			</File>
@@ -224,6 +228,10 @@
 				</File>
 				<File
 					RelativePath=".\src\widgets\msw\frame_msw.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\widgets\msw\label_msw.cpp"
 					>
 				</File>
 				<File
@@ -294,6 +302,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\xtk\widgets\label.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\xtk\widgets\layout.h"
 				>
 			</File>
@@ -303,6 +315,10 @@
 			</File>
 			<File
 				RelativePath=".\include\xtk\setup.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\xtk\version.h"
 				>
 			</File>
 			<File

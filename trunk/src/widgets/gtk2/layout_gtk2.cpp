@@ -21,6 +21,7 @@
 
 #include "layout_gtk2.h"
 #include "widget_gtk2.h"
+#include <assert.h>
 
 #if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_GTK2)
 

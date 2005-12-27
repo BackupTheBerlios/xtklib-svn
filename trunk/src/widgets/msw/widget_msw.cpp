@@ -67,7 +67,7 @@ XTKAPI void xtkProcessPendingUIEvent()
 
 	while(::PeekMessage(&message,NULL,0,0,PM_NOREMOVE) != 0)
 	{
-		if(::GetMessage(&message,NULL,0,0) == 0);
+		if(::GetMessage(&message,NULL,0,0) == 0)
 		{
 			xtkExitUIEventLoop();
 		}
@@ -382,6 +382,30 @@ LRESULT xWidgetInternal::onSize(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
+LRESULT xWidgetInternal::onPaint(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+{
+	return onDefault(hwnd,uMsg,wParam,lParam);
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+LRESULT xWidgetInternal::onSetFont(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+{
+	return onDefault(hwnd,uMsg,wParam,lParam);
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+LRESULT xWidgetInternal::onGetFont(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+{
+	return onDefault(hwnd,uMsg,wParam,lParam);
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
 LRESULT xWidgetInternal::onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
 	return ::DefWindowProc(hwnd,uMsg,wParam,lParam);
@@ -427,7 +451,14 @@ LRESULT xWidgetInternal::windowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam,LPARA
 		//Size and Move-------------------------------
 	case WM_SIZE:
 		return onSize(hwnd,uMsg,wParam,lParam);
+		//Fonts-------------------------------
+	case WM_SETFONT:
+		return onSetFont(hwnd,uMsg,wParam,lParam);
+	case WM_GETFONT:
+		return onGetFont(hwnd,uMsg,wParam,lParam);
 		//Other events-------------------------------
+	case WM_PAINT:
+		return onPaint(hwnd,uMsg,wParam,lParam);
 	case WM_COMMAND:
 		return onCommand(hwnd,uMsg,wParam,lParam);
 	case WM_NCDESTROY:

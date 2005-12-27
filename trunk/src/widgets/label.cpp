@@ -15,44 +15,46 @@
 */
 
 /**
-* @file container.cpp
+* @file label.cpp
 * @author Mario Casciaro (xshadow@email.it)
 */
 
-#include "../../include/xtk/widgets/button.h"
+#include "../../include/xtk/widgets/label.h"
 
 #ifdef XTK_USE_WIDGETS
 
 //select include file
 #ifdef XTK_GUI_MSW
-	#include "msw/button_msw.h"
+	#include "msw/label_msw.h"
 #elif defined(XTK_GUI_GTK2)
-	#include "gtk2/button_gtk2.h"
+	#include "gtk2/label_gtk2.h"
 #endif
 
 namespace xtk
 {
 
-xButton::xButton(xWidget* parent,xString label,xButtonInternal* i)
+xLabel::xLabel(xWidget* parent,xString text,xLabelInternal* i)
 : xWidget(parent,i)
 {
-	m_internal = static_cast<xButtonInternal*>(getInternal());
+	m_internal = static_cast<xLabelInternal*>(getInternal());
 }
 
-xButton::xButton(xWidget* parent,xString label)
-: xWidget(parent,new xButtonInternal(parent,label,this))
+
+xLabel::xLabel(xWidget* parent,xString text)
+: xWidget(parent,new xLabelInternal(parent,text,this))
 {
-	m_internal = static_cast<xButtonInternal*>(getInternal());
+	m_internal = static_cast<xLabelInternal*>(getInternal());
 }
 
-xButton::~xButton()
-{}
+xLabel::~xLabel()
+{
+}
 
-xString xButton::getLabel()
-{return m_internal->getLabel();}
+xString xLabel::getText()
+{return m_internal->getText();}
 
-void xButton::setLabel(xString label)
-{m_internal->setLabel(label);}
+void xLabel::setText(xString label)
+{m_internal->setText(label);}
 
 
 }//namespace

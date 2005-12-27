@@ -22,6 +22,7 @@
 #include "../../../include/xtk/base/application.h"
 #include "label_msw.h"
 #include "widgets_msw_private.h"
+#include <assert.h>
 
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
@@ -36,43 +37,47 @@ extern LRESULT CALLBACK xWidgetWindowProcedure(HWND hwnd,UINT uMsg,WPARAM wParam
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xLabelInternal::xLabelInternal(xWidget* parent,xString text,int x,int y,int width,int height,xLabel* external)
+xLabelInternal::xLabelInternal(xWidget* parent,xString text,xLabel* external)
 : xWidgetInternal(parent,external)
 {
-	if(x == xWidget::XTK_DEFAULT_WIDGET_POSITION)
-		x = 0;
-	if(y == xWidget::XTK_DEFAULT_WIDGET_POSITION)
-		y = 0;
-	if(height == xWidget::XTK_DEFAULT_WIDGET_SIZE)
-		height = 30;
-
+	m_text = text;
 	HWND hwnd;
-	hwnd = ::CreateWindow(_T("static"),text.c_str(),WS_CHILD | WS_VISIBLE | BS_TEXT,
-		x,y,width,height,parent->getInternal()->getHWND(),NULL,xApplication::getHinstance(),NULL);
+	WNDCLASS wclass;
+	if (!::GetClassInfo(xApplication::getHinstance(),XTK_MSW_LABEL_CLASS_NAME,&wclass))
+	{	
+		wclass.style         = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
+		wclass.lpfnWndProc   = (WNDPROC)xWidgetWindowProcedure;
+		wclass.cbClsExtra    = 0;
+		wclass.cbWndExtra    = 0;
+		wclass.hInstance	 = xApplication::getHinstance();
+		wclass.hIcon		 = ::LoadIcon(NULL, IDI_APPLICATION);
+		wclass.hCursor       = ::LoadCursor (NULL, IDC_ARROW);
+		wclass.hbrBackground = GetSysColorBrush(COLOR_3DFACE);
+		wclass.lpszMenuName  = 0;
+		wclass.lpszClassName = XTK_MSW_LABEL_CLASS_NAME;
+		::RegisterClass(&wclass);
+	}
 
+	hwnd = ::CreateWindow(XTK_MSW_LABEL_CLASS_NAME,text.c_str(),WS_CHILD | WS_VISIBLE,
+		CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,
+		parent->getInternal()->getHWND(),NULL,xApplication::getHinstance(),NULL);
+		
 	assert(hwnd != NULL);
+
+	//set font to default system font
+	m_font = xFont::getSystemFont(xFont::XTK_GUI_FONT);
 
 	//set the user data of the window to the current window object
 	::SetWindowLongPtr(hwnd,GWL_USERDATA,(LONG_PTR)(xWidget*) this);
 
-	//subclassing
-	m_baseWndProc = (WNDPROC) ::SetWindowLongPtr(hwnd,GWL_WNDPROC,(LONG_PTR)xWidgetWindowProcedure);
+	//no subclassing
+	m_baseWndProc = (WNDPROC)DefWindowProc;
 
 	setHWND(hwnd);
-
-	//set font to default system font
-	xFont* fn = xFont::getSystemFont(xFont::XTK_GUI_FONT);	
-	setFont(*fn);
-	delete fn;
-
-	//if was default size update to best fit width
-	if(width == xWidget::XTK_DEFAULT_WIDGET_SIZE)
-	{
-		xFontMetrics* fm = getFontMetrics();
-		int wid = fm->stringWidth(text);
-		setSize(wid + 10,height);
-		delete fm;
-	}
+	
+	xDimension dim;
+	sizeRequest(dim);
+	setSize(dim.getWidth(),dim.getHeight());
 }
 
 //##############################################################################
@@ -80,27 +85,29 @@ xLabelInternal::xLabelInternal(xWidget* parent,xString text,int x,int y,int widt
 //##############################################################################
 xLabelInternal::~xLabelInternal()
 {
-
 }
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-xString xLabelInternal::getText()
+void xLabelInternal::sizeRequest(xDimension& dim)
 {
-	int iLength = ::GetWindowTextLength(getHWND());
-	xArray<xchar> buff(iLength);
-	::GetWindowText(getHWND(), buff.getRawData(), buff.size());
-
-	return xString(buff.getRawData(),buff.size());
-}
-
-//##############################################################################
-//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-//##############################################################################
-void xLabelInternal::setText(xString text)
-{
-	::SetWindowText(getHWND(),text.c_str());
+	xDimension preferredSize;
+	getPreferredSize(preferredSize);
+	
+	xFontMetrics* fm = getFontMetrics();
+	
+	if(preferredSize.getHeight() < 0)
+		dim.setHeight(fm->getHeight() + 10);
+	else
+		dim.setHeight(preferredSize.getHeight());
+		
+	if(preferredSize.getWidth() < 0)
+		dim.setWidth(fm->stringWidth(getText()));
+	else
+		dim.setWidth(preferredSize.getWidth());
+	
+	delete fm;
 }
 
 //##############################################################################
@@ -109,6 +116,46 @@ void xLabelInternal::setText(xString text)
 LRESULT xLabelInternal::onDefault(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 {
 	return ::CallWindowProc(m_baseWndProc,hwnd,uMsg,wParam,lParam);
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+LRESULT xLabelInternal::onSetFont(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+{
+	m_font = new xFont(new xFontInternal((HFONT) wParam));
+	return 0;
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+LRESULT xLabelInternal::onGetFont(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+{
+	return (LRESULT)m_font->getInternal()->getHFONT();
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+LRESULT xLabelInternal::onPaint(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
+{
+	HDC         hdc ;
+	PAINTSTRUCT ps ;
+	RECT        rect ;
+
+	hdc = ::BeginPaint (hwnd, &ps) ;
+	
+	//init attributes
+	::SelectObject(hdc,m_font->getInternal()->getHFONT());
+	::SetBkColor(hdc,::GetSysColor(COLOR_3DFACE));
+
+	::GetClientRect (hwnd, &rect) ;
+
+	::DrawText(hdc,m_text.c_str(), m_text.length(), &rect,DT_SINGLELINE | DT_CENTER | DT_VCENTER) ;
+
+	::EndPaint (hwnd, &ps) ;
+	return 0 ;
 }
 
 

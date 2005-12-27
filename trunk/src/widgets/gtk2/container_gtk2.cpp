@@ -22,6 +22,7 @@
 #include "container_gtk2.h"
 #include "layout_gtk2.h"
 #include "../../../include/xtk/base/smartptr.h"
+#include <assert.h>
 
 #if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_GTK2)
 
