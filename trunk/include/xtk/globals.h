@@ -120,6 +120,17 @@ namespace xtk
 
 	//No matching operator delete
 	#pragma warning( disable : 4291 ) 
+
+	//'this' : used in base member initializer list
+	#pragma warning( disable : 4355 ) 
+
+	//'argument' : conversion from 'LONG_PTR' to 'LONG', possible loss of data
+	#pragma warning( disable : 4244 ) 
+
+	//'type cast' : conversion from 'LONG' to 'WNDPROC' of greater size
+	#pragma warning( disable : 4312 ) 
+
+	#define _CRT_SECURE_NO_DEPRECATE
 #endif
 
 //###################################################
@@ -302,7 +313,7 @@ namespace xtk
 //###################################################
 
 //workaround for VC++ intellisense to work, enable only in windows debug
-//* <- Add/remove one '/' to/from the beginning of line to comment/uncomment the block
+/* <- Add/remove one '/' to/from the beginning of line to comment/uncomment the block
 #ifndef XTK_USE_WIDGETS
 	#define XTK_USE_WIDGETS
 #endif

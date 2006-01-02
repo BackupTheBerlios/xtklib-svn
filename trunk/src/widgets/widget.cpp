@@ -60,6 +60,9 @@ void xWidget::removeEventHandler(xWidgetEventHandlerBase& evh,xWidgetEventID evm
 xWidget::~xWidget()
 {delete m_internal;}
 	
+void xWidget::destroy()
+{m_internal->destroy();}
+
 MYOWNERSHIP xWidget* xWidget::getParent()
 {return m_internal->getParent();}
 		

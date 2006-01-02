@@ -56,7 +56,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/xtkwidgets.lib"
+				OutputFile="$(OutDir)/xtkwidgetsd.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

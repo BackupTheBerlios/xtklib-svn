@@ -1,4 +1,4 @@
-AC_INIT([xtklib],[0.1.0],[xshadow@email.it])
+AC_INIT([xtklib],[0.2.0],[xshadow@email.it])
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([-Wall foreign])
 AM_MAINTAINER_MODE

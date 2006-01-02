@@ -44,6 +44,15 @@ xContainerInternal::xContainerInternal(xWidget* parent, xLayoutManager* layout,x
 //##############################################################################
 xContainerInternal::~xContainerInternal()
 {
+	//tell to children that they have no parent
+	xIterator* iter = m_components.iterator();
+	while(iter->hasNext())
+	{
+		dynamic_cast<xWidget*>(&(iter->next()))->getInternal()->unParent();
+	}
+	delete iter;
+	
+	
 	delete m_layout;
 }
 

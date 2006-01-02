@@ -40,15 +40,15 @@ friend class xContainer;
 protected:
 	xLinkedList			m_components;
 	xLayoutManager*		m_layout;
-	
-	virtual void removeChild(xWidget& comp);
-	virtual void addChild(xWidget* comp);
 
 	xContainerInternal(xWidget* parent, xLayoutManager* layout,xContainer* external);
 	
 	virtual void gtkWidgetCreated();
 public:
 	virtual ~xContainerInternal();
+	
+	virtual void removeChild(xWidget& comp);
+	virtual void addChild(xWidget* comp);
 	
 	virtual xLayoutManager& getLayout()
 	{return *m_layout;}

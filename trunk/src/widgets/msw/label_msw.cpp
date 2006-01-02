@@ -152,7 +152,7 @@ LRESULT xLabelInternal::onPaint(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 
 	::GetClientRect (hwnd, &rect) ;
 
-	::DrawText(hdc,m_text.c_str(), m_text.length(), &rect,DT_SINGLELINE | DT_CENTER | DT_VCENTER) ;
+	::DrawText(hdc,m_text.c_str(), (int) m_text.length(), &rect,DT_SINGLELINE | DT_CENTER | DT_VCENTER) ;
 
 	::EndPaint (hwnd, &ps) ;
 	return 0 ;

@@ -81,6 +81,11 @@ protected:
 public:
 	virtual ~xWidget();
 	
+	/**
+	 * Destroy this widgets and frees its resources
+	 */
+	virtual void destroy();
+
 	xWidgetInternal* getInternal()
 	{return m_internal;}
 	

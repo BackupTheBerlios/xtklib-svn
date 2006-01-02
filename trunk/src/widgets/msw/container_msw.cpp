@@ -37,7 +37,7 @@ xContainerInternal::xContainerInternal(xWidget* parent, xLayoutManager* layout,x
 	: xWidgetInternal(parent,external)
 {
 	m_layout = layout;
-	m_components.giveOwnership();
+	m_components.rescindOwnership();
 }
 
 //##############################################################################

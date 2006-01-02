@@ -20,6 +20,7 @@
 */
 
 #include "widget_msw.h"
+#include "container_msw.h"
 #include "font_msw.h"
 #include "../../../include/xtk/widgets/container.h"
 #include "../../../include/xtk/base/thread.h"
@@ -93,6 +94,14 @@ xWidgetInternal::xWidgetInternal(xWidget* parent,xWidget* external)
 xWidgetInternal::~xWidgetInternal()
 {
 
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xWidgetInternal::destroy()
+{
+	::DestroyWindow(getHWND());
 }
 
 //##############################################################################
@@ -364,10 +373,17 @@ LRESULT xWidgetInternal::onNCDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lP
 	if(getParent() == NULL)
 	{
 		delete getExternal();
-		return 0;
+	}
+	else
+	{
+		xContainerInternal* parent = dynamic_cast<xContainerInternal*>(getParent()->getInternal());
+		assert(parent != NULL);
+		parent->removeChild(*(getExternal()));
+		delete getExternal();
 	}
 
-	return onDefault(hwnd,uMsg,wParam,lParam);
+	return 0;
+	//return onDefault(hwnd,uMsg,wParam,lParam);
 }
 
 //##############################################################################

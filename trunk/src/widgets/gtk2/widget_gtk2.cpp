@@ -20,11 +20,13 @@
 */
 
 #include "widget_gtk2.h"
+#include "container_gtk2.h"
 #include "font_gtk2.h"
 #include "../../../include/xtk/widgets/container.h"
 #include "../../../include/xtk/base/thread.h"
 #include "../../../include/xtk/base/datastructures.h"
 #include "../../../include/xtk/base/smartptr.h"
+#include <assert.h>
 
 #if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_GTK2)
 
@@ -98,6 +100,14 @@ xWidgetInternal::xWidgetInternal(xWidget* parent,xWidget* external)
 xWidgetInternal::~xWidgetInternal()
 {
 
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xWidgetInternal::destroy()
+{
+	gtk_widget_destroy(getGtkWidget());
 }
 
 //##############################################################################
@@ -190,7 +200,21 @@ void xWidgetInternal::setVisible(bool b)
 //##############################################################################
 void xWidgetInternal::onDestroy(GtkWidget* widget)
 {
-	delete getExternal();
+	//delete getExternal();
+	
+
+	if(getParent() == NULL)
+	{
+		delete getExternal();
+	}
+	else
+	{
+		xContainerInternal* parent = dynamic_cast<xContainerInternal*>(getParent()->getInternal());
+		assert(parent != NULL);
+		parent->removeChild(*(getExternal()));
+		delete getExternal();
+	}
+
 }
 
 

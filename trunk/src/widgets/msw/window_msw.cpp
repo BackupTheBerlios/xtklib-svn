@@ -73,7 +73,7 @@ LRESULT xWindowInternal::onDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lPar
 {
 	if(getDefaultCloseAction() == xWindow::XTK_EXIT_ON_CLOSE)
 	{
-		PostQuitMessage(0);
+		xtkExitUIEventLoop();
 		return 0;
 	}
 	else if(getDefaultCloseAction() == xWindow::XTK_HIDE_ON_CLOSE)

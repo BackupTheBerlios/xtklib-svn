@@ -89,8 +89,10 @@ public:
 	
 	virtual void doLayout()
 	{}
+	
+	virtual void destroy();
 
-	virtual NODELETE xWidget* getParent()
+	virtual MYOWNERSHIP xWidget* getParent()
 	{return m_parent;}
 	
 	virtual void getPreferredSize(OUT xDimension& dim)

@@ -36,12 +36,10 @@ namespace xtk
  */
 class XTKAPI xWidgetInternal : public virtual xObject,public xWidgetEventGeneratorInternal
 {
-private:
-	xWidget*		m_parent;
-
 protected:
 	GtkWidget*		m_gtkWidget;
 	xWidget* 		m_external;
+	xWidget*		m_parent;
 	
 	/**
 	 * 
@@ -65,9 +63,13 @@ public:
 	xWidget* getParent()
 	{return m_parent;}
 	
+	void unParent()
+	{m_parent = NULL;}
+	
 	GtkWidget* getGtkWidget()
 	{return m_gtkWidget;}
 		
+	virtual void destroy();
 	virtual void getPreferredSize(OUT xDimension& dim);
 	virtual bool isEnabled();
 	virtual bool isFocusable();

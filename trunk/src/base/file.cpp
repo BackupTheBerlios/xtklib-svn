@@ -542,6 +542,7 @@ bool xFile::createNewFile()
 				xString::getFormat(_T("Cannot create file %s"),m_abstractPathName.c_str()),
 				::GetLastError()
 				);
+		::_close(iNewFileDescriptor);
 	#elif defined( XTK_OS_UNIX )
 		int flags = O_WRONLY | O_CREAT | O_EXCL;
 		int pmode = S_IREAD | S_IWRITE;
@@ -553,9 +554,9 @@ bool xFile::createNewFile()
 				xString::getFormat(_T("Cannot create file %s"),m_abstractPathName.c_str()),
 				errno
 				);
+		::close(iNewFileDescriptor);
 	#endif
 
-	::close(iNewFileDescriptor);
 	return true;	
 }
 

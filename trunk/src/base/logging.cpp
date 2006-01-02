@@ -157,7 +157,7 @@ xLogHandlerFile::xLogHandlerFile(xString filename,int fileSizeLimit,xLogLevel::L
 	{
 		m_out = new xOutputStreamWriter(m_file.getOutputStream(),charset);
 	}
-	catch(xException& ignored)
+	catch(xException&)
 	{
 	}
 }
