@@ -1,11 +1,10 @@
-XTKlib is Copyright(C) 2003-2005 Mario Casciaro (xshadow@email.it) 
+XTKlib is Copyright(C) 2003-2006 Mario Casciaro (xshadow@email.it) 
 and other contributors (see AUTHORS for details).
-Licensed under: 
-	- Apache License, Version 2.0 or
-	- GNU General Public License (GPL)
-You should have received at least one copy of them along with this software.
-You can freely choose one of the two licenses according to the use
-that you will do with this software. In poor words if you will use
-this software in other open source projects you can choose
-both AL/GPL, otherwise, if you will use it in commercial products
-you must follow necessarily the Apache License.
+This software is double-licensed under:
+    * Apache License, Version 2.0
+    * GNU General Public License
+You are free to choose one of the two licence according to 
+library usage. For example, if you use the library to write a commercial 
+application you must choose and follow the terms of Apache License, 
+otherwise if you are writing GPLed software you can choose one of the two 
+licenses (although GPL would be preferred). 

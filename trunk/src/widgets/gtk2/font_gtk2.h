@@ -1,7 +1,7 @@
 /*
 * This file is part of XTKLib project.
 *
-* Copyright(C) 2003-2005 Mario Casciaro (xshadow@email.it)
+* Copyright(C) 2003-2006 Mario Casciaro xshadow[AT]email(DOT)it
 *
 * Licensed under: 
 *   - Apache License, Version 2.0 or
@@ -16,7 +16,7 @@
 
 /**
 * @file font_gtk2.h
-* @author Mario Casciaro (xshadow@email.it)
+* @author Mario Casciaro xshadow[AT]email(DOT)it
 */
 
 #ifndef XTK_FONT_GTK2_H

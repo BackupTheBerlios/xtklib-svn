@@ -1,6 +1,23 @@
 
-+-----------------------+------------+
-| 0.1.0					| 2005/09/30 |
-+-----------------------+------------+
-[+] This is the first public release!!! Please use this ONLY for 
-    testing purposes.
+===================
+Version 0.2.0-alpha
+2006/01/03
+
+Release Notes: This is the first release with a working "Widgets" module, 
+although it has basic features.This release is provided for testing 
+and development only!
+
+[+] First release with a working "Widgets" module.
+[+] (ALL+GTK2+MSW) Implemented xWidget,xContainer,xWindow,xPanel,xButton,
+    xBoxLayout,xFrame,xLabel classes and many others
+[+] Added "examples" directory with a first example "hello gui"
+[+] Many bug fixes
+
+
+===================
+Version 0.1.0-alpha
+2005/09/30
+
+Release Notes: This is the first public release. This release is provided for testing and development only!
+
+[+] First public release.

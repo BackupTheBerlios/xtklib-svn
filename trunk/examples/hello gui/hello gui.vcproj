@@ -37,7 +37,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(XTKLIB)\include"
+				AdditionalIncludeDirectories="..\..\include"
 				PreprocessorDefinitions="WIN32;_CONSOLE;_DEBUG;__WINDOWS__;__DEBUG__;__WIDGETS__"
 				RuntimeLibrary="3"
 				WarningLevel="3"
@@ -55,8 +55,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="zlibd.lib xtklibd.lib xtkwidgetsd.lib ws2_32.lib"
-				AdditionalLibraryDirectories="$(ZLIB)\lib;$(XTKLIB)\lib"
+				AdditionalDependencies="xtklibd.lib xtkwidgetsd.lib ws2_32.lib"
+				AdditionalLibraryDirectories="..\..\lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 			/>

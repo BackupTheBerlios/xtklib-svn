@@ -1,7 +1,7 @@
 /*
 * This file is part of XTKLib project.
 *
-* Copyright(C) 2003-2005 Mario Casciaro (xshadow@email.it)
+* Copyright(C) 2003-2006 Mario Casciaro xshadow[AT]email(DOT)it
 *
 * Licensed under: 
 *   - Apache License, Version 2.0 or
@@ -16,7 +16,7 @@
 
 /**
 * @file hellogui.cpp
-* @author Mario Casciaro (xshadow@email.it)
+* @author Mario Casciaro xshadow[AT]email(DOT)it
 * 
 * Basic "hello world" application using xtklib "widgets" module.
 */
@@ -41,12 +41,12 @@ public:
 		//set the default close operation
 		m_frame->setDefaultCloseAction(xWindow::XTK_EXIT_ON_CLOSE);
 		
-		//create the label
+		//create a label
 		xLabel* lab1 = new xLabel(m_frame,_T("Hello xtklib!!!"));
-		//frame->getLayout().setConstraints(*lab1,new xBoxConstraint(true,true));
 		
+		//create a button
 		xButton* butt1 = new xButton(m_frame,_T("Exit"));
-		//m_frame->getLayout().setConstraints(*butt1,new xBoxConstraint(true,true));
+		//attach an event handler to button
 		butt1->addActionPerformedHandler(new xWidgetEventHandler<HelloGui>(this,&HelloGui::actionPerformed));
 
 		m_frame->setSize(250,90);
@@ -64,7 +64,7 @@ public:
 	}
 };
 
-
+//This is the entry point for a xtklib application
 int xApplication::entryPoint()
 {
 	HelloGui myapp;

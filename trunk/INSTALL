@@ -1,32 +1,38 @@
-By now those xtklib works with thos systems:
+Currently XTKlib is known to work under:
 
-    * Linux/Unix with gcc
-    * Windows with VC++ or mingw32
+    * Windows XP (x86)
+          o Visual C++ versions 7.1, 8.0
+          o MinGW32
+    * Linux (x86, x86_64) bit
+          o GCC 3.4
 
-Linux/Unix with gcc instructions
+Compatibility with other platforms and compilers are not excluded.(If you can compile/use xtklib with a non listed compiler/platform let us know about that, thanks)
+
+If you need additional help or support, please open a topic in our forum. We will be pleased to help you.
+
+Note: As general guideline for create you application you can look at examples applications placed in the ''examples'' directory.
+
+---
+Linux with gcc
 The simplest way to compile and install this package is:
 
-   1. `cd'' to the directory containing the package''s source code and type `./configure'' to configure the package for your system.
-   2. Type `make'' to compile the package.
-   3. Type `make install'' as root, to install the programs and any data files and documentation.
-   4. You can remove the program binaries and object files from the source code directory by typing `make clean''. To also remove the files that `configure'' created type `make distclean''.
+   1. ''cd'' to the directory containing the package''s source code and type ''./configure'' to configure the package for your system.
+   2. Type ''make'' to compile the package.
+   3. Type ''make install'' as root, to install the programs and any data files and documentation.
+   4. You can remove the program binaries and object files from the source code directory by typing ''make clean''. To also remove the files that ''configure'' created type ''make distclean''.
 
 You can turn on/off some features during configure operation, those are the most important arguments you can append to ''./configure'' command:
 
     * --enable-debug: to compile the library in debug mode.
     * --enable-widgets: to enable the compilation of ''widgets'' module (note that this module is yet in pre-alfa state).
 
-After compile and install, you can link you programs against xtklib base module and optionally against widgets module,by using the pkg-config tool. For example you can run the command:
-
-g++ example.cpp -o example `pkg-config --cflags --libs xtkbase-0.1.0`
-
+After compile and install, you can link you programs against xtklib base module and optionally against widgets module,by using the pkg-config tool. In addition you must set the -D__UNIX__ definition and add -frtti -fexceptions flags. For example you can run the command:
+g++ example.cpp -o example -frtti -fexceptions -D__UNIX__ `pkg-config --cflags --libs xtkbase-0.1.0`
 to compile and link against xtklib base module version 0.1.0.
 
-
-Windows and VC++ instructions
-
-XTKLib source package comes with VC++ 7.1 solution file (xtklib.sln) included. To compile, open this project file with VC++ and build the entire solution. Compiled modules are available in the lib directory under your xtklib source directory.
-To use xtklib in your project you must:
+---
+Windows with Visual C++ 8.0 (Express or Full)
+XTKLib source package(starting from 0.2.0) comes with VC++ 8.0 solution file (xtklib.sln) included. To compile, open this project file with VC++ and build the entire solution. Compiled modules are available in the ''lib'' directory under your xtklib source directory. To use xtklib in your project you must:
 
    1. [Project properties -> C/C++ -> General -> Additional include directories] Include the path to xtklib include directory
    2. [Project properties -> C/C++ -> Preprocessor -> Preprocessor definitions] Append the definitions:
@@ -41,7 +47,5 @@ To use xtklib in your project you must:
 
 Now you are ready to compile your project against xtklib.
 
-
 Windows and Mingw32 instructions
-
 [Coming Soon...]
