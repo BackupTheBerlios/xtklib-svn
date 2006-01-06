@@ -1,0 +1,30 @@
+General Information
+===================
+
+The "Cross Platform Toolkit Library"(xtklib) is a C++ based framework 
+for highly object-oriented cross-platform programming. In particular, 
+the library provides a full abstraction layer between its API and 
+the main services offered by the underlying operating system(Thread, 
+processes,GUI,Filesystem,etc.) plus a set of generic utilities 
+(Strings,Data structures,etc.).
+
+Unlike other famous libraries, xtklib makes full use of all features 
+of C++ like RTTI, Templates, Exceptions thus obtaining a strongly 
+object-oriented design with a Java-like sensation. The library is 
+composed by two main modules: "Base" and "Widgets". The target 
+operating systems are Windows and Unix(Linux and BSD in primis) 
+with a plan to move also towards other systems. 
+
+The official web site is:
+  http://xtklib.berlios.de/
+  
+Licensing
+=========
+
+See the file 'LICENCE'
+
+
+Installation
+============
+
+See the file 'INSTALL'

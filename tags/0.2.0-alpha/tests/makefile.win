@@ -1,0 +1,53 @@
+# Project: test
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = \
+test.o \
+$(RES)
+LINKOBJ  = $(OBJ)
+
+LIBSDIR =  -L$(WXWIN)/lib -L$(XSLIB)/lib
+INCSDIR =  -I$(WXWIN)/include -I$(XSLIB)/include
+
+ifndef DEBUG
+  DEBUG=0
+endif
+
+ifeq ($(DEBUG), 0)
+        LIBS = $(LIBSDIR) -lxslib -lstdc++ -lgcc -lodbc32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lctl3d32 -ladvapi32 -lopengl32 -lglu32 -lole32 -loleaut32 -luuid -lws2_32
+		OPTFLAGS = -frtti -fexceptions -fno-pcc-struct-return  -fstrict-aliasing -O2
+		DEBUGFLAGS = 
+endif
+
+ifeq ($(DEBUG), 1)
+        LIBS = $(LIBSDIR) -lxslibd -lstdc++ -lgcc -lodbc32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lctl3d32 -ladvapi32 -lopengl32 -lglu32 -lole32 -loleaut32 -luuid -lws2_32 -g
+		OPTFLAGS = -frtti -fexceptions -fno-pcc-struct-return  -fstrict-aliasing 
+		DEBUGFLAGS = -D__DEBUG__ -g
+endif
+
+ifeq ($(DEBUG), 2)
+        LIBS = $(LIBSDIR) -lxslibd -g
+		OPTFLAGS = -frtti -fexceptions
+		DEBUGFLAGS = -D__DEBUG__ -g
+endif
+
+BIN = test.exe
+
+CXXFLAGS = $(INCSDIR) -Wall -DWINVER=0x0400  -D__WIN95__  -D__GNUWIN32__  -D__WIN32__  -DHAVE_W32API_H  -D__WXMSW__  -D__WINDOWS__ $(OPTFLAGS) $(DEBUGFLAGS)
+
+.PHONY: all all-before all-after clean
+
+all: all-before $(BIN) all-after
+
+
+clean: 
+	rm -f $(OBJ) $(BIN)
+
+$(BIN): $(LINKOBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+test.o: test.cpp
+	$(CPP) -c test.cpp -o test.o $(CXXFLAGS)
