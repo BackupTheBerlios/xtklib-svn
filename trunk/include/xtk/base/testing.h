@@ -133,7 +133,7 @@ public:
 	virtual void logTestFail(xException& ex)
 	{
 		xSystem::getStdout().write(xString::getFormat(_T(" ...Failed: Uncached exception %s,%s\nStack trace:\n"),
-			ex.getType().c_str(),ex.getDescription().c_str()));
+			ex.getClassString().c_str(),ex.getDescription().c_str()));
 		ex.printStackTrace(xSystem::getStdout());
 	}
 	

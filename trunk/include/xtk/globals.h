@@ -77,7 +77,7 @@ namespace xtk
 //# # # # # # # # # # # # # # # # # # # # # # # # # #
 //###################################################
 
-#if defined(xlUSE_TESTFUNC) && defined(XTK_DEBUG)
+#if defined(XTK_USE_TEST) && defined(XTK_DEBUG)
 #	define XTK_TEST
 #endif
 

@@ -163,6 +163,7 @@ void xLinkedList::clear()
 	}
 	m_pFirstNode = NULL;
 	m_pLastNode = NULL;
+	m_elementCount = 0;
 }
 
 //##############################################################################
@@ -427,8 +428,8 @@ throw(xNoSuchElementException)
 	if(!hasPrevious())
 		throw xNoSuchElementException();
 	
-	m_pNextNode = m_pPreviousNode->next;
 	m_pCurrentNode = m_pPreviousNode;
+	m_pNextNode = m_pCurrentNode->next;
 	m_pPreviousNode = m_pCurrentNode->previous;
 	
 	return *(m_pCurrentNode->data);
@@ -463,8 +464,8 @@ throw(xNoSuchElementException)
 	if(!hasNext())
 		throw xNoSuchElementException();
 	
-	m_pPreviousNode = m_pPreviousNode->next;
 	m_pCurrentNode = m_pNextNode;
+	m_pPreviousNode = m_pCurrentNode->previous;
 	m_pNextNode = m_pCurrentNode->next;
 	
 	return *(m_pCurrentNode->data);
@@ -476,7 +477,7 @@ throw(xNoSuchElementException)
 void xLinkedList::xLinkedListListIterator::remove()
 throw(xIllegalStateException)
 {
-	if(m_pCurrentNode != NULL)
+	if(m_pCurrentNode == NULL)
 		throw xIllegalStateException();
 		
 	m_list->executeRemove(m_pCurrentNode);

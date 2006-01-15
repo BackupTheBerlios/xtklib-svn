@@ -39,8 +39,8 @@
     #include <pthread.h>
 	#include <errno.h>
     typedef pthread_mutex_t xgc_mutex_id;
-
 #endif
+
 extern "C"
 {
 	int checkLibFunc();
@@ -57,7 +57,23 @@ class xMutex;
 class xString;
 
 /**
- * @brief The super class for all xtklib objects
+ * A class for those classes that have a default static instance.
+ * In xtklib any xDefaultInstance subclass has a predefined
+ * instance accessible through the static getInstance() function,this instance 
+ * is declared static local in the function body. Any singleton class is tagged
+ * xDefaultInstance. Generally,you should follow this system for create your 
+ * own global static instances, for performance and correctness reason.
+ */
+class xDefaultInstance
+{
+protected:
+	xDefaultInstance()
+	{}
+};
+
+
+/**
+ * The super class for all xtklib objects.
  */
 class XTKAPI xObject
 {
@@ -104,7 +120,11 @@ public:
 	 * object.
 	 */
 	virtual xString toString();
-	
+
+	/**
+	 * Return a string representing the class of the object.
+	 */
+	virtual xString getClassString();
 	/**
 	 * Return a hashcode for this object
 	 */
@@ -217,7 +237,7 @@ public:
 /**
  * A class for representing a NULL object
  */
-class XTKAPI xNullObject : public virtual xObject
+class XTKAPI xNullObject : public virtual xObject,private xDefaultInstance
 {
 private:
 	xNullObject(){}
@@ -241,10 +261,7 @@ public:
 		return 0;
 	}
 	
-	static xNullObject& getInstance()
-	{
-		return nullObject;	
-	}
+	static xNullObject& getInstance();
 };
 
 

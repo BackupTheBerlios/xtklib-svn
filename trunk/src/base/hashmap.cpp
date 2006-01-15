@@ -162,24 +162,39 @@ int xHashMap::size()
 //##############################################################################
 xHashMap::Node* xHashMap::addInList(xObject* data,xObject* key,Node* root)
 {
-	if(root == NULL)
+	Node* tmp = root;
+	for(;;)
 	{
-		m_count++;
-		return new Node(data,key);
-	}
-	else
-	{
-		Node* tmp = root;
-		for(;;)
+		if(tmp == NULL)
 		{
-			if(tmp->next == NULL)
-			{
-				tmp->next = new Node(data,key);
-				m_count++;
-				return root;
-			}
-			tmp = tmp->next;
+			m_count++;
+			return new Node(data,key);
 		}
+		else if(tmp->next == NULL)
+		{
+			tmp->next = new Node(data,key);
+			m_count++;
+			return root;
+		}
+		//if duplicate, substitute
+		else if(tmp->key->equals(*key))
+		{
+			if(isOwner())
+			{
+				if(tmp->data != tmp->key)
+					delete tmp->key;
+				delete tmp->data;
+			}
+			else
+			{
+				if(tmp->data != tmp->key)
+					delete tmp->key;
+			}
+
+			tmp->data = data;
+			return root;
+		}
+		tmp = tmp->next;
 	}
 }
 

@@ -46,6 +46,9 @@ namespace xtk
 class XTKAPI xIterator : public virtual xObject
 {
 public:
+	virtual ~xIterator()
+	{}
+
 	/**
 	 * Returns true if the iteration has more elements.
 	 */
@@ -81,6 +84,8 @@ public:
 class XTKAPI xListIterator : public xIterator
 {
 public:
+	virtual ~xListIterator()
+	{}
 
 	/**
 	 * Returns true if this list iterator has more elements when traversing the 
@@ -115,6 +120,9 @@ public:
 class XTKAPI xCollection : public virtual xObject,public xOwnership
 {
 public:
+	virtual ~xCollection()
+	{}
+
 	/**
 	 * Add the specified element to this collection
 	 */
@@ -171,6 +179,9 @@ public:
 class XTKAPI xList : public xCollection
 {
 public:
+	virtual ~xList()
+	{}
+
 	/**
 	 * Returns the element at the specified position in this list.
 	 * 
@@ -216,6 +227,9 @@ public:
 class XTKAPI xMap : public virtual xObject,public xOwnership
 {
 public:
+	virtual ~xMap()
+	{}
+
 	/**
 	 * Removes all mappings from this map
 	 */
@@ -433,7 +447,7 @@ private:
 	protected:
 		xArrayList& 	m_list;
 		int				m_currentPosition;
-		int				m_LastReturnedElementRemoved;
+		bool			m_LastReturnedElementRemoved;
 		
 	public:
 		xArrayListIterator(xArrayList& vector);

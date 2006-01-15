@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<!DOCTYPE CodeBlocks_project_file>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="1"/>
+	<Project>
+		<Option title="xtktests"/>
+		<Option makefile="Makefile.win"/>
+		<Option makefile_is_custom="0"/>
+		<Option active_target="0"/>
+		<Option compiler="0"/>
+		<Build>
+			<Target title="debug">
+				<Option output=".\xtktests.exe"/>
+				<Option working_dir="."/>
+				<Option object_output=".objs"/>
+				<Option deps_output=".deps"/>
+				<Option type="1"/>
+				<Option compiler="0"/>
+				<Option projectLinkerOptionsRelation="2"/>
+				<Option projectResourceIncludeDirsRelation="1"/>
+				<Compiler>
+					<Add option="-Wall"/>
+					<Add option="-g"/>
+					<Add option="-frtti -fexceptions"/>
+					<Add option="-D__DEBUG__"/>
+					<Add option="-D_CONSOLE"/>
+				</Compiler>
+				<Linker>
+					<Add library="..\lib\libxtklibd.a"/>
+				</Linker>
+			</Target>
+			<Target title="release">
+				<Option output="xtktests.exe"/>
+				<Option working_dir="."/>
+				<Option object_output=".objs"/>
+				<Option deps_output=".deps"/>
+				<Option type="1"/>
+				<Option compiler="0"/>
+				<Option projectLinkerOptionsRelation="2"/>
+				<Option projectResourceIncludeDirsRelation="1"/>
+				<Compiler>
+					<Add option="-O2"/>
+				</Compiler>
+				<Linker>
+					<Add library="..\lib\libxtklib.a"/>
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-D__WINDOWS__"/>
+			<Add option="-D__WIDGETS__"/>
+		</Compiler>
+		<Linker>
+			<Add library="ws2_32"/>
+		</Linker>
+		<Unit filename="datetest.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="debug"/>
+			<Option target="release"/>
+		</Unit>
+		<Unit filename="filetest.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="debug"/>
+			<Option target="release"/>
+		</Unit>
+		<Unit filename="loggingtest.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="debug"/>
+			<Option target="release"/>
+		</Unit>
+		<Unit filename="preferencestest.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="debug"/>
+			<Option target="release"/>
+		</Unit>
+		<Unit filename="processtest.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="debug"/>
+			<Option target="release"/>
+		</Unit>
+		<Unit filename="stringTest.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="debug"/>
+			<Option target="release"/>
+		</Unit>
+		<Unit filename="tdatastructurestest.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="debug"/>
+			<Option target="release"/>
+		</Unit>
+		<Unit filename="test.cpp">
+			<Option compilerVar="CPP"/>
+			<Option target="debug"/>
+			<Option target="release"/>
+		</Unit>
+		<Unit filename="threadtest.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="debug"/>
+			<Option target="release"/>
+		</Unit>
+		<Unit filename="widgetstest.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="debug"/>
+			<Option target="release"/>
+		</Unit>
+		<Unit filename="zstreamtest.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="debug"/>
+			<Option target="release"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

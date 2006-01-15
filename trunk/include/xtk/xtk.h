@@ -29,6 +29,7 @@
 #include "base/utilities.h"
 #include "base/charset.h"
 #include "base/string.h"
+#include "base/tdatastructures.h"
 #include "base/datastructures.h"
 #include "base/array.h"
 #include "base/testing.h"

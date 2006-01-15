@@ -26,6 +26,7 @@ xtkbaseinclude_HEADERS = \
 	stream.h \
 	string.h \
 	system.h \
+	tdatastructures.h \
 	testing.h \
 	thread.h \
 	time.h \

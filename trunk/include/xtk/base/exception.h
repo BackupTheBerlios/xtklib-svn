@@ -44,6 +44,10 @@ class xWriter;
 #endif
 
 
+/**
+ * Return the last error code set by the operating system 
+ * (errno for Unix,GetLastError() for Windows).
+ */
 inline sys_error_code_t getSysErrorCode()
 {
 	#ifdef XTK_OS_WINDOWS
@@ -54,7 +58,7 @@ inline sys_error_code_t getSysErrorCode()
 }
 
 /**
- * @brief The superclass for all exceptions in xtklib
+ * The superclass for all exceptions in xtklib.
  */
 class XTKAPI xException : public virtual xObject
 {
@@ -117,32 +121,20 @@ public:
 	/**
 	 * Return a description of the exception
 	 */
-	virtual xString& getDescription(){return m_description;}
+	virtual xString& getDescription()
+	{return m_description;}
 	
 	/**
 	 * Return the cause that have raised this exception
 	 */
-	virtual xException& getCause(){return *m_cause;}
-	
-	/**
-	 * Return a string representing the type of the exception,override this
-	 * function when implementing your own exception
-	 */
-	virtual xString getType()
-	{
-		#ifndef XTK_UNICODE
-			return typeid(*this).name();
-		#else
-			const char* t = typeid(*this).name();
-			return xString(t,xCharset::CS_SYSTEM);
-		#endif
-		//return _T("");
-	}
+	virtual xException& getCause()
+	{return *m_cause;}
 	
 	/**
 	 * Returns the error code associated with this exception provided by the underlying OS.
 	 */
-	virtual sys_error_code_t getSysErrorCode(){return m_errorSysCode;}
+	virtual sys_error_code_t getSysErrorCode()
+	{return m_errorSysCode;}
 	
 	/**
 	 * Maps the system error code associated with the current exception to a string describing
@@ -157,7 +149,7 @@ public:
 	
 	virtual xString toString()
 	{
-		return xString::getFormat(_T("%s: %s"),getType().c_str(),getDescription().c_str());
+		return xString::getFormat(_T("%s: %s"),getClassString().c_str(),getDescription().c_str());
 	}
 };
 

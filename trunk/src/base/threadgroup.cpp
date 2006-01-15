@@ -27,14 +27,14 @@
 
 namespace xtk
 {
-xThreadGroup	gs_mainThreadGroup(_T("Main Thread Group"),true,NULL);
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
 xThreadGroup& xThreadGroup::getMainGroup()
 {
-	return gs_mainThreadGroup;
+	static xThreadGroup mainThreadGroup(_T("Main Thread Group"),true,NULL);
+	return mainThreadGroup;
 }
 
 //##############################################################################

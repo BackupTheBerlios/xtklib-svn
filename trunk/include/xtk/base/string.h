@@ -304,6 +304,12 @@ public:
 	xString& operator=(const xString& other);
 	xString& operator=(const xchar* other);
 
+	bool operator==(const xchar* other)
+	{return this->equals(other);}
+
+	bool operator==(xString& other)
+	{return this->equals(other);}
+
 	//---------------------------------------
 	static xString getFormat(const xchar* format,...);
 	static xString getFormatV(const xchar* format,va_list ap);

@@ -1,4 +1,5 @@
-lib_LIBRARIES = libxtkbase.a
+lib_LIBRARIES = libxtkbase.a
+
 libxtkbase_a_SOURCES = \
 	application.cpp \
 	arraylist.cpp \

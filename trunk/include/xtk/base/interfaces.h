@@ -29,8 +29,7 @@ namespace xtk
 {
 	
 /**
- * @brief This interface impose a total ordering on the objects that implements
- * it
+ * This interface impose a total ordering on the objects that implements it.
  */
 class XTKAPI xComparable : public virtual xObject
 {
@@ -80,6 +79,7 @@ public:
 	bool isOwner(){return owner;}
 };
 
+
 /**
  * This class is the same as xOwnership, the only difference is that 
  * xDefaultOwnership as the ownership rescinded by default.
@@ -94,18 +94,183 @@ protected:
 };
 
 
+/**
+ * A function that test if two elements are equals.
+ */
+template<class TClass>
+class xEquality : public virtual xObject
+{
+public:
+	virtual ~xEquality()
+	{}
+
+	virtual bool equals(TClass o1,TClass o2) = 0;
+};
+
+/**
+ * A convenience xEquality class that uses the equals() method of xObject class.
+ * TClass must be a subclass of xObject.
+ */
+template <class TClass>
+class xObjectEquality : public xEquality<TClass>,private xDefaultInstance
+{
+public:
+	static xObjectEquality& getInstance()
+	{
+		static xObjectEquality s;
+		return s;
+	}
+
+	virtual ~xObjectEquality()
+	{}
+
+	virtual bool equals(TClass o1,TClass o2)
+	{return o1->equals(*o2);}
+};
+
+/**
+ * A convenience xEquality class that uses the operator==.
+ * TClass must define a valid == operator.
+ */
+template <class TClass>
+class xOperatorEquality : public xEquality<TClass>,private xDefaultInstance
+{
+public:
+	static xOperatorEquality& getInstance()
+	{
+		static xOperatorEquality s;
+		return s;
+	}
+
+	virtual ~xOperatorEquality()
+	{}
+
+	virtual bool equals(TClass o1,TClass o2)
+	{return o1==o2;}
+};
 
 
 /**
  * A comparison function, which imposes a total ordering on two objects.
  */
 template<class TClass>
-class xComparator : public virtual xObject
+class xComparator : public xEquality<TClass>
 {
 public:
-	virtual ~xComparator(){}
+	virtual ~xComparator()
+	{}
 	
 	virtual int compare(TClass o1,TClass o2) = 0;
+
+	virtual bool equals(TClass o1,TClass o2)
+	{return compare(o1,o2) == 0;}
+};
+
+/**
+ * A convenience implementation of xComparator that uses operators <,==,>.
+ */
+template<class TClass>
+class xOperatorComparator : public xComparator<TClass>,private xDefaultInstance
+{
+public:
+	static xOperatorComparator& getInstance()
+	{
+		static xOperatorComparator s;
+		return s;
+	}
+
+	virtual ~xOperatorComparator()
+	{}
+	
+	virtual int compare(TClass o1,TClass o2)
+	{
+		if(o1 < o2)
+			return -1;
+		if(o1 > o2)
+			return 1;
+		return 0;
+	}
+
+	virtual bool equals(TClass o1,TClass o2)
+	{return o1 == o2;}
+};
+
+
+/**
+ * A convenience implementation of xComparator that uses operators ->compareTo().
+ */
+template<class TClass>
+class xObjectComparator : public xComparator<TClass>,private xDefaultInstance
+{
+public:
+	static xObjectComparator& getInstance()
+	{
+		static xObjectComparator s;
+		return s;
+	}
+
+	virtual ~xObjectComparator()
+	{}
+	
+	virtual int compare(TClass o1,TClass o2)
+	{return o1->compareTo(*o2);}
+};
+
+/**
+ * A function that compute the hash of an element.
+ */
+template<class TClass>
+class xHashable : public virtual xObject
+{
+public:
+	virtual ~xHashable()
+	{}
+	
+	virtual int hashOf(TClass o) = 0;
+};
+
+
+/**
+ * A convenience implementation of xHashable that uses operator ->hashCode().
+ */
+template<class TClass>
+class xObjectHashable : public xHashable<TClass>,private xDefaultInstance
+{
+public:
+	static xObjectHashable& getInstance()
+	{
+		static xObjectHashable s;
+		return s;
+	}
+
+	virtual ~xObjectHashable()
+	{}
+	
+	virtual int hashOf(TClass o)
+	{return o->hashCode();}
+};
+
+
+/**
+ * A convenience implementation of xHashable that uses a generic number(int,char,int64,etc.) for the hash.
+ */
+template<class TClass>
+class xNumberHashable : public xHashable<TClass>,private xDefaultInstance
+{
+public:
+	static xNumberHashable& getInstance()
+	{
+		static xNumberHashable s;
+		return s;
+	}
+
+	virtual ~xNumberHashable()
+	{}
+	
+	virtual int hashOf(TClass o)
+	{
+		return (int)o;
+	}
 };
 
 

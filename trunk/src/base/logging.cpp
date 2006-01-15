@@ -22,8 +22,6 @@
 namespace xtk
 {
 
-xLogger		xLogger::s_defaultLogger(_T("DefaultLogger"));
-
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
@@ -102,7 +100,7 @@ xString xLogFormatterSimple::format(xLogRecord& record)
 	if(record.haveException())
 	{
 		formatted.append(_T("(Exception thrown, type:"));
-		formatted.append(record.getException().getType());
+		formatted.append(record.getException().getClassString());
 		formatted.append(_T(" , Message:"));
 		formatted.append(record.getException().getDescription());
 		formatted.append(_T(")"));
@@ -245,6 +243,15 @@ void xLogger::log(xLogLevel::Level level,xString message,xString sourceclass,xSt
 	record.setSourceMethodName(sourcemethod);
 	record.setException(ex);
 	publishRecord(record);
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+xLogger& xLogger::getInstance()
+{
+	static xLogger s(_T("DefaultLogger"));
+	return s;
 }
 
 }//namespace

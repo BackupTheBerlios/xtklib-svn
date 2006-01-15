@@ -216,6 +216,13 @@
 			<Option target="debug"/>
 			<Option target="release"/>
 		</Unit>
+		<Unit filename="include\xtk\base\tdatastructures.h">
+			<Option compilerVar=""/>
+			<Option compile="0"/>
+			<Option link="0"/>
+			<Option target="debug"/>
+			<Option target="release"/>
+		</Unit>
 		<Unit filename="include\xtk\base\testing.h">
 			<Option compilerVar=""/>
 			<Option compile="0"/>

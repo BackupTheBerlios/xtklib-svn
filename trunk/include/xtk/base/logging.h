@@ -228,7 +228,7 @@ private:
 	xLogFormatter*		m_formatter;
 
 protected:
-	xLogHandler(xLogLevel::Level level = xLogLevel::INFO,xLogFormatter* formatter = new xLogFormatterSimple())
+	xLogHandler(xLogLevel::Level level = xLogLevel::INFO,OWNERSHIP xLogFormatter* formatter = new xLogFormatterSimple())
 	throw(xIllegalArgumentException);
 
 public:
@@ -320,17 +320,13 @@ public:
 /**
  * A class for logging messages. Thread Safe.
  */
-class XTKAPI xLogger : public virtual xObject,public xOwnership
+class XTKAPI xLogger : public virtual xObject,public xOwnership,private xDefaultInstance
 {
 
 private:
 	xArrayList			m_handlers;
 	xString				m_name;
 	xLogLevel::Level	m_level;
-	
-	
-	//a convenience default logger
-	static xLogger		s_defaultLogger;
 
 	void publishRecord(xLogRecord& record);
 	
@@ -408,7 +404,7 @@ public:
 	/**
 	 * Get a default global logger that can be used for your convenience.
 	 */
-	static xLogger& getDefaultLogger(){return s_defaultLogger;}
+	static xLogger& getInstance();
 };
 
 

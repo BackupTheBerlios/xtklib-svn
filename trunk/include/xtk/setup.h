@@ -90,8 +90,8 @@
 
 //Provide some additional functions for testing xtklib
 //* <- Add/remove one '/' to/from the beginning of line to comment/uncomment the block
-#ifndef xlUSE_TESTFUNC
-	#define xlUSE_TESTFUNC
+#ifndef XTK_USE_TEST
+	#define XTK_USE_TEST
 #endif
 //*/
 

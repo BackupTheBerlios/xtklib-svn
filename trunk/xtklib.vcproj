@@ -319,6 +319,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\xtk\base\document.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\xtk\base\event.h"
 				>
 			</File>
@@ -400,6 +404,10 @@
 			</File>
 			<File
 				RelativePath=".\include\xtk\base\system.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\xtk\base\tdatastructures.h"
 				>
 			</File>
 			<File

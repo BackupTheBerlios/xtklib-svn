@@ -73,7 +73,8 @@ public:
 		this->referenceCount = referenceCount;	
 	}
 
-	virtual ~xStringData(){}
+	virtual ~xStringData()
+	{}
 
 	void attach()
 	{
@@ -97,11 +98,24 @@ public:
 			synchronizeEnd();
 	}
 
-	bool isEmpty(){return referenceCount == -10;}
-	bool isShared(){return referenceCount > 1;}
+	bool isEmpty()
+	{return referenceCount == -10;}
+
+	bool isShared()
+	{return referenceCount > 1;}
+
+	static xStringData& getEmptyStringData();
 };
-	
-static xStringData g_emptyString(_T('\0'),1,0,-10);
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+xStringData& xStringData::getEmptyStringData()
+{
+	static xStringData s(_T('\0'),1,0,-10);
+	return s;
+}
+
 	
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -130,7 +144,7 @@ inline size_t xString::xstrlen(const xchar* str)
 xString::xString()
 {
 	//init with blank string
-	m_data = &g_emptyString;
+	m_data = &(xStringData::getEmptyStringData());
 	m_data->attach();
 	
 	#ifdef XTK_UNICODE
@@ -203,7 +217,7 @@ xString::xString(const char* cstr,xCharset::Charset charset)
 {
 	#ifdef XTK_UNICODE
 		//init with blank string
-		m_data = &g_emptyString;
+		m_data = &(xStringData::getEmptyStringData());
 		m_data->attach();
 	
 		mb_data = NULL;
@@ -301,7 +315,7 @@ void xString::copyOnWrite()
 void xString::clear()
 {
 	m_data->release();
-	m_data = &g_emptyString;
+	m_data = &(xStringData::getEmptyStringData());
 }
 
 //##############################################################################

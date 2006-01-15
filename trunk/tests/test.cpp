@@ -36,6 +36,7 @@ using namespace xtk;
 //#include "zstreamtest.cpp"
 //#include "processtest.cpp"
 #include "widgetstest.h"
+#include "tdatastructurestest.h"
 
 //IMPLEMENT_MAIN
 
@@ -75,8 +76,11 @@ int xApplication::entryPoint()
 	//xProcessTest pr;
 	//pr.startTest();
 
-	xWidgetsTest wt;
-	wt.startTest();
+	//xWidgetsTest wt;
+	//wt.startTest();
+
+	xTDataStructuresTest tdst;
+	tdst.startTest();
 
 	system("PAUSE");
 	return 0;
