@@ -26,13 +26,13 @@
 using namespace xtk;
 
 
-class HelloGui
+class HelloGuiApp : public xApplication
 {
 private:
 	xFrame* m_frame;
 	
 public:
-	void initgui()
+	virtual void onInit()
 	{
 		//create the topmost window
 		m_frame = new xFrame(NULL,_T("Hello world application"));
@@ -47,30 +47,16 @@ public:
 		//create a button
 		xButton* butt1 = new xButton(m_frame,_T("Exit"));
 		//attach an event handler to button
-		butt1->addActionPerformedHandler(new xWidgetEventHandler<HelloGui>(this,&HelloGui::actionPerformed));
+		butt1->addActionPerformedHandler(new xWidgetEventHandler<HelloGuiApp>(this,&HelloGuiApp::actionPerformed));
 
 		m_frame->setSize(250,90);
+		m_frame->setVisible(true);
 	}
 
-	void startgui()
-	{
-		m_frame->setVisible(true);
-		xtkUIEventLoop();
-	}
-	
 	void actionPerformed(xtk::xWidgetEvent& e)
 	{
 		m_frame->destroy();
 	}
 };
 
-//This is the entry point for a xtklib application
-int xApplication::entryPoint()
-{
-	HelloGui myapp;
-	myapp.initgui();
-	myapp.startgui();
-	return 0;
-}
-
-
+SET_APPLICATION(HelloGuiApp);

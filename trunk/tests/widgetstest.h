@@ -55,7 +55,7 @@ private:
 		
 		frame->setSize(200,200);
 
-		xtkUIEventLoop();
+		xApplication::uiEventLoop();
 	}
 
 public:

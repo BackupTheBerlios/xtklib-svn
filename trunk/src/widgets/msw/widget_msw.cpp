@@ -26,6 +26,7 @@
 #include "../../../include/xtk/base/thread.h"
 #include "../../../include/xtk/base/datastructures.h"
 #include "../../../include/xtk/base/smartptr.h"
+#include "../../../include/xtk/base/application.h"
 
 #if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
@@ -35,7 +36,7 @@ namespace xtk
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-XTKAPI void xtkUIEventLoop()
+void xApplication::uiEventLoop()
 {
 	MSG message;
 	while(::GetMessage(&message,NULL,0,0) != 0)
@@ -48,7 +49,7 @@ XTKAPI void xtkUIEventLoop()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-XTKAPI void xtkExitUIEventLoop()
+void xApplication::uiExitEventLoop()
 {
 	::PostQuitMessage(1);
 }
@@ -56,13 +57,13 @@ XTKAPI void xtkExitUIEventLoop()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-XTKAPI void xtkWidgetsInitialize(int* argc,char*** argv)
+void xtkUiInitialize(int* argc,char*** argv)
 {}
 
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-XTKAPI void xtkProcessPendingUIEvent()
+void xApplication::uiProcessPendingEvent()
 {
 	MSG message;
 
@@ -70,7 +71,7 @@ XTKAPI void xtkProcessPendingUIEvent()
 	{
 		if(::GetMessage(&message,NULL,0,0) == 0)
 		{
-			xtkExitUIEventLoop();
+			uiExitEventLoop();
 		}
 		::TranslateMessage(&message);
 		::DispatchMessage(&message);

@@ -376,7 +376,10 @@ namespace xtk
 			printf("Memory tracking not started, use xStartMemoryTracking()");
 
 		if(xDumpMemoryLeaks(g_memoryTrace.m_pRootNode))
-			system("PAUSE");
+		{
+			printf("Press \"enter\" key to continue...");
+			fgetc(stdin);
+		}
 		//xAvlMemTrace::s_startTrackMemory = false;
 	}
 #endif

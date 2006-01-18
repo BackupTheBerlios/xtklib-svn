@@ -22,10 +22,7 @@
 #include "../../include/xtk/base/application.h"
 #include "../../include/xtk/base/thread.h"
 #include "../../include/xtk/base/net.h"
-
-#if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_GTK2)
-	#include "../../include/xtk/widgets/widget.h"
-#endif
+#include "../../include/xtk/base/system.h"
 
 namespace xtk
 {
@@ -37,14 +34,19 @@ namespace xtk
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xApplication::initialize(int* argc,char*** argv)
+extern void xtkUiInitialize(int* argc,char*** argv);
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+void xtkInitialize(int* argc,char*** argv)
 {
 	#ifdef XTK_USE_MULTITHREAD
 		xThread::initialize();
 	#endif
 
-	#if defined(XTK_USE_WIDGETS) && defined(XTK_GUI_GTK2)
-		xtkWidgetsInitialize(argc,argv);
+	#if defined(XTK_USE_WIDGETS)
+		xtkUiInitialize(argc,argv);
 	#endif
 
 	xSocket::initialize();
@@ -53,7 +55,7 @@ void xApplication::initialize(int* argc,char*** argv)
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xApplication::finalize()
+void xtkFinalize()
 {
 	xSocket::finalize();
 
@@ -62,34 +64,98 @@ void xApplication::finalize()
 	#endif
 }
 
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+int xApplication::onRun()
+{
+	#ifdef XTK_USE_WIDGETS
+		uiEventLoop();
+	#endif
+
+	return 0;
+}
+
+//##############################################################################
+//# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+//##############################################################################
+	#if defined(XTK_OS_WINDOWS) && !defined(_CONSOLE)
+		static xArray<xString> commandLineToArgv(LPSTR lpCmdLine)
+		{
+			xString cmd(lpCmdLine,xCharset::CS_SYSTEM);
+			xStringTokenizer tok(cmd,_T(" "));
+			xArray<xString> arr(tok.countTokens());
+			for(int i = 0;tok.hasMoreTokens();i++)
+			{
+				arr[i] = tok.nextToken();
+			}
+			return arr;
+		}
+	#else
+		static xArray<xString> commandLineToArgv(int argc,char** argv)
+		{
+			xArray<xString> arr(argc);
+			for(int i = 0;i < argc;i++)
+			{
+				arr[i] = xString(argv[i],xCharset::CS_SYSTEM);
+			}
+			return arr;
+		}
+	#endif
+
 }//namespace
 
 #ifdef XTK_USE_MAIN
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-#ifdef XTK_OS_WINDOWS
+#if defined(XTK_OS_WINDOWS) && !defined(_CONSOLE)
 	int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
 	{
+		xtk::xApplication::getApplication();
 		xtk::xApplication::setHinstance(hInstance);
-		xtk::xApplication::initialize(NULL,NULL);
+		xtk::xtkInitialize(NULL,NULL);
 		xtk::xStartMemoryTracking();
-		int ret = xtk::xApplication::entryPoint();
+		int ret = -1;
+		try
+		{
+			xtk::xApplication::getApplication().onInit();
+			ret = xtk::xApplication::getApplication().onRun();
+			xtk::xApplication::getApplication().onExit();
+		}
+		catch(xtk::xException& ex)
+		{
+			xtk::xSystem::getStdout().write(xtk::xString::getFormat(_T("Uncached exception %s,%s\nStack trace:\n"),
+			ex.getClassString().c_str(),ex.getDescription().c_str()));
+			ex.printStackTrace(xtk::xSystem::getStdout());
+		}
 		xtk::xDumpMemoryLeaks();
-		xtk::xApplication::finalize();
+		xtk::xtkFinalize();
 
 		return ret;
 	}
-
 #endif
 
 int main(int argc,char** argv)
 {
-	xtk::xApplication::initialize(&argc,&argv);
+	xtk::xApplication::getApplication();
+	xtk::xtkInitialize(&argc,&argv);
 	xtk::xStartMemoryTracking();
-	int ret = xtk::xApplication::entryPoint();
+	int ret = -1;
+	try
+	{
+		xtk::xApplication::getApplication().onInit();
+		ret = xtk::xApplication::getApplication().onRun();
+		xtk::xApplication::getApplication().onExit();
+	}
+	catch(xtk::xException& ex)
+	{
+		xtk::xSystem::getStdout().write(xtk::xString::getFormat(_T("Uncached exception %s,%s\nStack trace:\n"),
+		ex.getClassString().c_str(),ex.getDescription().c_str()));
+		ex.printStackTrace(xtk::xSystem::getStdout());
+	}
 	xtk::xDumpMemoryLeaks();
- 	xtk::xApplication::finalize();
+ 	xtk::xtkFinalize();
 
 	return ret;
 }

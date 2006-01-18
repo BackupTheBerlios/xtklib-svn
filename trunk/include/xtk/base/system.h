@@ -62,6 +62,11 @@ public:
 	 */
 	static xWriter& getStdout();
 
+	/** 
+	 * Has the same affect as the "PAUSE" command under windows
+	 */
+	static void pause();
+
 	/**
 	 * Get the temp directory of current user.
 	 */

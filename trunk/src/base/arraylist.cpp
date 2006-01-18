@@ -83,7 +83,7 @@ void xArrayList::removeObject(xObject& o)
 				delete &get(i);
 		}
 
-		if(beginShift)
+		if(beginShift && (i + 1) < size())
 			m_elementData[i] = m_elementData[i + 1];
 	}
 	if(beginShift)

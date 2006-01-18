@@ -39,28 +39,6 @@ namespace xtk
 class xWidgetInternal;
 
 /**
- * Process the next message of the windowing system message or event queue.
- * The function blocks until a new event are received.
- * Return false if a quit message was received.
- */
-XTKAPI void xtkUIEventLoop();
-
-/**
- * 
- */
-XTKAPI void xtkExitUIEventLoop();
-
-/**
- *
- */
-XTKAPI void xtkWidgetsInitialize(int* argc,char*** argv);
-
-/**
- *
- */
-XTKAPI void xtkProcessPendingUIEvent();
-
-/**
  * A widget is the base class for all Gui components.
  * Note that all children of the window will be deleted automatically by 
  * the destructor before the window itself is deleted.

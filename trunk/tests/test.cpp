@@ -40,48 +40,17 @@ using namespace xtk;
 
 //IMPLEMENT_MAIN
 
-//int main(int argv,char** argc)
-int xApplication::entryPoint()
+class TestApp : public xApplication
 {
-	//xSystem::getStdout().write(xSystem::getHomeDir());
-	//xThread::sleep(100);
-	//xThread::initialize();
-	//system("echo Hello");
+public:
+	virtual int onRun()
+	{
+		xTDataStructuresTest tdst;
+		tdst.startTest();
 
-	//xInitialize();
-	//xLoggingTest l;
-	//l.startTest();
+		xSystem::pause();
+		return 0;
+	}
+};
 
-	//xStringTest s;
-	//s.startTest();
-
-	//xDateTest d;
-	//d.startTest();
-
-	//xFileTest f;
-	//f.startTest();
-
-	//xThreadTest t;
-	//t.startTest();
-
-	//xNetTest n;
-	//n.startTest();
-
-	//xPreferencesTest p;
-	//p.startTest();
-
-	//xZStreamTest z;
-	//z.startTest();
-
-	//xProcessTest pr;
-	//pr.startTest();
-
-	//xWidgetsTest wt;
-	//wt.startTest();
-
-	xTDataStructuresTest tdst;
-	tdst.startTest();
-
-	system("PAUSE");
-	return 0;
-}
+SET_APPLICATION(TestApp);

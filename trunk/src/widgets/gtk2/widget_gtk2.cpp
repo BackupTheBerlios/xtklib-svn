@@ -48,7 +48,7 @@ void callback_destroy(GtkWidget* widget,gpointer data)
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xtkUIEventLoop()
+void xApplication::uiEventLoop()
 {
 	gtk_main();
 }
@@ -56,7 +56,7 @@ void xtkUIEventLoop()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xtkExitUIEventLoop()
+void xApplication::uiExitEventLoop()
 {
 	gtk_main_quit();	
 }
@@ -64,7 +64,7 @@ void xtkExitUIEventLoop()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xtkProcessPendingUIEvent()
+void xApplication::uiProcessPendingEvent()
 {
 	while(gtk_events_pending())
 	{
@@ -78,7 +78,7 @@ void xtkProcessPendingUIEvent()
 //##############################################################################
 //# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 //##############################################################################
-void xtkWidgetsInitialize(int* argc,char*** argv)
+void xtkUiInitialize(int* argc,char*** argv)
 {
 	gtk_init(argc,argv);
 	xThread::sleep(100);

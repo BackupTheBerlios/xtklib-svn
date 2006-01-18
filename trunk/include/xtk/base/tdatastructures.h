@@ -924,7 +924,7 @@ public:
 			if(m_equality->equals(o,get(i)))
 				beginShift = true;
 
-			if(beginShift)
+			if(beginShift && (i + 1) < size())
 				m_elementData[i] = m_elementData[i + 1];
 		}
 		if(beginShift)

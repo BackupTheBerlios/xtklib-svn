@@ -20,6 +20,7 @@
 */
 
 #include "window_msw.h"
+#include "../../../include/xtk/base/application.h"
 
 #if defined( XTK_USE_WIDGETS) && defined(XTK_GUI_MSW)
 
@@ -73,7 +74,7 @@ LRESULT xWindowInternal::onDestroy(HWND hwnd,UINT uMsg,WPARAM wParam,LPARAM lPar
 {
 	if(getDefaultCloseAction() == xWindow::XTK_EXIT_ON_CLOSE)
 	{
-		xtkExitUIEventLoop();
+		xApplication::uiExitEventLoop();
 		return 0;
 	}
 	else if(getDefaultCloseAction() == xWindow::XTK_HIDE_ON_CLOSE)
