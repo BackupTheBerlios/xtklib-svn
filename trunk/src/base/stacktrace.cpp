@@ -25,7 +25,11 @@
 #ifdef XTK_OS_WINDOWS
 	#include <windows.h>
 #elif defined(XTK_OS_UNIX)
-	#include <execinfo.h>
+	#if HAVE_EXECINFO_H
+		#include <execinfo.h>
+	#else
+		#include "execinfo.h"
+	#endif
 #endif
 
 

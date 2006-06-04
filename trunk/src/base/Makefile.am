@@ -12,6 +12,7 @@ libxtkbase_a_SOURCES = \
 	color.cpp \
 	datastream.cpp \
 	exception.cpp \
+	execinfo.c \
 	file.cpp \
 	hashmap.cpp \
 	inetaddress.cpp \
@@ -26,6 +27,7 @@ libxtkbase_a_SOURCES = \
 	serversocket.cpp \
 	socket.cpp \
 	stacktrace.cpp \
+	stacktraverse.c \
 	stream.cpp \
 	string.cpp \
 	system.cpp \

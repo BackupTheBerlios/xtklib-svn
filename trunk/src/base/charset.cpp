@@ -293,8 +293,12 @@ bool xCharsetEncoder::encode(OUT xArray<xbyte>& outBuf,const xchar* inBuf,int in
 			{
 				char* bufPtr = tbuf;
 				size_t outSize = ICONV_BUFF_SIZE;
-
-				size_t cres = iconv(cd,&pszPtr, &inLeftSize,&bufPtr,&outSize);
+				
+				#if ICONV_CONST
+					size_t cres = iconv(cd,(const char**)&pszPtr, &inLeftSize,&bufPtr,&outSize);
+				#else
+					size_t cres = iconv(cd,&pszPtr, &inLeftSize,&bufPtr,&outSize);
+				#endif
 				
 				if(cres == (size_t)-1 && errno != E2BIG)
 					return false; 
@@ -413,8 +417,12 @@ bool xCharsetDecoder::decode(OUT xArray<xchar>& outBuf,const xbyte* inBuf,int in
 			{
 				char* bufPtr = (char*) tbuf;
 				size_t outSize = ICONV_BUFF_SIZE * sizeof(xchar);
-
-				size_t cres = iconv(cd,&pszPtr, &inLeftSize,&bufPtr,&outSize);
+                       
+				#if ICONV_CONST
+					size_t cres = iconv(cd,(const char**)&pszPtr, &inLeftSize,&bufPtr,&outSize);
+				#else
+					size_t cres = iconv(cd,&pszPtr, &inLeftSize,&bufPtr,&outSize);
+				#endif
 				
 				if(cres == (size_t)-1 && errno != E2BIG)
 					return false; 

@@ -25,6 +25,10 @@
 #include "setup.h"
 #include "version.h"
 
+#if HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 /**
 * Xlib namespace
 */
@@ -35,7 +39,7 @@ namespace xtk
 //###################################################
 #if defined(__WINDOWS__)
 #	define XTK_OS_WINDOWS
-#elif defined(__UNIX__)
+#elif defined(__UNIX__) || defined(__APPLE__)
 #	define XTK_OS_UNIX
 #else
 #	error "Must define a valid target OS"
@@ -77,7 +81,7 @@ namespace xtk
 //# # # # # # # # # # # # # # # # # # # # # # # # # #
 //###################################################
 
-#if defined(XTK_USE_TEST) && defined(XTK_DEBUG)
+#if defined(xlUSE_TESTFUNC) && defined(XTK_DEBUG)
 #	define XTK_TEST
 #endif
 

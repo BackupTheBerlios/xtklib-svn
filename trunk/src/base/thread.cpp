@@ -339,8 +339,12 @@ void xThread::yield()
 {
 	#ifdef XTK_OS_WINDOWS
 		::Sleep(1);
-	#else
+	#elif defined(HAVE_PTHREAD_YIELD)
 		::pthread_yield();
+	#elif defined(HAVE_SCHED_YIELD)
+		::sched_yield();
+	#else
+		sleep(1);
 	#endif
 }
 

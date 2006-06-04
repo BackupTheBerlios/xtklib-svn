@@ -248,8 +248,11 @@ public:
 		#endif
 
 	#elif defined( XTK_OS_UNIX )
-		fileDescriptor = ::open64(filename,openFlags,S_IREAD | S_IWRITE);
-
+		#ifdef HAVE_OPEN64
+			fileDescriptor = ::open64(filename,openFlags,S_IREAD | S_IWRITE);
+		#else
+			fileDescriptor = ::open(filename,openFlags,S_IREAD | S_IWRITE);
+		#endif
 	#endif
 
 	if(fileDescriptor == -1)
@@ -353,7 +356,12 @@ xi64 xFile::__seek(int filedesc,xi64 offset,SeekMode origin)
 		if(res == -1)
 			throw xIOException(_T("Cannot seek!"),::GetLastError());
 	#elif defined( XTK_OS_UNIX )
-		off64_t res = ::lseek64(filedesc,(off64_t) offset,iOrigin);
+		#ifdef HAVE_LSEEK64
+			off64_t res = ::lseek64(filedesc,(off64_t) offset,iOrigin);
+		#else
+			off_t res = ::lseek(filedesc,(off_t) offset,iOrigin);
+		#endif
+
 		if(res == -1)
 			throw xIOException(_T("Cannot seek!"),errno);
 	#endif
@@ -547,7 +555,11 @@ bool xFile::createNewFile()
 		int flags = O_WRONLY | O_CREAT | O_EXCL;
 		int pmode = S_IREAD | S_IWRITE;
 		
-		iNewFileDescriptor = ::open64(m_abstractPathName.mb_str(),flags,pmode);
+		#ifdef HAVE_OPEN64
+			iNewFileDescriptor = ::open64(m_abstractPathName.mb_str(),flags,pmode);
+		#else
+		    iNewFileDescriptor = ::open(m_abstractPathName.mb_str(),flags,pmode);
+		#endif
 
 		if(iNewFileDescriptor == -1)
 			throw xIOException(
@@ -583,9 +595,13 @@ bool xFile::isDirectory()
 	
 
 	#elif defined( XTK_OS_UNIX )
-		struct stat64 stats;
-		int res = ::stat64(m_abstractPathName.mb_str(),&stats);
-
+		#ifdef HAVE_STAT64
+			struct stat64 stats;
+			int res = ::stat64(m_abstractPathName.mb_str(),&stats);
+		#else
+			struct stat stats;
+		    int res = ::stat(m_abstractPathName.mb_str(),&stats);
+		#endif
 	#endif
 
 	if(res == -1)
@@ -608,9 +624,13 @@ bool xFile::isFile()
 		#endif
 
 	#elif defined( XTK_OS_UNIX )
-		struct stat64 stats;
-		int res = ::stat64(m_abstractPathName.mb_str(),&stats);
-
+		#ifdef HAVE_STAT64
+			struct stat64 stats;
+			int res = ::stat64(m_abstractPathName.mb_str(),&stats);
+		#else
+			struct stat stats;
+			int res = ::stat(m_abstractPathName.mb_str(),&stats);
+		#endif
 	#endif
 
 	if(res == -1)
@@ -633,9 +653,13 @@ xi64 xFile::size()
 		#endif
 
 	#elif defined( XTK_OS_UNIX )
-		struct stat64 stats;
-		int res = ::stat64(m_abstractPathName.mb_str(),&stats);
-
+		#ifdef HAVE_STAT64
+			struct stat64 stats;
+			int res = ::stat64(m_abstractPathName.mb_str(),&stats);
+		#else
+			struct stat stats;
+			int res = ::stat(m_abstractPathName.mb_str(),&stats);
+		#endif
 	#endif
 
 	if(res == -1)
@@ -704,7 +728,11 @@ void xFile::trim() throw(xIOException)
 		if(fileDescriptor == -1)
 			throw xIOException(xString::getFormat(_T("Cannot trim file %s"),m_abstractPathName.mb_str()),::GetLastError());
 	#elif defined( XTK_OS_UNIX )
-		int fileDescriptor = ::open64(m_abstractPathName.mb_str(),O_WRONLY | O_CREAT | O_TRUNC,S_IREAD | S_IWRITE);
+		#ifdef HAVE_OPEN64
+			int fileDescriptor = ::open64(m_abstractPathName.mb_str(),O_WRONLY | O_CREAT | O_TRUNC,S_IREAD | S_IWRITE);
+		#else
+			int fileDescriptor = ::open(m_abstractPathName.mb_str(),O_WRONLY | O_CREAT | O_TRUNC,S_IREAD | S_IWRITE);
+		#endif
 
 		if(fileDescriptor == -1)
 			throw xIOException(xString::getFormat(_T("Cannot trim file %s"),m_abstractPathName.mb_str()),errno);

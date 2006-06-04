@@ -6,11 +6,13 @@ AC_PREFIX_DEFAULT(/usr)
 
 dnl ==========================================================================
 
+AC_PROG_CC
 AC_PROG_CXX
 AC_LANG_CPLUSPLUS
 AC_PROG_MAKE_SET
 AC_PROG_INSTALL
 AC_PROG_RANLIB
+AC_PROG_LIBTOOL
 
 dnl ==========================================================================
 dnl	== Checking for dependencies
@@ -22,7 +24,7 @@ dnl ==========================================================================
 
 dnl Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS(fcntl.h sys/ioctl.h unistd.h)
+AC_CHECK_HEADERS(fcntl.h sys/ioctl.h unistd.h execinfo.h sched.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -31,8 +33,33 @@ AC_TYPE_SIZE_T
 
 dnl Checks for library functions.
 AC_TYPE_SIGNAL
+AC_CHECK_FUNCS(open64 stat64 lseek64 pthread_yield sched_yield)
 
 dnl ==========================================================================
+dnl Check if iconv uses const in prototype declaration
+dnl ==========================================================================
+AC_CACHE_CHECK(for const presence in iconv(), ac_cv_iconv_const,
+  [AC_COMPILE_IFELSE(
+    [AC_LANG_PROGRAM(
+      [[
+        #include <stdlib.h>
+        #include <iconv.h>
+      ]],
+      [[
+        iconv_t cd = iconv_open("ASCII", "ASCII");
+        char * inbuf = "ABCDE";
+        char * outbuf = new char[6];
+        size_t inbytesleft, outbytesleft;
+        iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
+      ]]
+   )],
+   [ac_cv_iconv_const=0],
+   [ac_cv_iconv_const=1]
+  )]
+)
+
+AC_DEFINE_UNQUOTED([ICONV_CONST], $ac_cv_iconv_const,
+  [Define if there's a const in the iconv() signature.])
 
 dnl Choose system target
 case "${target_os}" in
@@ -40,13 +67,15 @@ case "${target_os}" in
 	SYS=unknown
 	;;
 *darwin*)
-	SYS=unknown
+	SYS=darwin
+	CXXFLAGS="$CXXFLAGS -D__UNIX__"
 	;;
 *openbsd*) 
 	SYS=unknown
 	;;
 *linux*) 
 	SYS=unix
+	DARWIN=no
 	CXXFLAGS="$CXXFLAGS -D__UNIX__"
 	;;
 *cygwin* | *mingw32*)

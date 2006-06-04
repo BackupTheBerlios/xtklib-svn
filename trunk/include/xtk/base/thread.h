@@ -37,6 +37,9 @@
 
 #else //if UNIX
     #include <pthread.h>
+    #if !HAVE_PTHREAD_YIELD && HAVE_SCHED_YIELD
+        #include <sched.h>
+    #endif
 	#include <errno.h>
     typedef pthread_t threadId;
     typedef pthread_mutex_t CrossMutex;
