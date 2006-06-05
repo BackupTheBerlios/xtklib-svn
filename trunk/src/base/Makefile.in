@@ -14,7 +14,6 @@
 
 @SET_MAKE@
 
-
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
 VPATH = @srcdir@
@@ -53,76 +52,20 @@ am__vpath_adj = case $$p in \
     *) f=$$p;; \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
-am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(libdir)"
-libLIBRARIES_INSTALL = $(INSTALL_DATA)
-LIBRARIES = $(lib_LIBRARIES)
-ARFLAGS = cru
-libxtkbase_a_AR = $(AR) $(ARFLAGS)
-libxtkbase_a_LIBADD =
-am__libxtkbase_a_SOURCES_DIST = application.cpp arraylist.cpp \
-	avlmap.cpp bufferedcharstream.cpp bufferedstream.cpp \
-	bytearraystream.cpp charset.cpp charstream.cpp color.cpp \
-	datastream.cpp exception.cpp execinfo.c file.cpp hashmap.cpp \
-	inetaddress.cpp linkedlist.cpp logging.cpp memory.cpp \
-	messagestream.cpp object.cpp preferences.cpp process.cpp \
-	random.cpp serversocket.cpp socket.cpp stacktrace.cpp \
-	stacktraverse.c stream.cpp string.cpp system.cpp testing.cpp \
-	thread.cpp threadgroup.cpp time.cpp triggerableevent.cpp \
-	typewrappers.cpp utilities.cpp zlibstream.cpp
-am__objects_1 = application.$(OBJEXT) arraylist.$(OBJEXT) \
-	avlmap.$(OBJEXT) bufferedcharstream.$(OBJEXT) \
-	bufferedstream.$(OBJEXT) bytearraystream.$(OBJEXT) \
-	charset.$(OBJEXT) charstream.$(OBJEXT) color.$(OBJEXT) \
-	datastream.$(OBJEXT) exception.$(OBJEXT) execinfo.$(OBJEXT) \
-	file.$(OBJEXT) hashmap.$(OBJEXT) inetaddress.$(OBJEXT) \
-	linkedlist.$(OBJEXT) logging.$(OBJEXT) memory.$(OBJEXT) \
-	messagestream.$(OBJEXT) object.$(OBJEXT) preferences.$(OBJEXT) \
-	process.$(OBJEXT) random.$(OBJEXT) serversocket.$(OBJEXT) \
-	socket.$(OBJEXT) stacktrace.$(OBJEXT) stacktraverse.$(OBJEXT) \
-	stream.$(OBJEXT) string.$(OBJEXT) system.$(OBJEXT) \
-	testing.$(OBJEXT) thread.$(OBJEXT) threadgroup.$(OBJEXT) \
-	time.$(OBJEXT) triggerableevent.$(OBJEXT) \
-	typewrappers.$(OBJEXT) utilities.$(OBJEXT) \
-	zlibstream.$(OBJEXT)
-@COND_ENBL_DLL_FALSE@am_libxtkbase_a_OBJECTS = $(am__objects_1)
-libxtkbase_a_OBJECTS = $(am_libxtkbase_a_OBJECTS)
+am__installdirs = "$(DESTDIR)$(libdir)"
 libLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libxtkbase_la_LIBADD =
-am__libxtkbase_la_SOURCES_DIST = application.cpp arraylist.cpp \
-	avlmap.cpp bufferedcharstream.cpp bufferedstream.cpp \
-	bytearraystream.cpp charset.cpp charstream.cpp color.cpp \
-	datastream.cpp exception.cpp execinfo.c file.cpp hashmap.cpp \
-	inetaddress.cpp linkedlist.cpp logging.cpp memory.cpp \
-	messagestream.cpp object.cpp preferences.cpp process.cpp \
-	random.cpp serversocket.cpp socket.cpp stacktrace.cpp \
-	stacktraverse.c stream.cpp string.cpp system.cpp testing.cpp \
-	thread.cpp threadgroup.cpp time.cpp triggerableevent.cpp \
-	typewrappers.cpp utilities.cpp zlibstream.cpp
-am__objects_2 = libxtkbase_la-application.lo \
-	libxtkbase_la-arraylist.lo libxtkbase_la-avlmap.lo \
-	libxtkbase_la-bufferedcharstream.lo \
-	libxtkbase_la-bufferedstream.lo \
-	libxtkbase_la-bytearraystream.lo libxtkbase_la-charset.lo \
-	libxtkbase_la-charstream.lo libxtkbase_la-color.lo \
-	libxtkbase_la-datastream.lo libxtkbase_la-exception.lo \
-	libxtkbase_la-execinfo.lo libxtkbase_la-file.lo \
-	libxtkbase_la-hashmap.lo libxtkbase_la-inetaddress.lo \
-	libxtkbase_la-linkedlist.lo libxtkbase_la-logging.lo \
-	libxtkbase_la-memory.lo libxtkbase_la-messagestream.lo \
-	libxtkbase_la-object.lo libxtkbase_la-preferences.lo \
-	libxtkbase_la-process.lo libxtkbase_la-random.lo \
-	libxtkbase_la-serversocket.lo libxtkbase_la-socket.lo \
-	libxtkbase_la-stacktrace.lo libxtkbase_la-stacktraverse.lo \
-	libxtkbase_la-stream.lo libxtkbase_la-string.lo \
-	libxtkbase_la-system.lo libxtkbase_la-testing.lo \
-	libxtkbase_la-thread.lo libxtkbase_la-threadgroup.lo \
-	libxtkbase_la-time.lo libxtkbase_la-triggerableevent.lo \
-	libxtkbase_la-typewrappers.lo libxtkbase_la-utilities.lo \
-	libxtkbase_la-zlibstream.lo
-@COND_ENBL_DLL_TRUE@am_libxtkbase_la_OBJECTS = $(am__objects_2)
+am_libxtkbase_la_OBJECTS = application.lo arraylist.lo avlmap.lo \
+	bufferedcharstream.lo bufferedstream.lo bytearraystream.lo \
+	charset.lo charstream.lo color.lo datastream.lo exception.lo \
+	execinfo.lo file.lo hashmap.lo inetaddress.lo linkedlist.lo \
+	logging.lo memory.lo messagestream.lo object.lo preferences.lo \
+	process.lo random.lo serversocket.lo socket.lo stacktrace.lo \
+	stacktraverse.lo stream.lo string.lo system.lo testing.lo \
+	thread.lo threadgroup.lo time.lo triggerableevent.lo \
+	typewrappers.lo utilities.lo zlibstream.lo
 libxtkbase_la_OBJECTS = $(am_libxtkbase_la_OBJECTS)
-@COND_ENBL_DLL_TRUE@am_libxtkbase_la_rpath = -rpath $(libdir)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -142,9 +85,8 @@ LTCXXCOMPILE = $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) \
 CXXLD = $(CXX)
 CXXLINK = $(LIBTOOL) --tag=CXX --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(libxtkbase_a_SOURCES) $(libxtkbase_la_SOURCES)
-DIST_SOURCES = $(am__libxtkbase_a_SOURCES_DIST) \
-	$(am__libxtkbase_la_SOURCES_DIST)
+SOURCES = $(libxtkbase_la_SOURCES)
+DIST_SOURCES = $(libxtkbase_la_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -160,8 +102,6 @@ AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
-COND_ENBL_DLL_FALSE = @COND_ENBL_DLL_FALSE@
-COND_ENBL_DLL_TRUE = @COND_ENBL_DLL_TRUE@
 COND_ENBL_WIDGETS_FALSE = @COND_ENBL_WIDGETS_FALSE@
 COND_ENBL_WIDGETS_TRUE = @COND_ENBL_WIDGETS_TRUE@
 CPP = @CPP@
@@ -259,7 +199,8 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
-libbase_a_srcs = \
+lib_LTLIBRARIES = libxtkbase.la
+libxtkbase_la_SOURCES = \
 	application.cpp \
 	arraylist.cpp \
 	avlmap.cpp \
@@ -299,12 +240,6 @@ libbase_a_srcs = \
 	utilities.cpp \
 	zlibstream.cpp
 
-@COND_ENBL_DLL_TRUE@lib_LTLIBRARIES = libxtkbase.la
-@COND_ENBL_DLL_TRUE@libxtkbase_la_SOURCES = $(libbase_a_srcs)
-@COND_ENBL_DLL_TRUE@libxtkbase_la_CXXFLAGS = $(AM_CXXFLAGS)
-@COND_ENBL_DLL_TRUE@libxtkbase_la_CFLAGS = $(AM_CFLAGS)
-@COND_ENBL_DLL_FALSE@lib_LIBRARIES = libxtkbase.a
-@COND_ENBL_DLL_FALSE@libxtkbase_a_SOURCES = $(libbase_a_srcs)
 all: all-am
 
 .SUFFIXES:
@@ -338,39 +273,6 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-install-libLIBRARIES: $(lib_LIBRARIES)
-	@$(NORMAL_INSTALL)
-	test -z "$(libdir)" || $(mkdir_p) "$(DESTDIR)$(libdir)"
-	@list='$(lib_LIBRARIES)'; for p in $$list; do \
-	  if test -f $$p; then \
-	    f=$(am__strip_dir) \
-	    echo " $(libLIBRARIES_INSTALL) '$$p' '$(DESTDIR)$(libdir)/$$f'"; \
-	    $(libLIBRARIES_INSTALL) "$$p" "$(DESTDIR)$(libdir)/$$f"; \
-	  else :; fi; \
-	done
-	@$(POST_INSTALL)
-	@list='$(lib_LIBRARIES)'; for p in $$list; do \
-	  if test -f $$p; then \
-	    p=$(am__strip_dir) \
-	    echo " $(RANLIB) '$(DESTDIR)$(libdir)/$$p'"; \
-	    $(RANLIB) "$(DESTDIR)$(libdir)/$$p"; \
-	  else :; fi; \
-	done
-
-uninstall-libLIBRARIES:
-	@$(NORMAL_UNINSTALL)
-	@list='$(lib_LIBRARIES)'; for p in $$list; do \
-	  p=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(libdir)/$$p'"; \
-	  rm -f "$(DESTDIR)$(libdir)/$$p"; \
-	done
-
-clean-libLIBRARIES:
-	-test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
-libxtkbase.a: $(libxtkbase_a_OBJECTS) $(libxtkbase_a_DEPENDENCIES) 
-	-rm -f libxtkbase.a
-	$(libxtkbase_a_AR) libxtkbase.a $(libxtkbase_a_OBJECTS) $(libxtkbase_a_LIBADD)
-	$(RANLIB) libxtkbase.a
 install-libLTLIBRARIES: $(lib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
 	test -z "$(libdir)" || $(mkdir_p) "$(DESTDIR)$(libdir)"
@@ -399,7 +301,7 @@ clean-libLTLIBRARIES:
 	  rm -f "$${dir}/so_locations"; \
 	done
 libxtkbase.la: $(libxtkbase_la_OBJECTS) $(libxtkbase_la_DEPENDENCIES) 
-	$(CXXLINK) $(am_libxtkbase_la_rpath) $(libxtkbase_la_LDFLAGS) $(libxtkbase_la_OBJECTS) $(libxtkbase_la_LIBADD) $(LIBS)
+	$(CXXLINK) -rpath $(libdir) $(libxtkbase_la_LDFLAGS) $(libxtkbase_la_OBJECTS) $(libxtkbase_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -407,82 +309,44 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/application.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/arraylist.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/avlmap.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bufferedcharstream.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bufferedstream.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bytearraystream.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/charset.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/charstream.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/color.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/datastream.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/exception.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/execinfo.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/file.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hashmap.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/inetaddress.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-application.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-arraylist.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-avlmap.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-bufferedcharstream.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-bufferedstream.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-bytearraystream.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-charset.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-charstream.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-color.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-datastream.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-exception.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-execinfo.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-file.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-hashmap.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-inetaddress.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-linkedlist.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-logging.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-memory.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-messagestream.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-object.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-preferences.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-process.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-random.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-serversocket.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-socket.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-stacktrace.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-stacktraverse.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-stream.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-string.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-system.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-testing.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-thread.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-threadgroup.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-time.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-triggerableevent.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-typewrappers.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-utilities.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkbase_la-zlibstream.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/linkedlist.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/logging.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/memory.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/messagestream.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/object.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/preferences.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/process.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/random.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/serversocket.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/socket.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stacktrace.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stacktraverse.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stream.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/string.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/system.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testing.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/thread.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/threadgroup.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/time.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/triggerableevent.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/typewrappers.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/utilities.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/zlibstream.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/application.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/arraylist.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/avlmap.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bufferedcharstream.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bufferedstream.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bytearraystream.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/charset.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/charstream.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/color.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/datastream.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/exception.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/execinfo.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/file.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hashmap.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/inetaddress.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/linkedlist.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/logging.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/memory.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/messagestream.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/object.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/preferences.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/process.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/random.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/serversocket.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/socket.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stacktrace.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stacktraverse.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stream.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/string.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/system.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testing.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/thread.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/threadgroup.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/time.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/triggerableevent.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/typewrappers.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/utilities.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/zlibstream.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
@@ -505,20 +369,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
 
-libxtkbase_la-execinfo.lo: execinfo.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CFLAGS) $(CFLAGS) -MT libxtkbase_la-execinfo.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-execinfo.Tpo" -c -o libxtkbase_la-execinfo.lo `test -f 'execinfo.c' || echo '$(srcdir)/'`execinfo.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-execinfo.Tpo" "$(DEPDIR)/libxtkbase_la-execinfo.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-execinfo.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='execinfo.c' object='libxtkbase_la-execinfo.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CFLAGS) $(CFLAGS) -c -o libxtkbase_la-execinfo.lo `test -f 'execinfo.c' || echo '$(srcdir)/'`execinfo.c
-
-libxtkbase_la-stacktraverse.lo: stacktraverse.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CFLAGS) $(CFLAGS) -MT libxtkbase_la-stacktraverse.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-stacktraverse.Tpo" -c -o libxtkbase_la-stacktraverse.lo `test -f 'stacktraverse.c' || echo '$(srcdir)/'`stacktraverse.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-stacktraverse.Tpo" "$(DEPDIR)/libxtkbase_la-stacktraverse.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-stacktraverse.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='stacktraverse.c' object='libxtkbase_la-stacktraverse.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CFLAGS) $(CFLAGS) -c -o libxtkbase_la-stacktraverse.lo `test -f 'stacktraverse.c' || echo '$(srcdir)/'`stacktraverse.c
-
 .cpp.o:
 @am__fastdepCXX_TRUE@	if $(CXXCOMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
 @am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; fi
@@ -539,258 +389,6 @@ libxtkbase_la-stacktraverse.lo: stacktraverse.c
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
-
-libxtkbase_la-application.lo: application.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-application.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-application.Tpo" -c -o libxtkbase_la-application.lo `test -f 'application.cpp' || echo '$(srcdir)/'`application.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-application.Tpo" "$(DEPDIR)/libxtkbase_la-application.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-application.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='application.cpp' object='libxtkbase_la-application.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-application.lo `test -f 'application.cpp' || echo '$(srcdir)/'`application.cpp
-
-libxtkbase_la-arraylist.lo: arraylist.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-arraylist.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-arraylist.Tpo" -c -o libxtkbase_la-arraylist.lo `test -f 'arraylist.cpp' || echo '$(srcdir)/'`arraylist.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-arraylist.Tpo" "$(DEPDIR)/libxtkbase_la-arraylist.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-arraylist.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='arraylist.cpp' object='libxtkbase_la-arraylist.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-arraylist.lo `test -f 'arraylist.cpp' || echo '$(srcdir)/'`arraylist.cpp
-
-libxtkbase_la-avlmap.lo: avlmap.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-avlmap.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-avlmap.Tpo" -c -o libxtkbase_la-avlmap.lo `test -f 'avlmap.cpp' || echo '$(srcdir)/'`avlmap.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-avlmap.Tpo" "$(DEPDIR)/libxtkbase_la-avlmap.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-avlmap.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='avlmap.cpp' object='libxtkbase_la-avlmap.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-avlmap.lo `test -f 'avlmap.cpp' || echo '$(srcdir)/'`avlmap.cpp
-
-libxtkbase_la-bufferedcharstream.lo: bufferedcharstream.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-bufferedcharstream.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-bufferedcharstream.Tpo" -c -o libxtkbase_la-bufferedcharstream.lo `test -f 'bufferedcharstream.cpp' || echo '$(srcdir)/'`bufferedcharstream.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-bufferedcharstream.Tpo" "$(DEPDIR)/libxtkbase_la-bufferedcharstream.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-bufferedcharstream.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='bufferedcharstream.cpp' object='libxtkbase_la-bufferedcharstream.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-bufferedcharstream.lo `test -f 'bufferedcharstream.cpp' || echo '$(srcdir)/'`bufferedcharstream.cpp
-
-libxtkbase_la-bufferedstream.lo: bufferedstream.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-bufferedstream.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-bufferedstream.Tpo" -c -o libxtkbase_la-bufferedstream.lo `test -f 'bufferedstream.cpp' || echo '$(srcdir)/'`bufferedstream.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-bufferedstream.Tpo" "$(DEPDIR)/libxtkbase_la-bufferedstream.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-bufferedstream.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='bufferedstream.cpp' object='libxtkbase_la-bufferedstream.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-bufferedstream.lo `test -f 'bufferedstream.cpp' || echo '$(srcdir)/'`bufferedstream.cpp
-
-libxtkbase_la-bytearraystream.lo: bytearraystream.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-bytearraystream.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-bytearraystream.Tpo" -c -o libxtkbase_la-bytearraystream.lo `test -f 'bytearraystream.cpp' || echo '$(srcdir)/'`bytearraystream.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-bytearraystream.Tpo" "$(DEPDIR)/libxtkbase_la-bytearraystream.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-bytearraystream.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='bytearraystream.cpp' object='libxtkbase_la-bytearraystream.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-bytearraystream.lo `test -f 'bytearraystream.cpp' || echo '$(srcdir)/'`bytearraystream.cpp
-
-libxtkbase_la-charset.lo: charset.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-charset.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-charset.Tpo" -c -o libxtkbase_la-charset.lo `test -f 'charset.cpp' || echo '$(srcdir)/'`charset.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-charset.Tpo" "$(DEPDIR)/libxtkbase_la-charset.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-charset.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='charset.cpp' object='libxtkbase_la-charset.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-charset.lo `test -f 'charset.cpp' || echo '$(srcdir)/'`charset.cpp
-
-libxtkbase_la-charstream.lo: charstream.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-charstream.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-charstream.Tpo" -c -o libxtkbase_la-charstream.lo `test -f 'charstream.cpp' || echo '$(srcdir)/'`charstream.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-charstream.Tpo" "$(DEPDIR)/libxtkbase_la-charstream.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-charstream.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='charstream.cpp' object='libxtkbase_la-charstream.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-charstream.lo `test -f 'charstream.cpp' || echo '$(srcdir)/'`charstream.cpp
-
-libxtkbase_la-color.lo: color.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-color.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-color.Tpo" -c -o libxtkbase_la-color.lo `test -f 'color.cpp' || echo '$(srcdir)/'`color.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-color.Tpo" "$(DEPDIR)/libxtkbase_la-color.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-color.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='color.cpp' object='libxtkbase_la-color.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-color.lo `test -f 'color.cpp' || echo '$(srcdir)/'`color.cpp
-
-libxtkbase_la-datastream.lo: datastream.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-datastream.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-datastream.Tpo" -c -o libxtkbase_la-datastream.lo `test -f 'datastream.cpp' || echo '$(srcdir)/'`datastream.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-datastream.Tpo" "$(DEPDIR)/libxtkbase_la-datastream.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-datastream.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='datastream.cpp' object='libxtkbase_la-datastream.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-datastream.lo `test -f 'datastream.cpp' || echo '$(srcdir)/'`datastream.cpp
-
-libxtkbase_la-exception.lo: exception.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-exception.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-exception.Tpo" -c -o libxtkbase_la-exception.lo `test -f 'exception.cpp' || echo '$(srcdir)/'`exception.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-exception.Tpo" "$(DEPDIR)/libxtkbase_la-exception.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-exception.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='exception.cpp' object='libxtkbase_la-exception.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-exception.lo `test -f 'exception.cpp' || echo '$(srcdir)/'`exception.cpp
-
-libxtkbase_la-file.lo: file.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-file.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-file.Tpo" -c -o libxtkbase_la-file.lo `test -f 'file.cpp' || echo '$(srcdir)/'`file.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-file.Tpo" "$(DEPDIR)/libxtkbase_la-file.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-file.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='file.cpp' object='libxtkbase_la-file.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-file.lo `test -f 'file.cpp' || echo '$(srcdir)/'`file.cpp
-
-libxtkbase_la-hashmap.lo: hashmap.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-hashmap.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-hashmap.Tpo" -c -o libxtkbase_la-hashmap.lo `test -f 'hashmap.cpp' || echo '$(srcdir)/'`hashmap.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-hashmap.Tpo" "$(DEPDIR)/libxtkbase_la-hashmap.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-hashmap.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='hashmap.cpp' object='libxtkbase_la-hashmap.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-hashmap.lo `test -f 'hashmap.cpp' || echo '$(srcdir)/'`hashmap.cpp
-
-libxtkbase_la-inetaddress.lo: inetaddress.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-inetaddress.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-inetaddress.Tpo" -c -o libxtkbase_la-inetaddress.lo `test -f 'inetaddress.cpp' || echo '$(srcdir)/'`inetaddress.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-inetaddress.Tpo" "$(DEPDIR)/libxtkbase_la-inetaddress.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-inetaddress.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='inetaddress.cpp' object='libxtkbase_la-inetaddress.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-inetaddress.lo `test -f 'inetaddress.cpp' || echo '$(srcdir)/'`inetaddress.cpp
-
-libxtkbase_la-linkedlist.lo: linkedlist.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-linkedlist.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-linkedlist.Tpo" -c -o libxtkbase_la-linkedlist.lo `test -f 'linkedlist.cpp' || echo '$(srcdir)/'`linkedlist.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-linkedlist.Tpo" "$(DEPDIR)/libxtkbase_la-linkedlist.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-linkedlist.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='linkedlist.cpp' object='libxtkbase_la-linkedlist.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-linkedlist.lo `test -f 'linkedlist.cpp' || echo '$(srcdir)/'`linkedlist.cpp
-
-libxtkbase_la-logging.lo: logging.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-logging.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-logging.Tpo" -c -o libxtkbase_la-logging.lo `test -f 'logging.cpp' || echo '$(srcdir)/'`logging.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-logging.Tpo" "$(DEPDIR)/libxtkbase_la-logging.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-logging.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='logging.cpp' object='libxtkbase_la-logging.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-logging.lo `test -f 'logging.cpp' || echo '$(srcdir)/'`logging.cpp
-
-libxtkbase_la-memory.lo: memory.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-memory.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-memory.Tpo" -c -o libxtkbase_la-memory.lo `test -f 'memory.cpp' || echo '$(srcdir)/'`memory.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-memory.Tpo" "$(DEPDIR)/libxtkbase_la-memory.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-memory.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='memory.cpp' object='libxtkbase_la-memory.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-memory.lo `test -f 'memory.cpp' || echo '$(srcdir)/'`memory.cpp
-
-libxtkbase_la-messagestream.lo: messagestream.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-messagestream.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-messagestream.Tpo" -c -o libxtkbase_la-messagestream.lo `test -f 'messagestream.cpp' || echo '$(srcdir)/'`messagestream.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-messagestream.Tpo" "$(DEPDIR)/libxtkbase_la-messagestream.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-messagestream.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='messagestream.cpp' object='libxtkbase_la-messagestream.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-messagestream.lo `test -f 'messagestream.cpp' || echo '$(srcdir)/'`messagestream.cpp
-
-libxtkbase_la-object.lo: object.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-object.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-object.Tpo" -c -o libxtkbase_la-object.lo `test -f 'object.cpp' || echo '$(srcdir)/'`object.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-object.Tpo" "$(DEPDIR)/libxtkbase_la-object.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-object.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='object.cpp' object='libxtkbase_la-object.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-object.lo `test -f 'object.cpp' || echo '$(srcdir)/'`object.cpp
-
-libxtkbase_la-preferences.lo: preferences.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-preferences.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-preferences.Tpo" -c -o libxtkbase_la-preferences.lo `test -f 'preferences.cpp' || echo '$(srcdir)/'`preferences.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-preferences.Tpo" "$(DEPDIR)/libxtkbase_la-preferences.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-preferences.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='preferences.cpp' object='libxtkbase_la-preferences.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-preferences.lo `test -f 'preferences.cpp' || echo '$(srcdir)/'`preferences.cpp
-
-libxtkbase_la-process.lo: process.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-process.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-process.Tpo" -c -o libxtkbase_la-process.lo `test -f 'process.cpp' || echo '$(srcdir)/'`process.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-process.Tpo" "$(DEPDIR)/libxtkbase_la-process.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-process.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='process.cpp' object='libxtkbase_la-process.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-process.lo `test -f 'process.cpp' || echo '$(srcdir)/'`process.cpp
-
-libxtkbase_la-random.lo: random.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-random.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-random.Tpo" -c -o libxtkbase_la-random.lo `test -f 'random.cpp' || echo '$(srcdir)/'`random.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-random.Tpo" "$(DEPDIR)/libxtkbase_la-random.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-random.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='random.cpp' object='libxtkbase_la-random.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-random.lo `test -f 'random.cpp' || echo '$(srcdir)/'`random.cpp
-
-libxtkbase_la-serversocket.lo: serversocket.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-serversocket.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-serversocket.Tpo" -c -o libxtkbase_la-serversocket.lo `test -f 'serversocket.cpp' || echo '$(srcdir)/'`serversocket.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-serversocket.Tpo" "$(DEPDIR)/libxtkbase_la-serversocket.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-serversocket.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='serversocket.cpp' object='libxtkbase_la-serversocket.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-serversocket.lo `test -f 'serversocket.cpp' || echo '$(srcdir)/'`serversocket.cpp
-
-libxtkbase_la-socket.lo: socket.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-socket.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-socket.Tpo" -c -o libxtkbase_la-socket.lo `test -f 'socket.cpp' || echo '$(srcdir)/'`socket.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-socket.Tpo" "$(DEPDIR)/libxtkbase_la-socket.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-socket.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='socket.cpp' object='libxtkbase_la-socket.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-socket.lo `test -f 'socket.cpp' || echo '$(srcdir)/'`socket.cpp
-
-libxtkbase_la-stacktrace.lo: stacktrace.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-stacktrace.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-stacktrace.Tpo" -c -o libxtkbase_la-stacktrace.lo `test -f 'stacktrace.cpp' || echo '$(srcdir)/'`stacktrace.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-stacktrace.Tpo" "$(DEPDIR)/libxtkbase_la-stacktrace.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-stacktrace.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='stacktrace.cpp' object='libxtkbase_la-stacktrace.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-stacktrace.lo `test -f 'stacktrace.cpp' || echo '$(srcdir)/'`stacktrace.cpp
-
-libxtkbase_la-stream.lo: stream.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-stream.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-stream.Tpo" -c -o libxtkbase_la-stream.lo `test -f 'stream.cpp' || echo '$(srcdir)/'`stream.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-stream.Tpo" "$(DEPDIR)/libxtkbase_la-stream.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-stream.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='stream.cpp' object='libxtkbase_la-stream.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-stream.lo `test -f 'stream.cpp' || echo '$(srcdir)/'`stream.cpp
-
-libxtkbase_la-string.lo: string.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-string.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-string.Tpo" -c -o libxtkbase_la-string.lo `test -f 'string.cpp' || echo '$(srcdir)/'`string.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-string.Tpo" "$(DEPDIR)/libxtkbase_la-string.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-string.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='string.cpp' object='libxtkbase_la-string.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-string.lo `test -f 'string.cpp' || echo '$(srcdir)/'`string.cpp
-
-libxtkbase_la-system.lo: system.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-system.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-system.Tpo" -c -o libxtkbase_la-system.lo `test -f 'system.cpp' || echo '$(srcdir)/'`system.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-system.Tpo" "$(DEPDIR)/libxtkbase_la-system.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-system.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='system.cpp' object='libxtkbase_la-system.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-system.lo `test -f 'system.cpp' || echo '$(srcdir)/'`system.cpp
-
-libxtkbase_la-testing.lo: testing.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-testing.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-testing.Tpo" -c -o libxtkbase_la-testing.lo `test -f 'testing.cpp' || echo '$(srcdir)/'`testing.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-testing.Tpo" "$(DEPDIR)/libxtkbase_la-testing.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-testing.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='testing.cpp' object='libxtkbase_la-testing.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-testing.lo `test -f 'testing.cpp' || echo '$(srcdir)/'`testing.cpp
-
-libxtkbase_la-thread.lo: thread.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-thread.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-thread.Tpo" -c -o libxtkbase_la-thread.lo `test -f 'thread.cpp' || echo '$(srcdir)/'`thread.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-thread.Tpo" "$(DEPDIR)/libxtkbase_la-thread.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-thread.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='thread.cpp' object='libxtkbase_la-thread.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-thread.lo `test -f 'thread.cpp' || echo '$(srcdir)/'`thread.cpp
-
-libxtkbase_la-threadgroup.lo: threadgroup.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-threadgroup.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-threadgroup.Tpo" -c -o libxtkbase_la-threadgroup.lo `test -f 'threadgroup.cpp' || echo '$(srcdir)/'`threadgroup.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-threadgroup.Tpo" "$(DEPDIR)/libxtkbase_la-threadgroup.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-threadgroup.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='threadgroup.cpp' object='libxtkbase_la-threadgroup.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-threadgroup.lo `test -f 'threadgroup.cpp' || echo '$(srcdir)/'`threadgroup.cpp
-
-libxtkbase_la-time.lo: time.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-time.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-time.Tpo" -c -o libxtkbase_la-time.lo `test -f 'time.cpp' || echo '$(srcdir)/'`time.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-time.Tpo" "$(DEPDIR)/libxtkbase_la-time.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-time.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='time.cpp' object='libxtkbase_la-time.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-time.lo `test -f 'time.cpp' || echo '$(srcdir)/'`time.cpp
-
-libxtkbase_la-triggerableevent.lo: triggerableevent.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-triggerableevent.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-triggerableevent.Tpo" -c -o libxtkbase_la-triggerableevent.lo `test -f 'triggerableevent.cpp' || echo '$(srcdir)/'`triggerableevent.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-triggerableevent.Tpo" "$(DEPDIR)/libxtkbase_la-triggerableevent.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-triggerableevent.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='triggerableevent.cpp' object='libxtkbase_la-triggerableevent.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-triggerableevent.lo `test -f 'triggerableevent.cpp' || echo '$(srcdir)/'`triggerableevent.cpp
-
-libxtkbase_la-typewrappers.lo: typewrappers.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-typewrappers.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-typewrappers.Tpo" -c -o libxtkbase_la-typewrappers.lo `test -f 'typewrappers.cpp' || echo '$(srcdir)/'`typewrappers.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-typewrappers.Tpo" "$(DEPDIR)/libxtkbase_la-typewrappers.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-typewrappers.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='typewrappers.cpp' object='libxtkbase_la-typewrappers.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-typewrappers.lo `test -f 'typewrappers.cpp' || echo '$(srcdir)/'`typewrappers.cpp
-
-libxtkbase_la-utilities.lo: utilities.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-utilities.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-utilities.Tpo" -c -o libxtkbase_la-utilities.lo `test -f 'utilities.cpp' || echo '$(srcdir)/'`utilities.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-utilities.Tpo" "$(DEPDIR)/libxtkbase_la-utilities.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-utilities.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='utilities.cpp' object='libxtkbase_la-utilities.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-utilities.lo `test -f 'utilities.cpp' || echo '$(srcdir)/'`utilities.cpp
-
-libxtkbase_la-zlibstream.lo: zlibstream.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -MT libxtkbase_la-zlibstream.lo -MD -MP -MF "$(DEPDIR)/libxtkbase_la-zlibstream.Tpo" -c -o libxtkbase_la-zlibstream.lo `test -f 'zlibstream.cpp' || echo '$(srcdir)/'`zlibstream.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkbase_la-zlibstream.Tpo" "$(DEPDIR)/libxtkbase_la-zlibstream.Plo"; else rm -f "$(DEPDIR)/libxtkbase_la-zlibstream.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='zlibstream.cpp' object='libxtkbase_la-zlibstream.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxtkbase_la_CXXFLAGS) $(CXXFLAGS) -c -o libxtkbase_la-zlibstream.lo `test -f 'zlibstream.cpp' || echo '$(srcdir)/'`zlibstream.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -879,9 +477,9 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LIBRARIES) $(LTLIBRARIES)
+all-am: Makefile $(LTLIBRARIES)
 installdirs:
-	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(libdir)"; do \
+	for dir in "$(DESTDIR)$(libdir)"; do \
 	  test -z "$$dir" || $(mkdir_p) "$$dir"; \
 	done
 install: install-am
@@ -910,8 +508,8 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libLIBRARIES clean-libLTLIBRARIES \
-	clean-libtool mostlyclean-am
+clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
+	mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
@@ -931,7 +529,7 @@ info-am:
 
 install-data-am:
 
-install-exec-am: install-libLIBRARIES install-libLTLIBRARIES
+install-exec-am: install-libLTLIBRARIES
 
 install-info: install-info-am
 
@@ -957,21 +555,19 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-info-am uninstall-libLIBRARIES \
-	uninstall-libLTLIBRARIES
+uninstall-am: uninstall-info-am uninstall-libLTLIBRARIES
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
-	clean-libLIBRARIES clean-libLTLIBRARIES clean-libtool ctags \
-	distclean distclean-compile distclean-generic \
-	distclean-libtool distclean-tags distdir dvi dvi-am html \
-	html-am info info-am install install-am install-data \
-	install-data-am install-exec install-exec-am install-info \
-	install-info-am install-libLIBRARIES install-libLTLIBRARIES \
-	install-man install-strip installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-compile mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags uninstall \
-	uninstall-am uninstall-info-am uninstall-libLIBRARIES \
+	clean-libLTLIBRARIES clean-libtool ctags distclean \
+	distclean-compile distclean-generic distclean-libtool \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-exec \
+	install-exec-am install-info install-info-am \
+	install-libLTLIBRARIES install-man install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags uninstall uninstall-am uninstall-info-am \
 	uninstall-libLTLIBRARIES
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

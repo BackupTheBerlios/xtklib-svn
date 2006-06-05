@@ -100,7 +100,6 @@ dnl ==========================================================================
 dnl Features enabled
 AC_ARG_ENABLE(debug,[  --enable-debug		Turn on debugging],ENBL_DEBUG="$enableval",ENBL_DEBUG="no")
 AC_ARG_ENABLE(widgets,[  --enable-widgets		Turn on widgets module],ENBL_WIDGETS="$enableval",ENBL_WIDGETS="no")
-AC_ARG_ENABLE(dll,[  --enable-dll		Compile xtklib as dynamic linked library],ENBL_DLL="$enableval",ENBL_DLL="no")
 
 case "$ENBL_DEBUG" in
 yes)	DEBUG_FLAGS="-Wall -Wno-unused-parameter -g -D__DEBUG__"
@@ -128,8 +127,7 @@ yes)	CXXFLAGS="$CXXFLAGS -D__WIDGETS__"
 *)		CXXFLAGS="$CXXFLAGS" 
 		;;
 esac
-AM_CONDITIONAL(COND_ENBL_WIDGETS,test x$ENBL_WIDGETS=xyes)
-AM_CONDITIONAL(COND_ENBL_DLL,test x$ENBL_DLL=xyes)
+AM_CONDITIONAL(COND_ENBL_WIDGETS,[test "$ENBL_WIDGETS" = yes])
 
 CXXFLAGS="$CXXFLAGS $DEBUG_FLAGS"
 
@@ -160,5 +158,4 @@ echo
 echo "  Prefix where xtklib should be installed                    ${prefix:-none}"
 echo "  xtklib compibled in debug mode?                            ${ENBL_DEBUG:-no}"
 echo "  Widgets module enabled?                                    ${ENBL_WIDGETS:-no}"
-echo "  Compiled as DLL?                                           ${ENBL_DLL:-no}"
 echo

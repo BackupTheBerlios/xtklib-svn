@@ -53,27 +53,22 @@ am__vpath_adj = case $$p in \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
 am__installdirs = "$(DESTDIR)$(libdir)"
-libLIBRARIES_INSTALL = $(INSTALL_DATA)
-LIBRARIES = $(lib_LIBRARIES)
-ARFLAGS = cru
-libxtkwidgets_a_AR = $(AR) $(ARFLAGS)
-libxtkwidgets_a_DEPENDENCIES =  \
+libLTLIBRARIES_INSTALL = $(INSTALL)
+LTLIBRARIES = $(lib_LTLIBRARIES)
+libxtkwidgets_la_DEPENDENCIES =  \
 	gtk2/libxtkwidgets_gtk2_a-button_gtk2.o \
 	gtk2/libxtkwidgets_gtk2_a-container_gtk2.o \
 	gtk2/libxtkwidgets_gtk2_a-layout_gtk2.o \
 	gtk2/libxtkwidgets_gtk2_a-widget_gtk2.o \
 	gtk2/libxtkwidgets_gtk2_a-window_gtk2.o
-am_libxtkwidgets_a_OBJECTS = libxtkwidgets_a-button.$(OBJEXT) \
-	libxtkwidgets_a-container.$(OBJEXT) \
-	libxtkwidgets_a-font.$(OBJEXT) libxtkwidgets_a-frame.$(OBJEXT) \
-	libxtkwidgets_a-label.$(OBJEXT) \
-	libxtkwidgets_a-layout.$(OBJEXT) \
-	libxtkwidgets_a-panel.$(OBJEXT) \
-	libxtkwidgets_a-widget.$(OBJEXT) \
-	libxtkwidgets_a-widgetevent.$(OBJEXT) \
-	libxtkwidgets_a-widgeteventgenerator_internal.$(OBJEXT) \
-	libxtkwidgets_a-window.$(OBJEXT)
-libxtkwidgets_a_OBJECTS = $(am_libxtkwidgets_a_OBJECTS)
+am_libxtkwidgets_la_OBJECTS = libxtkwidgets_la-button.lo \
+	libxtkwidgets_la-container.lo libxtkwidgets_la-font.lo \
+	libxtkwidgets_la-frame.lo libxtkwidgets_la-label.lo \
+	libxtkwidgets_la-layout.lo libxtkwidgets_la-panel.lo \
+	libxtkwidgets_la-widget.lo libxtkwidgets_la-widgetevent.lo \
+	libxtkwidgets_la-widgeteventgenerator_internal.lo \
+	libxtkwidgets_la-window.lo
+libxtkwidgets_la_OBJECTS = $(am_libxtkwidgets_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -85,8 +80,8 @@ LTCXXCOMPILE = $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) \
 CXXLD = $(CXX)
 CXXLINK = $(LIBTOOL) --tag=CXX --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(libxtkwidgets_a_SOURCES)
-DIST_SOURCES = $(libxtkwidgets_a_SOURCES)
+SOURCES = $(libxtkwidgets_la_SOURCES)
+DIST_SOURCES = $(libxtkwidgets_la_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	html-recursive info-recursive install-data-recursive \
 	install-exec-recursive install-info-recursive \
@@ -109,8 +104,6 @@ AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
-COND_ENBL_DLL_FALSE = @COND_ENBL_DLL_FALSE@
-COND_ENBL_DLL_TRUE = @COND_ENBL_DLL_TRUE@
 COND_ENBL_WIDGETS_FALSE = @COND_ENBL_WIDGETS_FALSE@
 COND_ENBL_WIDGETS_TRUE = @COND_ENBL_WIDGETS_TRUE@
 CPP = @CPP@
@@ -209,16 +202,16 @@ target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
 SUBDIRS = gtk2
-lib_LIBRARIES = libxtkwidgets.a
-libxtkwidgets_a_CPPFLAGS = $(WIDGETSDEPS_CFLAGS)
-libxtkwidgets_a_LIBADD = \
+lib_LTLIBRARIES = libxtkwidgets.la
+libxtkwidgets_la_CPPFLAGS = $(WIDGETSDEPS_CFLAGS)
+libxtkwidgets_la_LIBADD = \
 	gtk2/libxtkwidgets_gtk2_a-button_gtk2.o \
 	gtk2/libxtkwidgets_gtk2_a-container_gtk2.o \
 	gtk2/libxtkwidgets_gtk2_a-layout_gtk2.o \
 	gtk2/libxtkwidgets_gtk2_a-widget_gtk2.o \
 	gtk2/libxtkwidgets_gtk2_a-window_gtk2.o
 
-libxtkwidgets_a_SOURCES = \
+libxtkwidgets_la_SOURCES = \
 	button.cpp \
 	container.cpp \
 	font.cpp \
@@ -264,39 +257,35 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-install-libLIBRARIES: $(lib_LIBRARIES)
+install-libLTLIBRARIES: $(lib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
 	test -z "$(libdir)" || $(mkdir_p) "$(DESTDIR)$(libdir)"
-	@list='$(lib_LIBRARIES)'; for p in $$list; do \
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
 	  if test -f $$p; then \
 	    f=$(am__strip_dir) \
-	    echo " $(libLIBRARIES_INSTALL) '$$p' '$(DESTDIR)$(libdir)/$$f'"; \
-	    $(libLIBRARIES_INSTALL) "$$p" "$(DESTDIR)$(libdir)/$$f"; \
-	  else :; fi; \
-	done
-	@$(POST_INSTALL)
-	@list='$(lib_LIBRARIES)'; for p in $$list; do \
-	  if test -f $$p; then \
-	    p=$(am__strip_dir) \
-	    echo " $(RANLIB) '$(DESTDIR)$(libdir)/$$p'"; \
-	    $(RANLIB) "$(DESTDIR)$(libdir)/$$p"; \
+	    echo " $(LIBTOOL) --mode=install $(libLTLIBRARIES_INSTALL) $(INSTALL_STRIP_FLAG) '$$p' '$(DESTDIR)$(libdir)/$$f'"; \
+	    $(LIBTOOL) --mode=install $(libLTLIBRARIES_INSTALL) $(INSTALL_STRIP_FLAG) "$$p" "$(DESTDIR)$(libdir)/$$f"; \
 	  else :; fi; \
 	done
 
-uninstall-libLIBRARIES:
+uninstall-libLTLIBRARIES:
 	@$(NORMAL_UNINSTALL)
-	@list='$(lib_LIBRARIES)'; for p in $$list; do \
+	@set -x; list='$(lib_LTLIBRARIES)'; for p in $$list; do \
 	  p=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(libdir)/$$p'"; \
-	  rm -f "$(DESTDIR)$(libdir)/$$p"; \
+	  echo " $(LIBTOOL) --mode=uninstall rm -f '$(DESTDIR)$(libdir)/$$p'"; \
+	  $(LIBTOOL) --mode=uninstall rm -f "$(DESTDIR)$(libdir)/$$p"; \
 	done
 
-clean-libLIBRARIES:
-	-test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
-libxtkwidgets.a: $(libxtkwidgets_a_OBJECTS) $(libxtkwidgets_a_DEPENDENCIES) 
-	-rm -f libxtkwidgets.a
-	$(libxtkwidgets_a_AR) libxtkwidgets.a $(libxtkwidgets_a_OBJECTS) $(libxtkwidgets_a_LIBADD)
-	$(RANLIB) libxtkwidgets.a
+clean-libLTLIBRARIES:
+	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  dir="`echo $$p | sed -e 's|/[^/]*$$||'`"; \
+	  test "$$dir" != "$$p" || dir=.; \
+	  echo "rm -f \"$${dir}/so_locations\""; \
+	  rm -f "$${dir}/so_locations"; \
+	done
+libxtkwidgets.la: $(libxtkwidgets_la_OBJECTS) $(libxtkwidgets_la_DEPENDENCIES) 
+	$(CXXLINK) -rpath $(libdir) $(libxtkwidgets_la_LDFLAGS) $(libxtkwidgets_la_OBJECTS) $(libxtkwidgets_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -304,17 +293,17 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-button.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-container.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-font.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-frame.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-label.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-layout.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-panel.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-widget.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-widgetevent.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-widgeteventgenerator_internal.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_a-window.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_la-button.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_la-container.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_la-font.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_la-frame.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_la-label.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_la-layout.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_la-panel.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_la-widget.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_la-widgetevent.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_la-widgeteventgenerator_internal.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxtkwidgets_la-window.Plo@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	if $(CXXCOMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
@@ -337,159 +326,82 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
 
-libxtkwidgets_a-button.o: button.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-button.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-button.Tpo" -c -o libxtkwidgets_a-button.o `test -f 'button.cpp' || echo '$(srcdir)/'`button.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-button.Tpo" "$(DEPDIR)/libxtkwidgets_a-button.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-button.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='button.cpp' object='libxtkwidgets_a-button.o' libtool=no @AMDEPBACKSLASH@
+libxtkwidgets_la-button.lo: button.cpp
+@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_la-button.lo -MD -MP -MF "$(DEPDIR)/libxtkwidgets_la-button.Tpo" -c -o libxtkwidgets_la-button.lo `test -f 'button.cpp' || echo '$(srcdir)/'`button.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_la-button.Tpo" "$(DEPDIR)/libxtkwidgets_la-button.Plo"; else rm -f "$(DEPDIR)/libxtkwidgets_la-button.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='button.cpp' object='libxtkwidgets_la-button.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-button.o `test -f 'button.cpp' || echo '$(srcdir)/'`button.cpp
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_la-button.lo `test -f 'button.cpp' || echo '$(srcdir)/'`button.cpp
 
-libxtkwidgets_a-button.obj: button.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-button.obj -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-button.Tpo" -c -o libxtkwidgets_a-button.obj `if test -f 'button.cpp'; then $(CYGPATH_W) 'button.cpp'; else $(CYGPATH_W) '$(srcdir)/button.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-button.Tpo" "$(DEPDIR)/libxtkwidgets_a-button.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-button.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='button.cpp' object='libxtkwidgets_a-button.obj' libtool=no @AMDEPBACKSLASH@
+libxtkwidgets_la-container.lo: container.cpp
+@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_la-container.lo -MD -MP -MF "$(DEPDIR)/libxtkwidgets_la-container.Tpo" -c -o libxtkwidgets_la-container.lo `test -f 'container.cpp' || echo '$(srcdir)/'`container.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_la-container.Tpo" "$(DEPDIR)/libxtkwidgets_la-container.Plo"; else rm -f "$(DEPDIR)/libxtkwidgets_la-container.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='container.cpp' object='libxtkwidgets_la-container.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-button.obj `if test -f 'button.cpp'; then $(CYGPATH_W) 'button.cpp'; else $(CYGPATH_W) '$(srcdir)/button.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_la-container.lo `test -f 'container.cpp' || echo '$(srcdir)/'`container.cpp
 
-libxtkwidgets_a-container.o: container.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-container.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-container.Tpo" -c -o libxtkwidgets_a-container.o `test -f 'container.cpp' || echo '$(srcdir)/'`container.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-container.Tpo" "$(DEPDIR)/libxtkwidgets_a-container.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-container.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='container.cpp' object='libxtkwidgets_a-container.o' libtool=no @AMDEPBACKSLASH@
+libxtkwidgets_la-font.lo: font.cpp
+@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_la-font.lo -MD -MP -MF "$(DEPDIR)/libxtkwidgets_la-font.Tpo" -c -o libxtkwidgets_la-font.lo `test -f 'font.cpp' || echo '$(srcdir)/'`font.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_la-font.Tpo" "$(DEPDIR)/libxtkwidgets_la-font.Plo"; else rm -f "$(DEPDIR)/libxtkwidgets_la-font.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='font.cpp' object='libxtkwidgets_la-font.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-container.o `test -f 'container.cpp' || echo '$(srcdir)/'`container.cpp
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_la-font.lo `test -f 'font.cpp' || echo '$(srcdir)/'`font.cpp
 
-libxtkwidgets_a-container.obj: container.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-container.obj -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-container.Tpo" -c -o libxtkwidgets_a-container.obj `if test -f 'container.cpp'; then $(CYGPATH_W) 'container.cpp'; else $(CYGPATH_W) '$(srcdir)/container.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-container.Tpo" "$(DEPDIR)/libxtkwidgets_a-container.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-container.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='container.cpp' object='libxtkwidgets_a-container.obj' libtool=no @AMDEPBACKSLASH@
+libxtkwidgets_la-frame.lo: frame.cpp
+@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_la-frame.lo -MD -MP -MF "$(DEPDIR)/libxtkwidgets_la-frame.Tpo" -c -o libxtkwidgets_la-frame.lo `test -f 'frame.cpp' || echo '$(srcdir)/'`frame.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_la-frame.Tpo" "$(DEPDIR)/libxtkwidgets_la-frame.Plo"; else rm -f "$(DEPDIR)/libxtkwidgets_la-frame.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='frame.cpp' object='libxtkwidgets_la-frame.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-container.obj `if test -f 'container.cpp'; then $(CYGPATH_W) 'container.cpp'; else $(CYGPATH_W) '$(srcdir)/container.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_la-frame.lo `test -f 'frame.cpp' || echo '$(srcdir)/'`frame.cpp
 
-libxtkwidgets_a-font.o: font.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-font.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-font.Tpo" -c -o libxtkwidgets_a-font.o `test -f 'font.cpp' || echo '$(srcdir)/'`font.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-font.Tpo" "$(DEPDIR)/libxtkwidgets_a-font.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-font.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='font.cpp' object='libxtkwidgets_a-font.o' libtool=no @AMDEPBACKSLASH@
+libxtkwidgets_la-label.lo: label.cpp
+@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_la-label.lo -MD -MP -MF "$(DEPDIR)/libxtkwidgets_la-label.Tpo" -c -o libxtkwidgets_la-label.lo `test -f 'label.cpp' || echo '$(srcdir)/'`label.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_la-label.Tpo" "$(DEPDIR)/libxtkwidgets_la-label.Plo"; else rm -f "$(DEPDIR)/libxtkwidgets_la-label.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='label.cpp' object='libxtkwidgets_la-label.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-font.o `test -f 'font.cpp' || echo '$(srcdir)/'`font.cpp
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_la-label.lo `test -f 'label.cpp' || echo '$(srcdir)/'`label.cpp
 
-libxtkwidgets_a-font.obj: font.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-font.obj -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-font.Tpo" -c -o libxtkwidgets_a-font.obj `if test -f 'font.cpp'; then $(CYGPATH_W) 'font.cpp'; else $(CYGPATH_W) '$(srcdir)/font.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-font.Tpo" "$(DEPDIR)/libxtkwidgets_a-font.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-font.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='font.cpp' object='libxtkwidgets_a-font.obj' libtool=no @AMDEPBACKSLASH@
+libxtkwidgets_la-layout.lo: layout.cpp
+@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_la-layout.lo -MD -MP -MF "$(DEPDIR)/libxtkwidgets_la-layout.Tpo" -c -o libxtkwidgets_la-layout.lo `test -f 'layout.cpp' || echo '$(srcdir)/'`layout.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_la-layout.Tpo" "$(DEPDIR)/libxtkwidgets_la-layout.Plo"; else rm -f "$(DEPDIR)/libxtkwidgets_la-layout.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='layout.cpp' object='libxtkwidgets_la-layout.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-font.obj `if test -f 'font.cpp'; then $(CYGPATH_W) 'font.cpp'; else $(CYGPATH_W) '$(srcdir)/font.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_la-layout.lo `test -f 'layout.cpp' || echo '$(srcdir)/'`layout.cpp
 
-libxtkwidgets_a-frame.o: frame.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-frame.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-frame.Tpo" -c -o libxtkwidgets_a-frame.o `test -f 'frame.cpp' || echo '$(srcdir)/'`frame.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-frame.Tpo" "$(DEPDIR)/libxtkwidgets_a-frame.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-frame.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='frame.cpp' object='libxtkwidgets_a-frame.o' libtool=no @AMDEPBACKSLASH@
+libxtkwidgets_la-panel.lo: panel.cpp
+@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_la-panel.lo -MD -MP -MF "$(DEPDIR)/libxtkwidgets_la-panel.Tpo" -c -o libxtkwidgets_la-panel.lo `test -f 'panel.cpp' || echo '$(srcdir)/'`panel.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_la-panel.Tpo" "$(DEPDIR)/libxtkwidgets_la-panel.Plo"; else rm -f "$(DEPDIR)/libxtkwidgets_la-panel.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='panel.cpp' object='libxtkwidgets_la-panel.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-frame.o `test -f 'frame.cpp' || echo '$(srcdir)/'`frame.cpp
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_la-panel.lo `test -f 'panel.cpp' || echo '$(srcdir)/'`panel.cpp
 
-libxtkwidgets_a-frame.obj: frame.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-frame.obj -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-frame.Tpo" -c -o libxtkwidgets_a-frame.obj `if test -f 'frame.cpp'; then $(CYGPATH_W) 'frame.cpp'; else $(CYGPATH_W) '$(srcdir)/frame.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-frame.Tpo" "$(DEPDIR)/libxtkwidgets_a-frame.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-frame.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='frame.cpp' object='libxtkwidgets_a-frame.obj' libtool=no @AMDEPBACKSLASH@
+libxtkwidgets_la-widget.lo: widget.cpp
+@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_la-widget.lo -MD -MP -MF "$(DEPDIR)/libxtkwidgets_la-widget.Tpo" -c -o libxtkwidgets_la-widget.lo `test -f 'widget.cpp' || echo '$(srcdir)/'`widget.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_la-widget.Tpo" "$(DEPDIR)/libxtkwidgets_la-widget.Plo"; else rm -f "$(DEPDIR)/libxtkwidgets_la-widget.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='widget.cpp' object='libxtkwidgets_la-widget.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-frame.obj `if test -f 'frame.cpp'; then $(CYGPATH_W) 'frame.cpp'; else $(CYGPATH_W) '$(srcdir)/frame.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_la-widget.lo `test -f 'widget.cpp' || echo '$(srcdir)/'`widget.cpp
 
-libxtkwidgets_a-label.o: label.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-label.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-label.Tpo" -c -o libxtkwidgets_a-label.o `test -f 'label.cpp' || echo '$(srcdir)/'`label.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-label.Tpo" "$(DEPDIR)/libxtkwidgets_a-label.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-label.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='label.cpp' object='libxtkwidgets_a-label.o' libtool=no @AMDEPBACKSLASH@
+libxtkwidgets_la-widgetevent.lo: widgetevent.cpp
+@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_la-widgetevent.lo -MD -MP -MF "$(DEPDIR)/libxtkwidgets_la-widgetevent.Tpo" -c -o libxtkwidgets_la-widgetevent.lo `test -f 'widgetevent.cpp' || echo '$(srcdir)/'`widgetevent.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_la-widgetevent.Tpo" "$(DEPDIR)/libxtkwidgets_la-widgetevent.Plo"; else rm -f "$(DEPDIR)/libxtkwidgets_la-widgetevent.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='widgetevent.cpp' object='libxtkwidgets_la-widgetevent.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-label.o `test -f 'label.cpp' || echo '$(srcdir)/'`label.cpp
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_la-widgetevent.lo `test -f 'widgetevent.cpp' || echo '$(srcdir)/'`widgetevent.cpp
 
-libxtkwidgets_a-label.obj: label.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-label.obj -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-label.Tpo" -c -o libxtkwidgets_a-label.obj `if test -f 'label.cpp'; then $(CYGPATH_W) 'label.cpp'; else $(CYGPATH_W) '$(srcdir)/label.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-label.Tpo" "$(DEPDIR)/libxtkwidgets_a-label.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-label.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='label.cpp' object='libxtkwidgets_a-label.obj' libtool=no @AMDEPBACKSLASH@
+libxtkwidgets_la-widgeteventgenerator_internal.lo: widgeteventgenerator_internal.cpp
+@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_la-widgeteventgenerator_internal.lo -MD -MP -MF "$(DEPDIR)/libxtkwidgets_la-widgeteventgenerator_internal.Tpo" -c -o libxtkwidgets_la-widgeteventgenerator_internal.lo `test -f 'widgeteventgenerator_internal.cpp' || echo '$(srcdir)/'`widgeteventgenerator_internal.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_la-widgeteventgenerator_internal.Tpo" "$(DEPDIR)/libxtkwidgets_la-widgeteventgenerator_internal.Plo"; else rm -f "$(DEPDIR)/libxtkwidgets_la-widgeteventgenerator_internal.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='widgeteventgenerator_internal.cpp' object='libxtkwidgets_la-widgeteventgenerator_internal.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-label.obj `if test -f 'label.cpp'; then $(CYGPATH_W) 'label.cpp'; else $(CYGPATH_W) '$(srcdir)/label.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_la-widgeteventgenerator_internal.lo `test -f 'widgeteventgenerator_internal.cpp' || echo '$(srcdir)/'`widgeteventgenerator_internal.cpp
 
-libxtkwidgets_a-layout.o: layout.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-layout.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-layout.Tpo" -c -o libxtkwidgets_a-layout.o `test -f 'layout.cpp' || echo '$(srcdir)/'`layout.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-layout.Tpo" "$(DEPDIR)/libxtkwidgets_a-layout.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-layout.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='layout.cpp' object='libxtkwidgets_a-layout.o' libtool=no @AMDEPBACKSLASH@
+libxtkwidgets_la-window.lo: window.cpp
+@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_la-window.lo -MD -MP -MF "$(DEPDIR)/libxtkwidgets_la-window.Tpo" -c -o libxtkwidgets_la-window.lo `test -f 'window.cpp' || echo '$(srcdir)/'`window.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_la-window.Tpo" "$(DEPDIR)/libxtkwidgets_la-window.Plo"; else rm -f "$(DEPDIR)/libxtkwidgets_la-window.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='window.cpp' object='libxtkwidgets_la-window.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-layout.o `test -f 'layout.cpp' || echo '$(srcdir)/'`layout.cpp
-
-libxtkwidgets_a-layout.obj: layout.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-layout.obj -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-layout.Tpo" -c -o libxtkwidgets_a-layout.obj `if test -f 'layout.cpp'; then $(CYGPATH_W) 'layout.cpp'; else $(CYGPATH_W) '$(srcdir)/layout.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-layout.Tpo" "$(DEPDIR)/libxtkwidgets_a-layout.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-layout.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='layout.cpp' object='libxtkwidgets_a-layout.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-layout.obj `if test -f 'layout.cpp'; then $(CYGPATH_W) 'layout.cpp'; else $(CYGPATH_W) '$(srcdir)/layout.cpp'; fi`
-
-libxtkwidgets_a-panel.o: panel.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-panel.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-panel.Tpo" -c -o libxtkwidgets_a-panel.o `test -f 'panel.cpp' || echo '$(srcdir)/'`panel.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-panel.Tpo" "$(DEPDIR)/libxtkwidgets_a-panel.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-panel.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='panel.cpp' object='libxtkwidgets_a-panel.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-panel.o `test -f 'panel.cpp' || echo '$(srcdir)/'`panel.cpp
-
-libxtkwidgets_a-panel.obj: panel.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-panel.obj -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-panel.Tpo" -c -o libxtkwidgets_a-panel.obj `if test -f 'panel.cpp'; then $(CYGPATH_W) 'panel.cpp'; else $(CYGPATH_W) '$(srcdir)/panel.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-panel.Tpo" "$(DEPDIR)/libxtkwidgets_a-panel.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-panel.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='panel.cpp' object='libxtkwidgets_a-panel.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-panel.obj `if test -f 'panel.cpp'; then $(CYGPATH_W) 'panel.cpp'; else $(CYGPATH_W) '$(srcdir)/panel.cpp'; fi`
-
-libxtkwidgets_a-widget.o: widget.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-widget.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-widget.Tpo" -c -o libxtkwidgets_a-widget.o `test -f 'widget.cpp' || echo '$(srcdir)/'`widget.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-widget.Tpo" "$(DEPDIR)/libxtkwidgets_a-widget.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-widget.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='widget.cpp' object='libxtkwidgets_a-widget.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-widget.o `test -f 'widget.cpp' || echo '$(srcdir)/'`widget.cpp
-
-libxtkwidgets_a-widget.obj: widget.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-widget.obj -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-widget.Tpo" -c -o libxtkwidgets_a-widget.obj `if test -f 'widget.cpp'; then $(CYGPATH_W) 'widget.cpp'; else $(CYGPATH_W) '$(srcdir)/widget.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-widget.Tpo" "$(DEPDIR)/libxtkwidgets_a-widget.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-widget.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='widget.cpp' object='libxtkwidgets_a-widget.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-widget.obj `if test -f 'widget.cpp'; then $(CYGPATH_W) 'widget.cpp'; else $(CYGPATH_W) '$(srcdir)/widget.cpp'; fi`
-
-libxtkwidgets_a-widgetevent.o: widgetevent.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-widgetevent.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-widgetevent.Tpo" -c -o libxtkwidgets_a-widgetevent.o `test -f 'widgetevent.cpp' || echo '$(srcdir)/'`widgetevent.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-widgetevent.Tpo" "$(DEPDIR)/libxtkwidgets_a-widgetevent.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-widgetevent.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='widgetevent.cpp' object='libxtkwidgets_a-widgetevent.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-widgetevent.o `test -f 'widgetevent.cpp' || echo '$(srcdir)/'`widgetevent.cpp
-
-libxtkwidgets_a-widgetevent.obj: widgetevent.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-widgetevent.obj -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-widgetevent.Tpo" -c -o libxtkwidgets_a-widgetevent.obj `if test -f 'widgetevent.cpp'; then $(CYGPATH_W) 'widgetevent.cpp'; else $(CYGPATH_W) '$(srcdir)/widgetevent.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-widgetevent.Tpo" "$(DEPDIR)/libxtkwidgets_a-widgetevent.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-widgetevent.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='widgetevent.cpp' object='libxtkwidgets_a-widgetevent.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-widgetevent.obj `if test -f 'widgetevent.cpp'; then $(CYGPATH_W) 'widgetevent.cpp'; else $(CYGPATH_W) '$(srcdir)/widgetevent.cpp'; fi`
-
-libxtkwidgets_a-widgeteventgenerator_internal.o: widgeteventgenerator_internal.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-widgeteventgenerator_internal.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-widgeteventgenerator_internal.Tpo" -c -o libxtkwidgets_a-widgeteventgenerator_internal.o `test -f 'widgeteventgenerator_internal.cpp' || echo '$(srcdir)/'`widgeteventgenerator_internal.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-widgeteventgenerator_internal.Tpo" "$(DEPDIR)/libxtkwidgets_a-widgeteventgenerator_internal.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-widgeteventgenerator_internal.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='widgeteventgenerator_internal.cpp' object='libxtkwidgets_a-widgeteventgenerator_internal.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-widgeteventgenerator_internal.o `test -f 'widgeteventgenerator_internal.cpp' || echo '$(srcdir)/'`widgeteventgenerator_internal.cpp
-
-libxtkwidgets_a-widgeteventgenerator_internal.obj: widgeteventgenerator_internal.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-widgeteventgenerator_internal.obj -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-widgeteventgenerator_internal.Tpo" -c -o libxtkwidgets_a-widgeteventgenerator_internal.obj `if test -f 'widgeteventgenerator_internal.cpp'; then $(CYGPATH_W) 'widgeteventgenerator_internal.cpp'; else $(CYGPATH_W) '$(srcdir)/widgeteventgenerator_internal.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-widgeteventgenerator_internal.Tpo" "$(DEPDIR)/libxtkwidgets_a-widgeteventgenerator_internal.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-widgeteventgenerator_internal.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='widgeteventgenerator_internal.cpp' object='libxtkwidgets_a-widgeteventgenerator_internal.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-widgeteventgenerator_internal.obj `if test -f 'widgeteventgenerator_internal.cpp'; then $(CYGPATH_W) 'widgeteventgenerator_internal.cpp'; else $(CYGPATH_W) '$(srcdir)/widgeteventgenerator_internal.cpp'; fi`
-
-libxtkwidgets_a-window.o: window.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-window.o -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-window.Tpo" -c -o libxtkwidgets_a-window.o `test -f 'window.cpp' || echo '$(srcdir)/'`window.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-window.Tpo" "$(DEPDIR)/libxtkwidgets_a-window.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-window.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='window.cpp' object='libxtkwidgets_a-window.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-window.o `test -f 'window.cpp' || echo '$(srcdir)/'`window.cpp
-
-libxtkwidgets_a-window.obj: window.cpp
-@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libxtkwidgets_a-window.obj -MD -MP -MF "$(DEPDIR)/libxtkwidgets_a-window.Tpo" -c -o libxtkwidgets_a-window.obj `if test -f 'window.cpp'; then $(CYGPATH_W) 'window.cpp'; else $(CYGPATH_W) '$(srcdir)/window.cpp'; fi`; \
-@am__fastdepCXX_TRUE@	then mv -f "$(DEPDIR)/libxtkwidgets_a-window.Tpo" "$(DEPDIR)/libxtkwidgets_a-window.Po"; else rm -f "$(DEPDIR)/libxtkwidgets_a-window.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='window.cpp' object='libxtkwidgets_a-window.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_a-window.obj `if test -f 'window.cpp'; then $(CYGPATH_W) 'window.cpp'; else $(CYGPATH_W) '$(srcdir)/window.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxtkwidgets_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libxtkwidgets_la-window.lo `test -f 'window.cpp' || echo '$(srcdir)/'`window.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -677,7 +589,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-recursive
-all-am: Makefile $(LIBRARIES)
+all-am: Makefile $(LTLIBRARIES)
 installdirs: installdirs-recursive
 installdirs-am:
 	for dir in "$(DESTDIR)$(libdir)"; do \
@@ -709,7 +621,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-recursive
 
-clean-am: clean-generic clean-libLIBRARIES clean-libtool \
+clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-recursive
@@ -730,7 +642,7 @@ info-am:
 
 install-data-am:
 
-install-exec-am: install-libLIBRARIES
+install-exec-am: install-libLTLIBRARIES
 
 install-info: install-info-recursive
 
@@ -756,24 +668,24 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-info-am uninstall-libLIBRARIES
+uninstall-am: uninstall-info-am uninstall-libLTLIBRARIES
 
 uninstall-info: uninstall-info-recursive
 
 .PHONY: $(RECURSIVE_TARGETS) CTAGS GTAGS all all-am check check-am \
-	clean clean-generic clean-libLIBRARIES clean-libtool \
+	clean clean-generic clean-libLTLIBRARIES clean-libtool \
 	clean-recursive ctags ctags-recursive distclean \
 	distclean-compile distclean-generic distclean-libtool \
 	distclean-recursive distclean-tags distdir dvi dvi-am html \
 	html-am info info-am install install-am install-data \
 	install-data-am install-exec install-exec-am install-info \
-	install-info-am install-libLIBRARIES install-man install-strip \
-	installcheck installcheck-am installdirs installdirs-am \
-	maintainer-clean maintainer-clean-generic \
+	install-info-am install-libLTLIBRARIES install-man \
+	install-strip installcheck installcheck-am installdirs \
+	installdirs-am maintainer-clean maintainer-clean-generic \
 	maintainer-clean-recursive mostlyclean mostlyclean-compile \
 	mostlyclean-generic mostlyclean-libtool mostlyclean-recursive \
 	pdf pdf-am ps ps-am tags tags-recursive uninstall uninstall-am \
-	uninstall-info-am uninstall-libLIBRARIES
+	uninstall-info-am uninstall-libLTLIBRARIES
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
