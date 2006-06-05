@@ -30,6 +30,7 @@
 #ifdef XTK_OS_WINDOWS
 	#include <Windows.h>
 #elif defined(XTK_OS_UNIX)
+	#define _XOPEN_SOURCE 600
 	#include <string.h>
 #endif
 
@@ -119,8 +120,8 @@ xString xException::getSysErrorCodeDescription()
 		
 	#elif defined(XTK_OS_UNIX)
 		char buff[1024];
-		char* ret = strerror_r(m_errorSysCode, buff, 1024);
-		return xString::getFromOS(ret);
+		strerror_r(m_errorSysCode, buff, 1024);
+		return xString::getFromOS(buff);
 		
 	#endif
 }
