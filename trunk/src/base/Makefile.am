@@ -1,6 +1,4 @@
-lib_LIBRARIES = libxtkbase.a
-
-libxtkbase_a_SOURCES = \
+libbase_a_srcs = \
 	application.cpp \
 	arraylist.cpp \
 	avlmap.cpp \
@@ -39,3 +37,13 @@ libxtkbase_a_SOURCES = \
 	typewrappers.cpp \
 	utilities.cpp \
 	zlibstream.cpp
+
+if COND_ENBL_DLL
+lib_LTLIBRARIES=libxtkbase.la
+libxtkbase_la_SOURCES = $(libbase_a_srcs)
+libxtkbase_la_CXXFLAGS = $(AM_CXXFLAGS)
+libxtkbase_la_CFLAGS = $(AM_CFLAGS)
+else
+lib_LIBRARIES=libxtkbase.a
+libxtkbase_a_SOURCES = $(libbase_a_srcs)
+endif

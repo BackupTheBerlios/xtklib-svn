@@ -98,11 +98,11 @@ CXXFLAGS="$CXXFLAGS -frtti -fexceptions"
 dnl ==========================================================================
 
 dnl Features enabled
-AC_ARG_ENABLE(debug,[  --enable-debug		Turn on debugging],USE_DEBUG="$enableval",USE_DEBUG="no")
-AC_ARG_ENABLE(widgets,[  --enable-widgets		Turn on widgets module],USE_WIDGETS="$enableval",USE_WIDGETS="no")
+AC_ARG_ENABLE(debug,[  --enable-debug		Turn on debugging],ENBL_DEBUG="$enableval",ENBL_DEBUG="no")
+AC_ARG_ENABLE(widgets,[  --enable-widgets		Turn on widgets module],ENBL_WIDGETS="$enableval",ENBL_WIDGETS="no")
+AC_ARG_ENABLE(dll,[  --enable-dll		Compile xtklib as dynamic linked library],ENBL_DLL="$enableval",ENBL_DLL="no")
 
-
-case "$USE_DEBUG" in
+case "$ENBL_DEBUG" in
 yes)	DEBUG_FLAGS="-Wall -Wno-unused-parameter -g -D__DEBUG__"
 		# No -O2
 		CFLAGS="`echo $CFLAGS | sed "s/-O2//g"`"
@@ -117,7 +117,7 @@ yes)	DEBUG_FLAGS="-Wall -Wno-unused-parameter -g -D__DEBUG__"
 esac
 
 
-case "$USE_WIDGETS" in
+case "$ENBL_WIDGETS" in
 yes)	CXXFLAGS="$CXXFLAGS -D__WIDGETS__" 
 		if test "$SYS" == "unix"; then
 			dnl	== Checking for dependencies
@@ -128,7 +128,8 @@ yes)	CXXFLAGS="$CXXFLAGS -D__WIDGETS__"
 *)		CXXFLAGS="$CXXFLAGS" 
 		;;
 esac
-AM_CONDITIONAL(USE_WIDGETS,test x$USE_WIDGETS=xyes)
+AM_CONDITIONAL(COND_ENBL_WIDGETS,test x$ENBL_WIDGETS=xyes)
+AM_CONDITIONAL(COND_ENBL_DLL,test x$ENBL_DLL=xyes)
 
 CXXFLAGS="$CXXFLAGS $DEBUG_FLAGS"
 
@@ -157,6 +158,7 @@ echo
 echo "  xtklib enabled options:"
 echo 
 echo "  Prefix where xtklib should be installed                    ${prefix:-none}"
-echo "  xtklib compibled in debug mode?                            ${USE_DEBUG:-no}"
-echo "  Widgets module enabled?                                    ${USE_WIDGETS:-no}"
+echo "  xtklib compibled in debug mode?                            ${ENBL_DEBUG:-no}"
+echo "  Widgets module enabled?                                    ${ENBL_WIDGETS:-no}"
+echo "  Compiled as DLL?                                           ${ENBL_DLL:-no}"
 echo

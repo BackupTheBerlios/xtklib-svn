@@ -1,5 +1,7 @@
-if USE_WIDGETS
+if COND_ENBL_WIDGETS
 WIDGETS_PC=xtkwidgets.pc
+else
+WIDGETS_PC=
 endif
 
 SUBDIRS = src include

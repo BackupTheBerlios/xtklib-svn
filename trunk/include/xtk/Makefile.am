@@ -1,5 +1,7 @@
-if USE_WIDGETS
+if COND_ENBL_WIDGETS
 WIDGETS_DIR=widgets
+else
+WIDGETS_DIR=
 endif
 
 SUBDIRS = base $(WIDGETS_DIR)
